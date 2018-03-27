@@ -16,6 +16,7 @@ With CTFStrap, you can make your own CTF using fully-customizable features.
 	- Normal: Just Open from the beginning
 	- After Time: Open after specific time
 	- Chain: When a challenge has been solved, the other challenge will be opened.
+	
 	~~I made a diagram about it, but mendokusaiiii...~~
 - Authentication System
 	- Flag Format(Prefix)
