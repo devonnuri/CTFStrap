@@ -33,8 +33,4 @@ With CTFStrap, you can make your own CTF using fully-customizable features.
 	*Point = max(InitialPoint - SolverCount * DecreasingPointPerSolver, MinPoint)*
 	- Graded Point: Decreasing Point depends on solver (Not Changed after solver has increased, Customizable offset)
 	*Point = max(InitialPoint - NthSolver * (DecreasingPointNthSolver - 1), MinPoint)*
-<<<<<<< HEAD
-	
-=======
-	
->>>>>>> Initial Commit
+
