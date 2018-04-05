@@ -14,5 +14,5 @@ module.exports = {
         "semi": [2, "never"],
         "linebreak-style": 0,
         "max-len": 0,
-    }
+    },
 };
