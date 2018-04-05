@@ -1,8 +1,8 @@
 # CTFStrap
-~~*Will be*~~ **developed by devonnuri.**
 
-Reduce time to make a CTF structure, Focus on your challenge.
-With CTFStrap, you can make your own CTF using fully-customizable features.
+> Reduce time to make a CTF structure, Focus on your challenge.
+> With CTFStrap, you can make your own CTF using fully-customizable features.
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 ## Features
 ### Challenges
@@ -33,4 +33,3 @@ With CTFStrap, you can make your own CTF using fully-customizable features.
 	*Point = max(InitialPoint - SolverCount * DecreasingPointPerSolver, MinPoint)*
 	- Graded Point: Decreasing Point depends on solver (Not Changed after solver has increased, Customizable offset)
 	*Point = max(InitialPoint - NthSolver * (DecreasingPointNthSolver - 1), MinPoint)*
-
