@@ -17,12 +17,17 @@ class Header extends Component {
           <li><a href="#" id="logo">{config.ctfName}</a></li>
           <li><a href="#"><File size={iconSize+2} /> Challenge</a></li>
           <li><a href="#"><Chart size={iconSize} /> Rank</a></li>
-          <li>
+          <li className="dropdown">
             <a href="#" className="header-right">
-            <User size={iconSize} />
-            Account
-            <CaretDown size={iconSize} />
+              <User size={iconSize} />
+              Account
+              <CaretDown size={iconSize} />
             </a>
+            <div className="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
           </li>
         </ul>
       </div>
