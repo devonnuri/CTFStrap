@@ -1,8 +1,9 @@
 # CTFStrap
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 > Reduce time to make a CTF structure, Focus on your challenge.
 > With CTFStrap, you can make your own CTF using fully-customizable features.
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 ## Features
 ### Challenges
