@@ -1,6 +1,7 @@
 module.exports = {
-    "extends": "standard",
-    "rules": {
-        "no-unused-vars": 1
-    },
+  'extends': 'standard',
+  'rules': {
+    'no-unused-vars': 'warn',
+    'comma-dangle': ['error', 'always'],
+  },
 };

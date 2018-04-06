@@ -1,4 +1,4 @@
 module.exports = {
-    ctfName: 'StrapCTF',
-    title: 'StrapCTF',
+  ctfName: 'StrapCTF',
+  title: 'StrapCTF',
 }
