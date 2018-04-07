@@ -43,19 +43,6 @@
       }
 
       &.dropdown {
-        .dropdown-btn {
-          color: white;
-          padding: 14px 16px;
-          background-color: inherit;
-          font-family: inherit;
-          margin: 0;
-
-          svg {
-            padding: 0em 0.3em;
-            vertical-align: -0.25em !important;
-          }
-        }
-
         &:hover ul.dropdown-content {
           display: block;
         }
