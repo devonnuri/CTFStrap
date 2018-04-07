@@ -13,22 +13,6 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <ul className="header-nav">
-          <div className="container">
-            <li><a href="#" id="logo">{config.ctfName}</a></li>
-            <li><a href="#"><File size={iconSize+2} /> Challenge</a></li>
-            <li><a href="#"><Chart size={iconSize} /> Rank</a></li>
-            <li className="dropdown header-right">
-              <a href="#"><User size={iconSize} />Account <CaretDown size={iconSize} /></a>
-              <ul className="dropdown-content">
-                <li><a href="#">DUMMY</a></li>
-                <li><a href="#">DUMMY</a></li>
-                <li><a href="#">DUMMY</a></li>
-                <li><a href="#">DUMMY</a></li>
-              </ul>
-            </li>
-          </div>
-        </ul>
       </div>
     )
   }
