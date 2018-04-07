@@ -56,6 +56,11 @@
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.8.3",
     "react-icons": "^2.2.7",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.7",
     "standard": "^11.0.1"
   },
