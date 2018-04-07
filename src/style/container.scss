@@ -1,0 +1,19 @@
+$break-small: 768px;
+$break-large: 1200px;
+
+.container {
+  position: relative;
+
+  padding: 0px 15px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: $break-large) {
+    width: 970px;
+  }
+  
+  @media screen and (max-width: $break-small) {
+    width: 750px;
+  }
+  
+}
