@@ -2,11 +2,15 @@
   background-color: #2196F3;
   color: white;
 
-  .header-nav {
+  ul.header-nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+
+    .header-right {
+      float:right;
+    }
 
     li {
       float: left;
@@ -15,11 +19,11 @@
         padding: 14px 16px;
         height: 20px;
         display: inline-block;
-
-        background-color: rgba(0, 0, 0, 0);
+        background-color: transparent;
         text-align: center;
         color: white;
         text-decoration: none;
+        margin: 0;
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.15);
@@ -31,10 +35,6 @@
           font-weight: bold;
           line-height: 20px;
         }
-  
-        &.header-right {
-          float: right;
-        }
 
         svg {
           padding: 0em 0.3em;
@@ -43,29 +43,42 @@
       }
 
       &.dropdown {
-        display: inline-block;
+        .dropdown-btn {
+          color: white;
+          padding: 14px 16px;
+          background-color: inherit;
+          font-family: inherit;
+          margin: 0;
 
-        &:hover .dropdown-content {
+          svg {
+            padding: 0em 0.3em;
+            vertical-align: -0.25em !important;
+          }
+        }
+
+        &:hover ul.dropdown-content {
           display: block;
         }
 
-        .dropdown-content {
+        ul.dropdown-content {
           display: none;
           position: absolute;
           background-color: #f9f9f9;
-          min-width: 160px;
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          width: 150px;
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
           z-index: 1;
+          list-style-type: none;
+          padding: 0;
 
-          a {
-            color: black;
-            padding: 6px 8px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
+          li {
+            width: 100%;
 
-            &:hover {
-              background-color: #f1f1f1;
+            a {
+              color: black; 
+              padding: 6px 8px;
+              text-decoration: none;
+              display: block;
+              text-align: left;
             }
           }
         }
