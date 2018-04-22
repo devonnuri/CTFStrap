@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Collapse, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { NavLink as NavigationLink } from 'react-router-dom';
 
-import Challenge from './Challenge';
-import Rank from './Rank';
+import Challenge from '../routes/Challenge';
+import Rank from '../routes/Rank';
 
 import config from '../ctfstrap.config.js';
 
@@ -11,7 +11,7 @@ class Header extends Component {
   render() {
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">{config.title}</NavbarBrand>
+        <NavbarBrand href="/">{config.ctfName}</NavbarBrand>
         <Collapse navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
