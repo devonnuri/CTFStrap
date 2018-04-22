@@ -1,9 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './components/App'
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/App';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import config from './ctfstrap.config'
+import config from './ctfstrap.config';
 
-document.title = config.title
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+document.title = config.title;
+
+render(<Router><App /></Router>, document.getElementById('root'));

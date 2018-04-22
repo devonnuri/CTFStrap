@@ -1,7 +1,13 @@
 module.exports = {
-  'extends': 'standard',
+  'extends': [
+    'standard',
+    'eslint:recommended',
+    'plugin:react/recommended'
+  ],
+  'parser': 'babel-eslint',
   'rules': {
     'no-unused-vars': 'warn',
-    'comma-dangle': ['error', 'always'],
+    'comma-dangle': ['error', 'always-multiline'],
+    'semi': ['error', 'always'],
   },
 };

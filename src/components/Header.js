@@ -1,21 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Navbar, NavbarBrand, Collapse, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { NavLink as NavigationLink } from 'react-router-dom';
 
-import User from 'react-icons/lib/fa/user'
-import File from 'react-icons/lib/go/file-text'
-import Chart from 'react-icons/lib/fa/line-chart'
-import CaretDown from 'react-icons/lib/fa/caret-down'
+import Challenge from './Challenge';
+import Rank from './Rank';
 
-import config from '../ctfstrap.config'
+import config from '../ctfstrap.config.js';
 
 class Header extends Component {
   render() {
-    let iconSize = 16
-
     return (
-      <div className="header">
-      </div>
-    )
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">{config.title}</NavbarBrand>
+        <Collapse navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavigationLink to={Challenge} className="nav-link" activeClassName="active">Challenge</NavigationLink>
+            </NavItem>
+            <NavItem>
+              <NavigationLink to={Rank} className="nav-link" activeClassName="active">Rank</NavigationLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>Account</DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Login</DropdownItem>
+                <DropdownItem>Sign up</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    );
   }
 }
 
-export default Header
+export default Header;
