@@ -15,6 +15,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Challenge from '../routes/Challenge';
 import Rank from '../routes/Rank';
+import Login from '../routes/Login';
 
 import config from '../ctfstrap.config.js';
 
@@ -38,8 +39,12 @@ export default () => (
             Account
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>Login</DropdownItem>
-            <DropdownItem>Sign up</DropdownItem>
+            <DropdownItem>
+              <LinkContainer to="/login">Login</LinkContainer>
+            </DropdownItem>
+            <DropdownItem>
+              <LinkContainer to="/signup">Sign Up</LinkContainer>
+            </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       </Nav>

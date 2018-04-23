@@ -11,7 +11,9 @@ export default () => (
         <h1>Welcome, KingGOD DISBOARD San!</h1>
         <h3>You are now 1st(12345pts)</h3>
         <LinkContainer to="/challenge">
-          <Button href="#">Never Giveup 하러 가기</Button>
+          <Button href="#" color="primary">
+            Never Giveup 하러 가기
+          </Button>
         </LinkContainer>
       </Jumbotron>
 

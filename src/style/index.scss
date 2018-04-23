@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 body {
   margin: 0;
 }
@@ -22,5 +24,19 @@ body {
   & > h1,
   & > h3 {
     margin: 20px 0;
+  }
+}
+
+.page-footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+
+  background-color: $blue;
+  color: $white;
+
+  .footer-copyright {
+    background-color: darken($blue, 10%);
   }
 }
