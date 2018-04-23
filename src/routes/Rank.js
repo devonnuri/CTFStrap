@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 
-class Rank extends Component {
-  render() {
-    return (
-      <div>
-        <h2>This is Rank</h2>
-        <p>You are K!NGG0D!</p>
-      </div>
-    );
-  }
-}
-
-export default Rank;
+export default () => (
+  <div className="container">
+    <h1>Rank</h1>
+    <hr/>
+    <p>It's all right, you're not in the last place. I'm the last one.</p>
+  </div>
+);

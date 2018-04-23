@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
+import { Jumbotron, Button, Card, CardBody, CardTitle } from 'reactstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <h2>This is Home</h2>
-        <p>Love my home :)</p>
-      </div>
-    );
-  }
-}
+import Challenge from './Challenge';
 
+export default () => (
+  <div>
+    <div className="container">
+      <Jumbotron>
+        <h1>Welcome, KingGOD DISBOARD San!</h1>
+        <h3>You are now 1st(12345pts)</h3>
+        <LinkContainer to="/challenge">
+          <Button href="#">Never Giveup 하러 가기</Button>
+        </LinkContainer>
+      </Jumbotron>
 
-export default Home
+      <h3>Notice</h3>
+      <hr />
+
+      <Card>
+        <CardBody />
+      </Card>
+
+      <h3>Rank</h3>
+      <hr />
+      <h3>Recommended Challenge</h3>
+      <hr />
+    </div>
+  </div>
+);
