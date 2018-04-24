@@ -21,7 +21,7 @@ export default () => (
       <hr />
       <Row>
         {[...Array(5)].map((e, i) => (
-          <Col>
+          <Col lg="4">
             <Card>
               <CardBody>
                 <CardTitle>겁나 중요한 공지사항</CardTitle>
@@ -34,6 +34,18 @@ export default () => (
 
       <h3>Rank</h3>
       <hr />
+
+      <Row>
+        {[...Array(5)].map((e, i) => (
+          <Col sm="6">
+            <Card>
+              <CardBody>
+                <CardText>{i + 1} : 킹갓킹갓 : 1000pts</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        ))}
+      </Row>
       <h3>Recommended Challenge</h3>
       <hr />
     </div>
