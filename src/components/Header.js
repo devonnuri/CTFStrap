@@ -39,12 +39,12 @@ export default () => (
             Account
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>
-              <LinkContainer to="/login">Login</LinkContainer>
-            </DropdownItem>
-            <DropdownItem>
-              <LinkContainer to="/signup">Sign Up</LinkContainer>
-            </DropdownItem>
+            <LinkContainer to="/login">
+              <DropdownItem>Login</DropdownItem>
+            </LinkContainer>
+            <LinkContainer to="/signup">
+              <DropdownItem>Sign Up</DropdownItem>
+            </LinkContainer>
           </DropdownMenu>
         </UncontrolledDropdown>
       </Nav>
