@@ -6,6 +6,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
-    maxLen: ['error', { len: 100 }],
+    'max-len': ['error', { code: 100 }],
+    'react/display-name': 'never',
   },
 };
