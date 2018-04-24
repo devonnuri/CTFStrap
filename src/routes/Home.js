@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, Button, Card, CardBody, CardTitle } from 'reactstrap';
+import { Row, Col, Jumbotron, Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Challenge from './Challenge';
@@ -19,10 +19,18 @@ export default () => (
 
       <h3>Notice</h3>
       <hr />
-
-      <Card>
-        <CardBody />
-      </Card>
+      <Row>
+        {[...Array(5)].map((e, i) => (
+          <Col>
+            <Card>
+              <CardBody>
+                <CardTitle>겁나 중요한 공지사항</CardTitle>
+                <CardText>정말 중요하다구요!</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        ))}
+      </Row>
 
       <h3>Rank</h3>
       <hr />
