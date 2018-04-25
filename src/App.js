@@ -10,6 +10,8 @@ import Rank from './routes/Rank';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
 
+import './style/index.scss';
+
 export default () => (
   <BrowserRouter>
     <div>
@@ -21,7 +23,7 @@ export default () => (
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   </BrowserRouter>
 );

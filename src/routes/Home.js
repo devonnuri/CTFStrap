@@ -19,9 +19,9 @@ export default () => (
 
       <h3>Notice</h3>
       <hr />
-      <Row>
+      <div className="flex-cards">
         {[...Array(5)].map((e, i) => (
-          <Col lg="4">
+          <Col lg="3">
             <Card>
               <CardBody>
                 <CardTitle>겁나 중요한 공지사항</CardTitle>
@@ -30,8 +30,7 @@ export default () => (
             </Card>
           </Col>
         ))}
-      </Row>
-
+      </div>
       <h3>Rank</h3>
       <hr />
 

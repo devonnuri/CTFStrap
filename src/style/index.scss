@@ -28,10 +28,26 @@ body {
 }
 
 .page-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
   background-color: $blue;
   color: $white;
 
   .footer-copyright {
     background-color: darken($blue, 10%);
   }
+}
+
+.flex-cards {
+  display: flex;
+  flex-wrap: nowrap !important;
+
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+  flex-direction: row !important;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
