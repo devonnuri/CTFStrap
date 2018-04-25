@@ -50,4 +50,8 @@ body {
 
   overflow-x: scroll;
   overflow-y: hidden;
+
+  div[class^="col"] {
+    padding: 5px;
+  }
 }

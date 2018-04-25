@@ -8,7 +8,7 @@ export default () => (
   <div>
     <div className="container">
       <Jumbotron>
-        <h1>Welcome, KingGOD DISBOARD San!</h1>
+        <h1>Welcome, KingGOD Sama!</h1>
         <h3>You are now 1st(12345pts)</h3>
         <LinkContainer to="/challenge">
           <Button href="#" color="primary">
@@ -36,7 +36,7 @@ export default () => (
 
       <Row>
         {[...Array(5)].map((e, i) => (
-          <Col sm="6">
+          <Col lg="6">
             <Card>
               <CardBody>
                 <CardText>{i + 1} : 킹갓킹갓 : 1000pts</CardText>
