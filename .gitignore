@@ -1,7 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+ctfstrap-backend/node_modules
+ctfstrap-frontend/node_modules
 
 # testing
 /coverage
@@ -22,3 +23,5 @@ yarn-error.log*
 
 # eslint
 .eslint*
+
+.vscode

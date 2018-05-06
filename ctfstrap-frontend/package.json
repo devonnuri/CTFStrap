@@ -1,5 +1,5 @@
 {
-  "name": "ctfstrap",
+  "name": "ctfstrap-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,6 @@
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "^2.4.0",
     "css-loader": "0.28.7",
-    "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^4.19.1",
     "eslint-config-react-app": "^2.1.0",
