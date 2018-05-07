@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "bootstrap": "^4.1.0",
+    "dotenv": "^5.0.1",
     "eslint-config-google": "^0.9.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.10.0",
