@@ -1,30 +1,134 @@
 {
   "name": "ctfstrap-backend",
-  "version": "1.0.0",
-  "main": "src/index.js",
+  "version": "0.0.0",
+  "description": "",
+  "author": "devonnuri",
   "license": "MIT",
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-flow": "^6.23.0",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.1.2",
-    "webpack-dev-server": "^3.1.4"
-  },
-  "dependencies": {
-    "dotenv": "^5.0.1",
-    "koa": "^2.5.0",
-    "koa-body": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0",
-    "nodemon": "^1.17.3",
-    "standard": "^11.0.1"
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=3.8"
   },
   "scripts": {
-    "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "start": "node dist/bin/www.js",
+    "build": "rimraf dist && cross-env NODE_ENV=production babel src -d dist -s",
+    "dev": "nodemon src/bin/www.js",
+    "test": "cross-env NODE_ENV=test jest",
+    "cover": "npm run test -- --coverage",
+    "lint": "eslint --fix src && prettier --write \"src/**/*.js\"",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@koa/cors": "^2.2.1",
+    "awilix": "^2.10.0",
+    "awilix-koa": "^1.0.2",
+    "axios": "^0.17.1",
+    "bristol": "^0.3.3",
+    "fejl": "^1.0.2",
+    "keyblade": "^0.3.2",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-compress": "^2.0.0",
+    "koa-respond": "^1.0.1",
+    "koa-router": "^7.3.0",
+    "lodash": "^4.17.4",
+    "palin": "^2.2.0",
+    "yenv": "^1.0.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-source-map-support": "^1.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.10.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.2.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lint-staged": "^5.0.0",
+    "nodemon": "^1.12.1",
+    "prettier": "^1.7.4",
+    "rimraf": "^2.6.2",
+    "smid": "^0.1.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "jest"
+    ],
+    "extends": [
+      "standard",
+      "prettier",
+      "plugin:jest/recommended"
+    ],
+    "env": {
+      "jest/globals": true
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "js": "babel-node"
+    }
+  },
+  "jest": {
+    "mapCoverage": true,
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__",
+      "src/lib/env",
+      "src/bin"
+    ]
+  },
+  "babel": {
+    "sourceMaps": "both",
+    "plugins": [
+      "transform-runtime",
+      "transform-object-rest-spread"
+    ],
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "source-map-support"
+        ],
+        "ignore": [
+          "**/__tests__/**"
+        ]
+      }
+    }
   }
 }
