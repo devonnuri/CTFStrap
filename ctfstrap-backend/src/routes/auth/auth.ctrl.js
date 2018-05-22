@@ -12,9 +12,7 @@ export const register = async (ctx: Context) => {
   };
 
   const schema = Joi.object({
-    username: Joi.string()
-      .regex(/^[a-zA-Z0-9ㄱ-힣]{3,12}$/)
-      .required(),
+    username: Joi.string().required(),
     email: Joi.string()
       .email()
       .required(),
@@ -32,7 +30,6 @@ export const register = async (ctx: Context) => {
       name: 'WRONG_SCHEMA',
       payload: result.error
     };
-
     return;
   }
 
@@ -45,15 +42,14 @@ export const register = async (ctx: Context) => {
       ctx.body = {
         key: isExists.email === email ? 'email' : 'username'
       };
-
       return;
     }
 
     const user = await User.register(username, email, password);
 
     ctx.body = {
-      username,
-      _id: user._id
+      _id: user._id,
+      username
     };
 
     const accessToken = await user.generateToken();
@@ -89,7 +85,6 @@ export const login = async (ctx: Context) => {
       name: 'WRONG_SCHEMA',
       payload: result.error
     };
-
     return;
   }
 
