@@ -1,85 +1,21 @@
-# CTFStrap Backend API Reference
+# RESTful API with Koa, Passport, Redis, and Postgres
 
-## /api/auth/ : Authentication
-### POST /api/auth/login
+[![Build Status](https://travis-ci.org/mjhea0/node-koa-api.svg?branch=master)](https://travis-ci.org/mjhea0/node-koa-api)
 
-Login an account to CTF.
+## Want to learn how to build this project?
 
-#### Parameters
-| Name | Type | Description |
-| :---: | :---: | :---: |
-| `email` | string(email) | **Required.** Email of the account |
-| `password` | string | **Required.** Password pof the account |
+Check out the following blog posts:
 
-#### Example
-Request
-```json
-{
-    "email": "example@example.com",
-    "password": "password"
-}
-```
-Response
-```json
-{
-    "_id": "1c60682fc7594c63ec3700b0"
-    "username": "ExampleAccount"
-}
-```
+1. [Building a RESTful API with Koa and Postgres](http://mherman.org/blog/2017/08/23/building-a-restful-api-with-koa-and-postgres)
+1. [User Authentication with Passport and Koa](http://mherman.org/blog/2018/01/02/user-authentication-with-passport-and-koa)
 
-### GET /api/auth/logout
+## Want to use this project?
 
-Logout the current account.
-
-#### Parameters
-No parameters in need.
-
-### GET /api/auth/register
-
-Register an account to CTF.
-
-#### Parameters
-| Name | Type | Description |
-| :---: | :---: | :---: |
-| `username` | string | **Required.** Username that will be displayed to the scoreboard |
-| `email` | string(email) | **Required.** Email of the account |
-| `password` | string(length: 6~30) | **Required.** Password of the account |
-
-#### Example
-Request
-```json
-{
-	"username": "ExampleAccount",
-	"email": "exmaple@example.com",
-	"password": "password"
-}
-```
-Response
-```json
-{
-    "_id": "1c60682fc7594c63ec3700b0"
-    "username": "ExampleAccount"
-}
-```
-
-## /api/chall : Challenge
-
-### POST /api/chall/create
-
-Create a challenge.
-
-### DELETE /api/chall/delete
-
-Delete the challenge.
-
-### POST /api/chall/auth
-
-Auth the challenge (can be various not only flag).
-
-### GET /api/chall/list
-
-List the challenge with filter or order.
-
-### GET /api/chall/info
-
-Get Info(Solvers count, Title, Description, etc...)
+1. Fork/Clone
+1. Install dependencies - `npm install`
+1. Fire up Postgres and Redis on the default ports
+1. Create two local Postgres databases - `koa_api` and `koa_api_test`
+1. Migrate - `knex migrate:latest --env development`
+1. Seed - `knex seed:run --env development`
+1. Sanity check - `npm start`
+1. Test - `npm test`
