@@ -1,20 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import Container from '../components/Container';
 import Header from '../components/Header';
-
-const MainContainer = styled.main`
-    @media (min-width: 1281px) {
-        padding: 0 15rem;
-    }
-`;
 
 interface MainPageProps {}
 
 const MainPage: React.FC<MainPageProps> = () => {
     return (
-        <MainContainer>
+        <Container>
             <Header/>
-        </MainContainer>
+        </Container>
     );
 };
 
