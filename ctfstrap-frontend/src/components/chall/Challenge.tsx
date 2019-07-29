@@ -1,7 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const ChallContainer = styled.div`
+interface ChallContainerProps {
+  solved: boolean;
+}
+
+const ChallContainer = styled.div<ChallContainerProps>`
   display: inline-block;
   border: 1px solid black;
 
@@ -13,6 +17,13 @@ const ChallContainer = styled.div`
   margin: 1rem;
 
   text-align: center;
+
+  ${props =>
+    props.solved &&
+    css`
+      background-color: green;
+      color: white;
+    `}
 `;
 
 const ChallTitle = styled.h3``;
@@ -22,11 +33,12 @@ const ChallPoints = styled.p``;
 interface ChallengeProps {
   title: string;
   points: number;
+  solved: boolean;
 }
 
-const Challenge: React.FC<ChallengeProps> = ({ title, points }) => {
+const Challenge: React.FC<ChallengeProps> = ({ title, points, solved }) => {
   return (
-    <ChallContainer>
+    <ChallContainer solved={solved}>
       <ChallTitle>{title}</ChallTitle>
       <ChallPoints>{points}pts</ChallPoints>
     </ChallContainer>
