@@ -2,11 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../components/Container';
 import Challenge from '../components/chall/Challenge';
-
-const Title = styled.h2`
-  text-align: center;
-  font-size: 2em;
-`;
+import PageTitle from '../components/PageTitle';
 
 const ChallListContainer = styled.div`
   display: flex;
@@ -21,7 +17,7 @@ interface ChallListPageProps {}
 const ChallListPage: React.FC<ChallListPageProps> = () => {
   return (
     <Container>
-      <Title>Challenges</Title>
+      <PageTitle>Challenges</PageTitle>
       <ChallListContainer>
         <Challenge title="Easy Web" points={100} />
         <Challenge title="Easy SQLi" points={200} />
