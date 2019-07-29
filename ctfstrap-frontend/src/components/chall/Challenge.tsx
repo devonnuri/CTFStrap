@@ -4,6 +4,15 @@ import styled from 'styled-components';
 const ChallContainer = styled.div`
   display: inline-block;
   border: 1px solid black;
+
+  flex-basis: 20%;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  min-width: 12rem;
+  margin: 1rem;
+
+  text-align: center;
 `;
 
 const ChallTitle = styled.h3``;
