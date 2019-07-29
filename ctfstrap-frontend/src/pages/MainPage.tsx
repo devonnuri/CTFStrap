@@ -1,5 +1,5 @@
-import React from 'react';
-import Container from '../components/Container';
+import * as React from 'react';
+import Container from '../components/base/Container';
 
 interface MainPageProps {}
 

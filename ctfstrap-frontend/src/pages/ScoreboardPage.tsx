@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import Container from '../components/Container';
-import PageTitle from '../components/PageTitle';
+import Container from '../components/base/Container';
+import PageTitle from '../components/base/PageTitle';
 
 const ScoreTable = styled.table`
   width: 100%;

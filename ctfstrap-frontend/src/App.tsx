@@ -1,11 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import Header from './components/base/Header';
 import MainPage from './pages/MainPage';
 import ChallListPage from './pages/ChallListPage';
 import ScoreboardPage from './pages/ScoreboardPage';
-import Header from './components/Header';
+import LoginPage from './pages/LoginPage';
 
-const App: React.FC = () => {
+const App: React.FC<{}> = () => {
   return (
     <Router>
       <Header />
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/" exact component={MainPage} />
         <Route path="/challenges" component={ChallListPage} />
         <Route path="/scoreboard" component={ScoreboardPage} />
+        <Route path="/login" component={LoginPage} />
       </Switch>
     </Router>
   );

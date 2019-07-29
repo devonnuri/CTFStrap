@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Container from './Container';
@@ -61,7 +61,9 @@ const Header: React.FC<HeaderProps> = () => {
           </NavbarItem>
         </NavbarLeft>
         <NavbarRight>
-          <NavbarItem>Login</NavbarItem>
+          <NavbarItem>
+            <Link to="/login">Login</Link>
+          </NavbarItem>
           <NavbarItem>Register</NavbarItem>
           <NavbarItem>Logout</NavbarItem>
         </NavbarRight>

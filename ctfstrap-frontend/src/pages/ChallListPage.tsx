@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
-import Container from '../components/Container';
+import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../components/base/PageTitle';
 
 const ChallListContainer = styled.div`
   display: flex;
