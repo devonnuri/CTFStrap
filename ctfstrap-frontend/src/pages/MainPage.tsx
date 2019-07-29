@@ -5,11 +5,7 @@ import Header from '../components/Header';
 interface MainPageProps {}
 
 const MainPage: React.FC<MainPageProps> = () => {
-    return (
-        <Container>
-            <Header/>
-        </Container>
-    );
+  return <Container />;
 };
 
 export default MainPage;
