@@ -1,7 +1,7 @@
 <h1 align="center">CTFStrap</h1>
 
 <p align="center">
-	<a href="https://github.com/feross/standard">
+	<a href="https://github.com/airbnb/javascript">
 		<img src="https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg?style=flat"/>
 	</a>
 	<img src="https://img.shields.io/badge/contributions-welcome-orange.svg"/>
