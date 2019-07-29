@@ -8,15 +8,23 @@ interface ChallContainerProps {
 
 const ChallContainer = styled.div<ChallContainerProps>`
   display: inline-block;
-  background-color: ${palette.gray50};
-  border-radius: 5px;
-
   flex-basis: 20%;
   flex-grow: 1;
   flex-shrink: 1;
 
   min-width: 12rem;
   margin: 1rem;
+
+  background-color: ${palette.gray50};
+  border-radius: 7px;
+  cursor: pointer;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
 
   text-align: center;
 
@@ -28,10 +36,6 @@ const ChallContainer = styled.div<ChallContainerProps>`
     `}
 `;
 
-const ChallTitle = styled.h3``;
-
-const ChallPoints = styled.p``;
-
 interface ChallengeProps {
   title: string;
   points: number;
@@ -41,8 +45,8 @@ interface ChallengeProps {
 const Challenge: React.FC<ChallengeProps> = ({ title, points, solved }) => {
   return (
     <ChallContainer solved={solved}>
-      <ChallTitle>{title}</ChallTitle>
-      <ChallPoints>{points}pts</ChallPoints>
+      <h3>{title}</h3>
+      <p>{points}pts</p>
     </ChallContainer>
   );
 };

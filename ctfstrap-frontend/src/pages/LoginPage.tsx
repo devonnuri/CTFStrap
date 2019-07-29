@@ -12,7 +12,7 @@ const ButtonSet = styled.div`
 
 interface LoginPageProps {}
 
-const { useState, useCallback } = React;
+const { useState } = React;
 
 const LoginPage: React.FC<LoginPageProps> = () => {
   const [form, setValues] = useState({
