@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import ChallListPage from './pages/ChallListPage';
 import ScoreboardPage from './pages/ScoreboardPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 const App: React.FC<{}> = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC<{}> = () => {
         <Route path="/challenges" component={ChallListPage} />
         <Route path="/scoreboard" component={ScoreboardPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
       </Switch>
     </Router>
   );

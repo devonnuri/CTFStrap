@@ -5,11 +5,13 @@ import palette, { buttonColors } from '../../lib/styles/palette';
 type ColorType = 'primary' | 'secondary' | 'darkGray' | 'lightGray';
 type ButtonSize = 'medium' | 'large';
 
-const ButtonContainer = styled.button<{
+interface ButtonContainerProps {
   color: ColorType;
   inline: boolean;
   size: ButtonSize;
-}>`
+}
+
+const ButtonContainer = styled.button<ButtonContainerProps>`
   display: inline-flex;
   align-items: center;
   font-weight: bold;

@@ -10,29 +10,41 @@ const ButtonSet = styled.div`
   text-align: center;
 `;
 
-interface LoginPageProps {}
+interface RegisterPageProps {}
 
-const { useState, useCallback } = React;
+const { useState } = React;
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+const RegisterPage: React.FC<RegisterPageProps> = () => {
   const [form, setValues] = useState({
-    name: '',
+    email: '',
+    username: '',
     password: '',
+    passwordConfirm: '',
   });
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...form, [e.target.name]: e.target.value });
+    setValues({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
     <Container>
-      <PageTitle>Login</PageTitle>
+      <PageTitle>Register</PageTitle>
 
       <Form>
         <LabelInput
-          name="name"
-          label="Username or Email"
-          value={form.name}
+          type="email"
+          name="email"
+          label="Email"
+          value={form.email}
+          onChange={updateField}
+        />
+        <LabelInput
+          name="username"
+          label="Username"
+          value={form.username}
           onChange={updateField}
         />
         <LabelInput
@@ -42,12 +54,19 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           value={form.password}
           onChange={updateField}
         />
+        <LabelInput
+          type="password"
+          name="passwordConfirm"
+          label="Confirm Password"
+          value={form.passwordConfirm}
+          onChange={updateField}
+        />
         <ButtonSet>
-          <Button size="large">Login</Button>
+          <Button size="large">Register</Button>
         </ButtonSet>
       </Form>
     </Container>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

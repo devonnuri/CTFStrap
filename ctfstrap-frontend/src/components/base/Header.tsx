@@ -64,7 +64,9 @@ const Header: React.FC<HeaderProps> = () => {
           <NavbarItem>
             <Link to="/login">Login</Link>
           </NavbarItem>
-          <NavbarItem>Register</NavbarItem>
+          <NavbarItem>
+            <Link to="/register">Register</Link>
+          </NavbarItem>
           <NavbarItem>Logout</NavbarItem>
         </NavbarRight>
       </Navbar>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
+import palette from '../../lib/styles/palette';
 
 interface ChallContainerProps {
   solved: boolean;
@@ -7,7 +8,8 @@ interface ChallContainerProps {
 
 const ChallContainer = styled.div<ChallContainerProps>`
   display: inline-block;
-  border: 1px solid black;
+  background-color: ${palette.gray50};
+  border-radius: 5px;
 
   flex-basis: 20%;
   flex-grow: 1;
@@ -21,7 +23,7 @@ const ChallContainer = styled.div<ChallContainerProps>`
   ${props =>
     props.solved &&
     css`
-      background-color: green;
+      background-color: ${palette.primary600};
       color: white;
     `}
 `;
