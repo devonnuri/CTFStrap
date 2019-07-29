@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Container from './Container';
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled(Container)`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
