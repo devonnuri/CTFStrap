@@ -3,9 +3,7 @@
     "extends": "tslint-config-airbnb",
     "jsRules": {},
     "rules": {
-        "import-name": [true, {
-            "styledComponents": "styled"
-        }],
+        "import-name": false,
         "variable-name": false,
         "align": false,
         "ter-arrow-parens": [true, "as-needed"]
