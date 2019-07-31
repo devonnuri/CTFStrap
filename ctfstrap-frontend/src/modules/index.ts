@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
+import core, { CoreState } from './core';
 
-const rootReducer = combineReducers({});
+export type RootState = {
+  core: CoreState;
+};
+
+const rootReducer = combineReducers({
+  core,
+});
 
 export default rootReducer;

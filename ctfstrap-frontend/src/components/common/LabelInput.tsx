@@ -4,7 +4,7 @@ import palette from '../../lib/styles/palette';
 
 const LabelInputContainer = styled.div<{ active: boolean }>`
   position: relative;
-  margin: 1rem 0 2rem 0;
+  margin: 2rem 0;
 
   input {
     font-size: 1.5rem;
@@ -60,7 +60,7 @@ interface LabelInputProps extends InputProps {
   label: string;
   name?: string;
   value: string;
-  onChange?: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const { useState, useCallback } = React;

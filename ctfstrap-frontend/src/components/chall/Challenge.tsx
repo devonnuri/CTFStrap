@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { RootState } from '../../modules';
+import { showChallModal, ChallModal } from '../../modules/core';
+import { connect } from 'react-redux';
 
 interface ChallContainerProps {
   solved: boolean;
@@ -36,19 +39,47 @@ const ChallContainer = styled.div<ChallContainerProps>`
     `}
 `;
 
-interface ChallengeProps {
-  title: string;
-  points: number;
-  solved: boolean;
-}
+const mapDispatchToProps = {
+  showChallModal,
+};
 
-const Challenge: React.FC<ChallengeProps> = ({ title, points, solved }) => {
+type OwnProps = ChallModal;
+interface StateProps {}
+type DispatchProps = typeof mapDispatchToProps;
+type ChallengeProps = OwnProps & StateProps & DispatchProps;
+
+const Challenge: React.FC<ChallengeProps> = ({
+  title,
+  points,
+  description,
+  category,
+  author,
+  tags,
+  solved,
+  showChallModal,
+}) => {
   return (
-    <ChallContainer solved={solved}>
+    <ChallContainer
+      solved={solved}
+      onClick={() =>
+        showChallModal({
+          title,
+          points,
+          description,
+          category,
+          author,
+          tags,
+          solved,
+        })
+      }
+    >
       <h3>{title}</h3>
       <p>{points}pts</p>
     </ChallContainer>
   );
 };
 
-export default Challenge;
+export default connect<StateProps, DispatchProps, OwnProps, RootState>(
+  () => ({}),
+  { showChallModal },
+)(Challenge);
