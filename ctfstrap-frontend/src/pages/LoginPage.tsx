@@ -10,6 +10,7 @@ import Button from '../components/common/Button';
 import { RootState } from '../modules';
 import { setUser } from '../modules/user';
 import { login } from '../lib/api/auth';
+import Alert from '../components/common/Alert';
 
 const { useState } = React;
 
@@ -32,6 +33,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
     password: '',
   });
 
+  const [isAlertOpen, setAlertOpen] = useState(false);
+
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...form, [e.target.name]: e.target.value });
   };
@@ -45,8 +48,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
       })
       .catch(() => {
         setValues({ name: '', password: '' });
-
-        alert('Invalid Credentials');
+        setAlertOpen(true);
       });
 
     e.preventDefault();
@@ -57,6 +59,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
       <PageTitle>Login</PageTitle>
 
       <Form onSubmit={onSubmit}>
+        {isAlertOpen && <Alert color="secondary">Invalid Credentials</Alert>}
         <LabelInput
           name="name"
           label="Username or Email"
