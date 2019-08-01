@@ -39,6 +39,14 @@ export const login = async (ctx: Context) => {
     });
 };
 
+export const logout = async (ctx: Context) => {
+  ctx.cookies.set('access_token', null, {
+    maxAge: 0,
+    httpOnly: true,
+  });
+  ctx.status = 204;
+};
+
 export const register = async (ctx: Context) => {
   interface RegisterSchema {
     username: string;
@@ -67,8 +75,8 @@ export const register = async (ctx: Context) => {
     })
     .then(accessToken => {
       ctx.cookies.set('access_token', accessToken, {
-        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
       });
     })
     .catch(error => {
