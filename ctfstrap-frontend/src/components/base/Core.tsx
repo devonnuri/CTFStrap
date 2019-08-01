@@ -4,12 +4,13 @@ import { RootState } from '../../modules';
 import { setUser } from '../../modules/user';
 import { check } from '../../lib/api/auth';
 
+const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   setUser,
 };
 
 interface OwnProps {}
-interface StateProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
@@ -27,6 +28,6 @@ const Core: React.FC<CoreProps> = ({ setUser }) => {
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps,
 )(Core);

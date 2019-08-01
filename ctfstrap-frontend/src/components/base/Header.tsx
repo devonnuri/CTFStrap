@@ -48,10 +48,11 @@ const NavbarItem = styled.div`
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
 });
+const mapDispatchToProps = {};
 
 interface OwnProps {}
 type StateProps = ReturnType<typeof mapStateToProps>;
-interface DispatchProps {}
+type DispatchProps = typeof mapDispatchToProps;
 type HeaderProps = OwnProps & StateProps & DispatchProps;
 
 const Header: React.FC<HeaderProps> = ({ user }) => {
@@ -91,5 +92,6 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  state => ({ user: state.user.user }),
+  mapStateToProps,
+  mapDispatchToProps,
 )(Header);

@@ -39,12 +39,13 @@ const ChallContainer = styled.div<ChallContainerProps>`
     `}
 `;
 
+const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   showChallModal,
 };
 
 type OwnProps = ChallModal;
-interface StateProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type ChallengeProps = OwnProps & StateProps & DispatchProps;
 
@@ -80,6 +81,6 @@ const Challenge: React.FC<ChallengeProps> = ({
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps,
 )(Challenge);

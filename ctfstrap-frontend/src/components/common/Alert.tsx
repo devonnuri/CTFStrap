@@ -8,18 +8,20 @@ const AlertContainer = styled.div<{ color: ColorType }>`
   padding: 0.7rem 1rem;
 
   font-size: 1.2em;
+  border-width: 2px;
+  border-style: solid;
 
   ${props =>
     props.color === 'primary'
       ? css`
           color: ${palette.primary900};
           background-color: ${palette.primary100};
-          border: 2px solid ${palette.primary700};
+          border-color: ${palette.primary700};
         `
       : css`
           color: ${palette.secondary900};
           background-color: ${palette.secondary100};
-          border: 2px solid ${palette.secondary700};
+          border-color: ${palette.secondary700};
         `}
 `;
 

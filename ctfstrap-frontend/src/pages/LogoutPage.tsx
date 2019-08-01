@@ -5,12 +5,13 @@ import { RootState } from '../modules';
 import { setUser } from '../modules/user';
 import { logout } from '../lib/api/auth';
 
+const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   setUser,
 };
 
 interface OwnProps extends RouteComponentProps {}
-interface StateProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type LogoutPageProps = OwnProps & StateProps & DispatchProps;
 
@@ -24,6 +25,6 @@ const LogoutPage: React.FC<LogoutPageProps> = ({ history, setUser }) => {
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps,
 )(LogoutPage);

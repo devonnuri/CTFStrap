@@ -18,12 +18,13 @@ const ButtonSet = styled.div`
   text-align: center;
 `;
 
+const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   setUser,
 };
 
 interface OwnProps extends RouteComponentProps {}
-interface StateProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type LoginPageProps = OwnProps & StateProps & DispatchProps;
 
@@ -32,8 +33,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
     name: '',
     password: '',
   });
-
-  const [isAlertOpen, setAlertOpen] = useState(false);
+  const [alert, setAlert] = useState('');
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...form, [e.target.name]: e.target.value });
@@ -48,7 +48,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
       })
       .catch(() => {
         setValues({ name: '', password: '' });
-        setAlertOpen(true);
+        setAlert('Invalid Credentials.');
       });
 
     e.preventDefault();
@@ -59,7 +59,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
       <PageTitle>Login</PageTitle>
 
       <Form onSubmit={onSubmit}>
-        {isAlertOpen && <Alert color="secondary">Invalid Credentials</Alert>}
+        {alert && <Alert color="secondary">{alert}</Alert>}
         <LabelInput
           name="name"
           label="Username or Email"
@@ -84,6 +84,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps,
 )(LoginPage);
