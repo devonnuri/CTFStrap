@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux';
-import core, { CoreState } from './core';
+import chall, { ChallState } from './chall';
+import user, { UserState } from './user';
 
 export type RootState = {
-  core: CoreState;
+  chall: ChallState;
+  user: UserState;
 };
 
 const rootReducer = combineReducers({
-  core,
+  chall,
+  user,
 });
 
 export default rootReducer;

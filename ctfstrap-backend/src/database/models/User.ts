@@ -41,12 +41,8 @@ export const find = (type: 'email' | 'username', value: string) => {
   return User.findOne({ where: { [type]: value } });
 };
 
-export const register = (username: string, email: string, password: string) => {
-  return User.create({
-    username,
-    email,
-    password: hash(password),
-  });
+export const findById = (id: number) => {
+  return User.findOne({ where: { id } });
 };
 
 export const findAny = (username: string, email: string) => {
@@ -54,6 +50,14 @@ export const findAny = (username: string, email: string) => {
     where: {
       [Op.or]: [{ username }, { email }],
     },
+  });
+};
+
+export const register = (username: string, email: string, password: string) => {
+  return User.create({
+    username,
+    email,
+    password: hash(password),
   });
 };
 

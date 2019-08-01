@@ -8,8 +8,8 @@ import Form from '../components/base/Form';
 import LabelInput from '../components/common/LabelInput';
 import Button from '../components/common/Button';
 import { RootState } from '../modules';
-import { setUser } from '../modules/core';
-import client from '../lib/client';
+import { setUser } from '../modules/user';
+import { login } from '../lib/api/auth';
 
 const { useState } = React;
 
@@ -37,8 +37,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
   };
 
   const onSubmit = () => {
-    client
-      .post('/auth/login', form)
+    login(form)
       .then(response => {
         const { id, email, username } = response.data;
         setUser({ id, email, username });

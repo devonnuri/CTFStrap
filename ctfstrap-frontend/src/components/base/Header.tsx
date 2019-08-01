@@ -46,7 +46,7 @@ const NavbarItem = styled.div`
 `;
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.core.user,
+  user: state.user.user,
 });
 
 interface OwnProps {}
@@ -71,6 +71,10 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
         </NavbarLeft>
         <NavbarRight>
           {user ? (
+            <NavbarItem>
+              <Link to="/logout">Logout</Link>
+            </NavbarItem>
+          ) : (
             <>
               <NavbarItem>
                 <Link to="/login">Login</Link>
@@ -79,8 +83,6 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
                 <Link to="/register">Register</Link>
               </NavbarItem>
             </>
-          ) : (
-            <NavbarItem>Logout</NavbarItem>
           )}
         </NavbarRight>
       </Navbar>
@@ -89,5 +91,5 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  state => ({ user: state.core.user }),
+  state => ({ user: state.user.user }),
 )(Header);

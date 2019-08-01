@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
-import { closeChallModal } from '../../modules/core';
+import { closeChallModal } from '../../modules/chall';
 import { connect } from 'react-redux';
 import palette from '../../lib/styles/palette';
 import LabelInput from '../common/LabelInput';
@@ -61,7 +61,7 @@ const ChallModalContainer = styled.div`
 `;
 
 const mapStateToProps = (state: RootState) => ({
-  modalChall: state.core.modalChall,
+  modalChall: state.chall.modalChall,
 });
 
 const mapDispatchToProps = { closeChallModal };
@@ -81,15 +81,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
     return null;
   }
 
-  const {
-    title,
-    points,
-    description,
-    category,
-    author,
-    tags,
-    solved,
-  } = modalChall;
+  const { title, points, description, author, tags } = modalChall;
 
   return (
     <>
@@ -103,8 +95,8 @@ const ChallModal: React.FC<ChallModalProps> = ({
         <h2 className="title">{title}</h2>
         <h3 className="points">{points}pts</h3>
         <ul className="tag-list">
-          {tags.map(tag => (
-            <li>{tag}</li>
+          {tags.map((tag, index) => (
+            <li key={index}>{tag}</li>
           ))}
         </ul>
         <p className="description">{description}</p>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { RootState } from '../../modules';
-import { showChallModal, ChallModal } from '../../modules/core';
+import { showChallModal, ChallModal } from '../../modules/chall';
 import { connect } from 'react-redux';
 
 interface ChallContainerProps {

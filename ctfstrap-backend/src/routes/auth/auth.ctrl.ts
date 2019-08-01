@@ -28,6 +28,12 @@ export const login = async (ctx: Context) => {
       ctx.body = { id, email, username };
       return generateToken(id, email);
     })
+    .then(accessToken => {
+      ctx.cookies.set('access_token', accessToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+      });
+    })
     .catch(error => {
       if (error.message) {
         ctx.status = 400;
@@ -88,4 +94,14 @@ export const register = async (ctx: Context) => {
         };
       }
     });
+};
+
+export const check = async (ctx: Context) => {
+  const { id, email, username } = await User.findById(ctx.state.user_id);
+
+  ctx.body = {
+    id,
+    email,
+    username,
+  };
 };
