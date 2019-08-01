@@ -36,7 +36,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
     setValues({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.FormEvent) => {
     login(form)
       .then(response => {
         const { id, email, username } = response.data;
@@ -48,13 +48,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
 
         alert('Invalid Credentials');
       });
+
+    e.preventDefault();
   };
 
   return (
     <Container>
       <PageTitle>Login</PageTitle>
 
-      <Form>
+      <Form onSubmit={onSubmit}>
         <LabelInput
           name="name"
           label="Username or Email"
@@ -69,7 +71,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
           onChange={updateField}
         />
         <ButtonSet>
-          <Button size="large" onClick={onSubmit}>
+          <Button type="submit" size="large" onClick={onSubmit}>
             Login
           </Button>
         </ButtonSet>
