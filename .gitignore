@@ -1,6 +1,7 @@
 ctfstrap-backend/node_modules
 ctfstrap-frontend/node_modules
 ctfstrap-testdb/
+ctfstrap-backend/lib
 
 /coverage
 /build
@@ -18,3 +19,18 @@ yarn-error.log*
 .eslint*
 
 .vscode
+
+.env
+
+node_modules
+bower_components
+
+.idea
+*.iml
+
+.DS_Store
+Thumbs.db
+
+dist/**/*
+
+*.log
