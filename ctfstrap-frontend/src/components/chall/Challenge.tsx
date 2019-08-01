@@ -81,5 +81,5 @@ const Challenge: React.FC<ChallengeProps> = ({
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   () => ({}),
-  { showChallModal },
+  mapDispatchToProps,
 )(Challenge);

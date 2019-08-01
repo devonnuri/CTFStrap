@@ -24,8 +24,8 @@ export const login = async (ctx: Context) => {
       return user;
     })
     .then(user => {
-      const { id, email } = user;
-      ctx.body = { id, email };
+      const { id, email, username } = user;
+      ctx.body = { id, email, username };
       return generateToken(id, email);
     })
     .catch(error => {
@@ -69,7 +69,7 @@ export const register = async (ctx: Context) => {
     })
     .then(() => User.register(username, email, password))
     .then(({ id }) => {
-      ctx.body = { id, email };
+      ctx.body = { id, email, username };
 
       return generateToken(id, email);
     })

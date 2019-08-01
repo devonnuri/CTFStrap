@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Container from './Container';
+import { connect } from 'react-redux';
+import { RootState } from '../../modules';
 
 const HeaderContainer = styled(Container)`
   display: flex;
@@ -43,9 +45,16 @@ const NavbarItem = styled.div`
   font-size: 1.2em;
 `;
 
-interface HeaderProps {}
+const mapStateToProps = (state: RootState) => ({
+  user: state.core.user,
+});
 
-const Header: React.FC<HeaderProps> = () => {
+interface OwnProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
+interface DispatchProps {}
+type HeaderProps = OwnProps & StateProps & DispatchProps;
+
+const Header: React.FC<HeaderProps> = ({ user }) => {
   return (
     <HeaderContainer>
       <Title>
@@ -61,17 +70,24 @@ const Header: React.FC<HeaderProps> = () => {
           </NavbarItem>
         </NavbarLeft>
         <NavbarRight>
-          <NavbarItem>
-            <Link to="/login">Login</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link to="/register">Register</Link>
-          </NavbarItem>
-          <NavbarItem>Logout</NavbarItem>
+          {user ? (
+            <>
+              <NavbarItem>
+                <Link to="/login">Login</Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link to="/register">Register</Link>
+              </NavbarItem>
+            </>
+          ) : (
+            <NavbarItem>Logout</NavbarItem>
+          )}
         </NavbarRight>
       </Navbar>
     </HeaderContainer>
   );
 };
 
-export default Header;
+export default connect<StateProps, DispatchProps, OwnProps, RootState>(
+  state => ({ user: state.core.user }),
+)(Header);

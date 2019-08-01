@@ -3,7 +3,7 @@ import produce from 'immer';
 import { createReducer } from '../lib/utils';
 
 type CurrentUser = {
-  id: string;
+  id: number;
   email: string;
   username: string;
 };

@@ -121,6 +121,6 @@ const ChallModal: React.FC<ChallModalProps> = ({
 };
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  state => ({ modalChall: state.core.modalChall }),
-  { closeChallModal },
+  mapStateToProps,
+  mapDispatchToProps,
 )(ChallModal);
