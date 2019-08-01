@@ -1,5 +1,13 @@
-import * as User from './../../database/models/User';
 import { Context } from 'koa';
+import * as User from '../../database/models/User';
+import { generateToken } from '../../lib/token';
+
+export const login = async (ctx: Context) => {
+  interface LoginSchema {
+    name: string;
+    password: string;
+  }
+};
 
 export const register = async (ctx: Context) => {
   interface RegisterSchema {
@@ -10,7 +18,7 @@ export const register = async (ctx: Context) => {
 
   const { username, email, password }: RegisterSchema = ctx.request.body;
 
-  await User.findAny(username, email)
+  return User.findAny(username, email)
     .then(any => {
       if (any) {
         ctx.status = 409;
@@ -25,7 +33,7 @@ export const register = async (ctx: Context) => {
     .then(({ id }) => {
       ctx.body = { id, username };
 
-      return User.generateToken();
+      return generateToken({ user: { id, username } }, 'user');
     })
     .then(accessToken => {
       ctx.cookies.set('access_token', accessToken, {

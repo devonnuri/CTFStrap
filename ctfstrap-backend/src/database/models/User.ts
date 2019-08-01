@@ -52,8 +52,4 @@ export const findAny = (username: string, email: string) => {
   });
 };
 
-export const generateToken = () => {
-  return 'test';
-};
-
 export default User;
