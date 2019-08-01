@@ -1,12 +1,42 @@
 import { Context } from 'koa';
 import * as User from '../../database/models/User';
 import { generateToken } from '../../lib/token';
+import { validate } from './../../lib/crypto';
 
 export const login = async (ctx: Context) => {
   interface LoginSchema {
     name: string;
     password: string;
   }
+
+  const { name, password }: LoginSchema = ctx.request.body;
+
+  return User.findAny(name, name)
+    .then(user => {
+      if (!user || !validate(password, user.password)) {
+        ctx.status = 403;
+        ctx.body = {
+          name: 'WRONG_CREDENTIALS',
+        };
+
+        throw new Error();
+      }
+      return user;
+    })
+    .then(user => {
+      const { id, email } = user;
+      ctx.body = { id, email };
+      return generateToken(id, email);
+    })
+    .catch(error => {
+      if (error.message) {
+        ctx.status = 400;
+        ctx.body = {
+          name: 'WRONG_SCHEMA',
+          payload: error.message,
+        };
+      }
+    });
 };
 
 export const register = async (ctx: Context) => {
@@ -19,11 +49,11 @@ export const register = async (ctx: Context) => {
   const { username, email, password }: RegisterSchema = ctx.request.body;
 
   return User.findAny(username, email)
-    .then(any => {
-      if (any) {
+    .then(user => {
+      if (user) {
         ctx.status = 409;
         ctx.body = {
-          key: any.email === email ? 'email' : 'username',
+          key: user.email === email ? 'email' : 'username',
         };
 
         throw new Error();
@@ -31,9 +61,9 @@ export const register = async (ctx: Context) => {
     })
     .then(() => User.register(username, email, password))
     .then(({ id }) => {
-      ctx.body = { id, username };
+      ctx.body = { id, email };
 
-      return generateToken({ user: { id, username } }, 'user');
+      return generateToken(id, email);
     })
     .then(accessToken => {
       ctx.cookies.set('access_token', accessToken, {
@@ -41,12 +71,12 @@ export const register = async (ctx: Context) => {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       });
     })
-    .catch(err => {
-      if (err.message) {
+    .catch(error => {
+      if (error.message) {
         ctx.status = 400;
         ctx.body = {
           name: 'WRONG_SCHEMA',
-          payload: err.message,
+          payload: error.message,
         };
       }
     });

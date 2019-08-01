@@ -1,6 +1,10 @@
 import * as jwt from 'jsonwebtoken';
 
-export const generateToken = async (
+export const generateToken = async (id: number, email: string) => {
+  return encodeToken({ user: { id, email } }, 'user');
+};
+
+export const encodeToken = async (
   payload: object,
   subject: string,
 ): Promise<string> => {

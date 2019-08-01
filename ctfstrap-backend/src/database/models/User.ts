@@ -10,6 +10,7 @@ import {
   AllowNull,
 } from 'sequelize-typescript';
 import { Op } from 'sequelize';
+import { hash } from '../../lib/crypto';
 
 @Table
 class User extends Model<User> {
@@ -41,7 +42,11 @@ export const find = (type: 'email' | 'username', value: string) => {
 };
 
 export const register = (username: string, email: string, password: string) => {
-  return User.create({ username, email, password });
+  return User.create({
+    username,
+    email,
+    password: hash(password),
+  });
 };
 
 export const findAny = (username: string, email: string) => {
