@@ -27,13 +27,13 @@ const ChallModalContainer = styled.div`
 
   background-color: white;
 
-  .title,
+  .name,
   .points,
   .tag-list {
     text-align: center;
   }
 
-  .title {
+  .name {
     font-size: 2em;
     margin: 1.5rem 0 0.5rem 0;
   }
@@ -81,7 +81,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
     return null;
   }
 
-  const { title, points, description, author, tags } = modalChall;
+  const { name, points, description, author, tags } = modalChall;
 
   return (
     <>
@@ -92,7 +92,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
         }}
       />
       <ChallModalContainer>
-        <h2 className="title">{title}</h2>
+        <h2 className="name">{name}</h2>
         <h3 className="points">{points}pts</h3>
         <ul className="tag-list">
           {tags.map((tag, index) => (

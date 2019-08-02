@@ -6,7 +6,6 @@ import {
   AutoIncrement,
   IsEmail,
   CreatedAt,
-  NotNull,
   AllowNull,
 } from 'sequelize-typescript';
 import { Op } from 'sequelize';

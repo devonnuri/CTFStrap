@@ -21,7 +21,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
       <PageTitle>Challenges</PageTitle>
       <ChallListContainer>
         <Challenge
-          title="Easy Web"
+          name="Easy Web"
           points={100}
           description="Easy Web Challenge! Try it!"
           category="Web"

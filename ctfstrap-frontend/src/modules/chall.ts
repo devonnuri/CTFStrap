@@ -3,9 +3,9 @@ import produce from 'immer';
 import { createReducer } from '../lib/utils';
 
 export type ChallModal = {
-  title: string;
-  points: number;
+  name: string;
   description: string;
+  points: number;
   category: string;
   author: string;
   tags: string[];
