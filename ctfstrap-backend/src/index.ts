@@ -1,9 +1,9 @@
-import * as Koa from 'koa';
-import * as Router from 'koa-router';
-import * as Helmet from 'koa-helmet';
-import * as BodyParser from 'koa-bodyparser';
-import * as dotenv from 'dotenv';
-import * as cors from '@koa/cors';
+import Koa from 'koa';
+import Router from 'koa-router';
+import Helmet from 'koa-helmet';
+import BodyParser from 'koa-bodyparser';
+import dotenv from 'dotenv';
+import cors from '@koa/cors';
 
 import * as database from './database';
 import api from './routes';

@@ -1,4 +1,4 @@
-import * as Router from 'koa-router';
+import Router from 'koa-router';
 
 import * as authCtrl from './chall.ctrl';
 import authorized from '../../lib/middlewares/authorized';

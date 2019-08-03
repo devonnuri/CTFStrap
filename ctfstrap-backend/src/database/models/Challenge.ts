@@ -15,6 +15,24 @@ import Flag from './Flag';
 
 @Table
 class Challenge extends Model<Challenge> {
+  static existsId = async (id: number) =>
+    (await Challenge.count({ where: { id } })) > 0
+
+  static removeById = (id: number) => Challenge.destroy({ where: { id } });
+
+  static authFlag = async (challengeId: number, flag: string) =>
+    (await Challenge.count({
+      where: {
+        id: challengeId,
+      },
+      include: [
+        {
+          model: Flag,
+          where: { content: flag },
+        },
+      ],
+    })) > 0
+
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -36,7 +54,6 @@ class Challenge extends Model<Challenge> {
   @Column
   category: string;
 
-  @AllowNull(true)
   @Column
   author: string;
 

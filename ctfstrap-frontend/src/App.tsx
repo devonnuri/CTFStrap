@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/base/Header';
 import Core from './components/base/Core';

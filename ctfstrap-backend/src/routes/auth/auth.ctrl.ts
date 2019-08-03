@@ -1,13 +1,22 @@
 import { Context } from 'koa';
+import * as Joi from 'joi';
 import User from '../../database/models/User';
 import { generateToken } from '../../lib/token';
-import { validate } from './../../lib/crypto';
+import { validate } from '../../lib/crypto';
+import { validateBody } from '../../lib/utils';
 
 export const login = async (ctx: Context) => {
   interface LoginSchema {
     name: string;
     password: string;
   }
+
+  const schema = Joi.object().keys({
+    name: Joi.string().required(),
+    password: Joi.string().required(),
+  });
+
+  if (!validateBody(ctx, schema)) return;
 
   const { name, password }: LoginSchema = ctx.request.body;
 
@@ -34,13 +43,9 @@ export const login = async (ctx: Context) => {
         httpOnly: true,
       });
     })
-    .catch(error => {
-      if (error.message) {
-        ctx.status = 400;
-        ctx.body = {
-          name: 'WRONG_SCHEMA',
-          payload: error.message,
-        };
+    .catch(() => {
+      if (!ctx.body) {
+        ctx.status = 500;
       }
     });
 };
@@ -59,6 +64,16 @@ export const register = async (ctx: Context) => {
     email: string;
     password: string;
   }
+
+  const schema = Joi.object().keys({
+    username: Joi.string().required(),
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string().required(),
+  });
+
+  if (!validateBody(ctx, schema)) return;
 
   const { username, email, password }: RegisterSchema = ctx.request.body;
 
