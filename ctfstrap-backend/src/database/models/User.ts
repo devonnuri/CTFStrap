@@ -13,6 +13,25 @@ import { hash } from '../../lib/crypto';
 
 @Table
 class User extends Model<User> {
+  static find = (type: 'email' | 'username', value: string) =>
+    User.findOne({ where: { [type]: value } })
+
+  static findById = (id: number) => User.findOne({ where: { id } });
+
+  static findAny = (username: string, email: string) =>
+    User.findOne({
+      where: {
+        [Op.or]: [{ username }, { email }],
+      },
+    })
+
+  static register = (username: string, email: string, password: string) =>
+    User.create({
+      username,
+      email,
+      password: hash(password),
+    })
+
   @PrimaryKey
   @AutoIncrement
   @AllowNull(false)
@@ -35,29 +54,5 @@ class User extends Model<User> {
   @CreatedAt
   createdAt: Date;
 }
-
-export const find = (type: 'email' | 'username', value: string) => {
-  return User.findOne({ where: { [type]: value } });
-};
-
-export const findById = (id: number) => {
-  return User.findOne({ where: { id } });
-};
-
-export const findAny = (username: string, email: string) => {
-  return User.findOne({
-    where: {
-      [Op.or]: [{ username }, { email }],
-    },
-  });
-};
-
-export const register = (username: string, email: string, password: string) => {
-  return User.create({
-    username,
-    email,
-    password: hash(password),
-  });
-};
 
 export default User;

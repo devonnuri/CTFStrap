@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import * as User from '../../database/models/User';
+import User from '../../database/models/User';
 import { generateToken } from '../../lib/token';
 import { validate } from './../../lib/crypto';
 
