@@ -18,11 +18,9 @@ class Hint extends Model<Hint> {
   @Column
   id: number;
 
-  @AllowNull(false)
   @Column
   content: string;
 
-  @AllowNull(false)
   @Column(DataType.INTEGER)
   cost: number;
 

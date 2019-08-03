@@ -111,12 +111,18 @@ export const register = async (ctx: Context) => {
     });
 };
 
-export const check = async (ctx: Context) => {
-  const { id, email, username } = await User.findById(ctx.state.user_id);
-
-  ctx.body = {
-    id,
-    email,
-    username,
-  };
-};
+export const check = async (ctx: Context) =>
+  User.findById(ctx.state.user_id)
+    .then(({ id, email, username }) => {
+      ctx.body = {
+        id,
+        email,
+        username,
+      };
+    })
+    .catch(() => {
+      ctx.status = 403;
+      ctx.body = {
+        name: 'WRONG_CREDENTIALS',
+      };
+    });

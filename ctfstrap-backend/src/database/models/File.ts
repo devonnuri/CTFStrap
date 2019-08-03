@@ -7,6 +7,7 @@ import {
   Column,
   ForeignKey,
   BelongsTo,
+  DataType,
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
 
@@ -17,8 +18,7 @@ class File extends Model<File> {
   @Column
   id: number;
 
-  @AllowNull(false)
-  @Column
+  @Column(DataType.TEXT)
   location: string;
 
   @ForeignKey(() => Challenge)

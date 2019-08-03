@@ -18,7 +18,6 @@ class Flag extends Model<Flag> {
   @Column
   id: number;
 
-  @AllowNull(false)
   @Column(DataType.TEXT)
   content: string;
 
