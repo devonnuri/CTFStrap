@@ -4,6 +4,9 @@ import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
 import PageTitle from '../components/base/PageTitle';
 import ChallModal from '../components/chall/ChallModal';
+import { listChall, ChallItem } from '../lib/api/chall';
+
+const { useState } = React;
 
 const ChallListContainer = styled.div`
   display: flex;
@@ -16,19 +19,27 @@ const ChallListContainer = styled.div`
 interface ChallListPageProps {}
 
 const ChallListPage: React.FC<ChallListPageProps> = () => {
+  const [challList, setChallList] = useState<ChallItem[]>([]);
+
+  listChall().then(response => {
+    setChallList(response.data);
+  });
+
   return (
     <Container>
       <PageTitle>Challenges</PageTitle>
       <ChallListContainer>
-        <Challenge
-          name="Easy Web"
-          points={100}
-          description="Easy Web Challenge! Try it!"
-          category="Web"
-          author="devonnuri"
-          tags={['Very Easy', 'View Source']}
-          solved={true}
-        />
+        {challList.map(({ name, points, description, category, author }) => (
+          <Challenge
+            name={name}
+            points={points}
+            description={description}
+            category={category}
+            author={author}
+            tags={[]}
+            solved={false}
+          />
+        ))}
       </ChallListContainer>
       <ChallModal />
     </Container>
