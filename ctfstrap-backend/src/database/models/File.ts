@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
 
-@Table
+@Table({ timestamps: false })
 class File extends Model<File> {
   @PrimaryKey
   @AutoIncrement

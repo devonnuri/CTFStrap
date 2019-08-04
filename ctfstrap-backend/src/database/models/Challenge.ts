@@ -13,14 +13,14 @@ import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
 
-@Table
+@Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
   static existsId = async (id: number) =>
     (await Challenge.count({ where: { id } })) > 0
 
   static removeById = (id: number) => Challenge.destroy({ where: { id } });
 
-  static authFlag = async (challengeId: number, flag: string) =>
+  static checkFlag = async (challengeId: number, flag: string) =>
     (await Challenge.count({
       where: {
         id: challengeId,

@@ -10,3 +10,6 @@ export interface ChallItem {
 }
 
 export const listChall = () => client.get<ChallItem[]>('/chall/');
+
+export const authChall = (challengeId: number, flag: string) =>
+  client.post('/chall/auth', { challengeId, flag });

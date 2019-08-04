@@ -3,6 +3,7 @@ import produce from 'immer';
 import { createReducer } from '../lib/utils';
 
 export type ChallModal = {
+  id: number;
   name: string;
   description: string;
   points: number;

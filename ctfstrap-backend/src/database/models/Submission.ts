@@ -6,27 +6,46 @@ import {
   AllowNull,
   Column,
   ForeignKey,
+  CreatedAt,
   BelongsTo,
-  DataType,
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
+import User from './User';
 
 @Table({ timestamps: false })
-class Flag extends Model<Flag> {
+class Submission extends Model<Submission> {
   @PrimaryKey
   @AutoIncrement
   @Column
   id: number;
 
-  @Column(DataType.TEXT)
-  content: string;
+  @Column
+  name: string;
 
   @ForeignKey(() => Challenge)
   @Column
   challengeId: number;
 
+  @ForeignKey(() => User)
+  @Column
+  userId: number;
+
+  @AllowNull(false)
+  @Column
+  ip: string;
+
+  @AllowNull(false)
+  @Column
+  content: string;
+
+  @CreatedAt
+  createdAt: Date;
+
   @BelongsTo(() => Challenge)
   challenge: Challenge;
+
+  @BelongsTo(() => User)
+  user: User;
 }
 
-export default Flag;
+export default Submission;

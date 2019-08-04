@@ -3,7 +3,6 @@ import {
   Model,
   PrimaryKey,
   AutoIncrement,
-  AllowNull,
   Column,
   ForeignKey,
   BelongsTo,
@@ -11,7 +10,7 @@ import {
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
 
-@Table
+@Table({ timestamps: false })
 class Hint extends Model<Hint> {
   @PrimaryKey
   @AutoIncrement

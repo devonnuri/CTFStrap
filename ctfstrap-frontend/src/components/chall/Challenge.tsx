@@ -50,6 +50,7 @@ type DispatchProps = typeof mapDispatchToProps;
 type ChallengeProps = OwnProps & StateProps & DispatchProps;
 
 const Challenge: React.FC<ChallengeProps> = ({
+  id,
   name,
   points,
   description,
@@ -64,6 +65,7 @@ const Challenge: React.FC<ChallengeProps> = ({
       solved={solved}
       onClick={() =>
         showChallModal({
+          id,
           name,
           points,
           description,

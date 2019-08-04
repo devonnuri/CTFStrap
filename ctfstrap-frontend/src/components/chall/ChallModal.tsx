@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { RootState } from '../../modules';
 import { closeChallModal } from '../../modules/chall';
-import { connect } from 'react-redux';
-import palette from '../../lib/styles/palette';
 import LabelInput from '../common/LabelInput';
+import palette from '../../lib/styles/palette';
+import { authChall } from '../../lib/api/chall';
 
 const { useState } = React;
 
@@ -81,6 +82,12 @@ const ChallModal: React.FC<ChallModalProps> = ({
     return null;
   }
 
+  const onSubmit = (e: React.FormEvent) => {
+    authChall(modalChall.id, flag);
+
+    e.preventDefault();
+  };
+
   const { name, points, description, author, tags } = modalChall;
 
   return (
@@ -101,11 +108,13 @@ const ChallModal: React.FC<ChallModalProps> = ({
         </ul>
         <p className="description">{description}</p>
         <hr />
-        <LabelInput
-          label="Flag"
-          value={flag}
-          onChange={e => setFlag(e.target.value)}
-        />
+        <form onSubmit={onSubmit}>
+          <LabelInput
+            label="Flag"
+            value={flag}
+            onChange={e => setFlag(e.target.value)}
+          />
+        </form>
         <p className="author">Author: {author}</p>
       </ChallModalContainer>
     </>

@@ -29,17 +29,21 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
     <Container>
       <PageTitle>Challenges</PageTitle>
       <ChallListContainer>
-        {challList.map(({ name, points, description, category, author }) => (
-          <Challenge
-            name={name}
-            points={points}
-            description={description}
-            category={category}
-            author={author}
-            tags={[]}
-            solved={false}
-          />
-        ))}
+        {challList.map(
+          ({ id, name, points, description, category, author }) => (
+            <Challenge
+              key={id}
+              id={id}
+              name={name}
+              points={points}
+              description={description}
+              category={category}
+              author={author}
+              tags={[]}
+              solved={false}
+            />
+          ),
+        )}
       </ChallListContainer>
       <ChallModal />
     </Container>

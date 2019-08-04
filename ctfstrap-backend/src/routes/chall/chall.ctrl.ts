@@ -133,7 +133,9 @@ export const auth = async (ctx: Context) => {
 
   const { challengeId, flag }: AuthSchema = ctx.request.body;
 
-  return Challenge.authFlag(challengeId, flag).then(result => {
+  // TODO: Save submission into Submission table
+
+  return Challenge.checkFlag(challengeId, flag).then(result => {
     ctx.status = result ? 204 : 400;
   });
 };
