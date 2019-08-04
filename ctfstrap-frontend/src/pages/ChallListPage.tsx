@@ -4,9 +4,8 @@ import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
 import PageTitle from '../components/base/PageTitle';
 import ChallModal from '../components/chall/ChallModal';
-import { listChall, ChallItem } from '../lib/api/chall';
-
-const { useState } = React;
+import { RootState } from '../modules';
+import { connect } from 'react-redux';
 
 const ChallListContainer = styled.div`
   display: flex;
@@ -16,15 +15,17 @@ const ChallListContainer = styled.div`
   align-items: stretch;
 `;
 
-interface ChallListPageProps {}
+const mapStateToProps = (state: RootState) => ({
+  challList: state.chall.challList,
+});
+const mapDispatchToProps = {};
 
-const ChallListPage: React.FC<ChallListPageProps> = () => {
-  const [challList, setChallList] = useState<ChallItem[]>([]);
+interface OwnProps {}
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+type ChallListPageProps = OwnProps & StateProps & DispatchProps;
 
-  listChall().then(response => {
-    setChallList(response.data);
-  });
-
+const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
   return (
     <Container>
       <PageTitle>Challenges</PageTitle>
@@ -50,4 +51,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
   );
 };
 
-export default ChallListPage;
+export default connect<StateProps, DispatchProps, OwnProps, RootState>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ChallListPage);
