@@ -58,6 +58,10 @@ const ChallModalContainer = styled.div`
 
       background-color: ${palette.gray600};
       color: white;
+
+      &.solved {
+        background-color: ${palette.primary600};
+      }
     }
   }
 `;
@@ -114,11 +118,12 @@ const ChallModal: React.FC<ChallModalProps> = ({
         <h3 className="points">{points}pts</h3>
         <ul className="tag-list">
           {tags.map((tag, index) => (
-            <li key={index}>{tag}</li>
+            <li key={index}>{tag.name}</li>
           ))}
+          {solved && <li className="solved">Solved</li>}
         </ul>
         <p className="description">{description}</p>
-        <p className="author">Author: {author}</p>
+        {author && <p className="author">Author: {author}</p>}
         <form onSubmit={onSubmit}>
           <LabelInput
             label="Flag"
