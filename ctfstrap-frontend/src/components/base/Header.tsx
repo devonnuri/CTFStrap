@@ -63,9 +63,11 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
       </Title>
       <Navbar>
         <NavbarLeft>
-          <NavbarItem>
-            <Link to="/challenges">Challenges</Link>
-          </NavbarItem>
+          {user && (
+            <NavbarItem>
+              <Link to="/challenges">Challenges</Link>
+            </NavbarItem>
+          )}
           <NavbarItem>
             <Link to="/scoreboard">Scoreboard</Link>
           </NavbarItem>

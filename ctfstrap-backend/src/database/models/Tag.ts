@@ -4,10 +4,11 @@ import {
   PrimaryKey,
   AutoIncrement,
   Column,
-  ForeignKey,
-  BelongsTo,
+  HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
+import ChallengeTag from './ChallengeTag';
 
 @Table
 class Tag extends Model<Tag> {
@@ -19,12 +20,8 @@ class Tag extends Model<Tag> {
   @Column
   name: string;
 
-  @ForeignKey(() => Challenge)
-  @Column
-  challengeId: number;
-
-  @BelongsTo(() => Challenge)
-  challenge: Challenge;
+  @BelongsToMany(() => Challenge, () => ChallengeTag)
+  challenges: Challenge[];
 }
 
 export default Tag;

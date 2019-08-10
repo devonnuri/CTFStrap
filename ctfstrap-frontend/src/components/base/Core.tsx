@@ -22,14 +22,14 @@ const Core: React.FC<CoreProps> = ({ setUser, setChallList }) => {
     .then(response => {
       const { id, email, username } = response.data;
       setUser({ id, email, username });
+      return getChallList();
+    })
+    .then(response => {
+      setChallList(response.data);
     })
     .catch(() => {
       setUser(null);
     });
-
-  getChallList().then(response => {
-    setChallList(response.data);
-  });
 
   return null;
 };

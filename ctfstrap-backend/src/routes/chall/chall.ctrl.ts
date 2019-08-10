@@ -10,6 +10,15 @@ import { validateBody } from './../../lib/utils';
 export const listAll = async (ctx: Context) => {
   return Challenge.findAll({
     attributes: ['id', 'name', 'description', 'points', 'category', 'author'],
+    include: [
+      {
+        model: File,
+        attributes: ['location'],
+      },
+      {
+        model: Tag,
+      },
+    ],
   }).then(challList => {
     ctx.body = challList;
   });

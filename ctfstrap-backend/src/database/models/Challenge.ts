@@ -7,11 +7,13 @@ import {
   AllowNull,
   DataType,
   HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import File from './File';
 import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
+import ChallengeTag from './ChallengeTag';
 
 @Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
@@ -60,7 +62,7 @@ class Challenge extends Model<Challenge> {
   @HasMany(() => File)
   files: File[];
 
-  @HasMany(() => Tag)
+  @BelongsToMany(() => Tag, () => ChallengeTag)
   tags: Tag[];
 
   @HasMany(() => Hint)

@@ -31,7 +31,16 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
       <PageTitle>Challenges</PageTitle>
       <ChallListContainer>
         {challList.map(
-          ({ id, name, points, description, category, author }) => (
+          ({
+            id,
+            name,
+            points,
+            description,
+            category,
+            author,
+            tags,
+            solved,
+          }) => (
             <Challenge
               key={id}
               id={id}
@@ -40,8 +49,8 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
               description={description}
               category={category}
               author={author}
-              tags={[]}
-              solved={false}
+              tags={tags}
+              solved={solved}
             />
           ),
         )}

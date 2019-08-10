@@ -6,6 +6,7 @@ import { closeChallModal } from '../../modules/chall';
 import LabelInput from '../common/LabelInput';
 import palette from '../../lib/styles/palette';
 import { authChall } from '../../lib/api/chall';
+import Alert from '../common/Alert';
 
 const { useState } = React;
 
@@ -24,7 +25,7 @@ const ChallModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40rem;
-  padding: 0 2rem;
+  padding: 2rem;
 
   background-color: white;
 
@@ -36,7 +37,7 @@ const ChallModalContainer = styled.div`
 
   .name {
     font-size: 2em;
-    margin: 1.5rem 0 0.5rem 0;
+    margin: 0.5rem 0;
   }
 
   .points {
@@ -77,24 +78,34 @@ const ChallModal: React.FC<ChallModalProps> = ({
   closeChallModal,
 }) => {
   const [flag, setFlag] = useState('');
+  const [authState, setAuthState] = useState('INITIAL');
 
   if (!modalChall) {
     return null;
   }
 
   const onSubmit = (e: React.FormEvent) => {
-    authChall(modalChall.id, flag);
+    authChall(modalChall.id, flag)
+      .then(() => {
+        setAuthState('SUCCESS');
+      })
+      .catch(() => {
+        setAuthState('FAIL');
+      });
+
+    setFlag('');
 
     e.preventDefault();
   };
 
-  const { name, points, description, author, tags } = modalChall;
+  const { name, points, description, author, tags, solved } = modalChall;
 
   return (
     <>
       <ModalOverlay
         onClick={() => {
           setFlag('');
+          setAuthState('INITIAL');
           closeChallModal();
         }}
       />
@@ -107,7 +118,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
           ))}
         </ul>
         <p className="description">{description}</p>
-        <hr />
+        <p className="author">Author: {author}</p>
         <form onSubmit={onSubmit}>
           <LabelInput
             label="Flag"
@@ -115,7 +126,11 @@ const ChallModal: React.FC<ChallModalProps> = ({
             onChange={e => setFlag(e.target.value)}
           />
         </form>
-        <p className="author">Author: {author}</p>
+        {authState === 'SUCCESS' ? (
+          <Alert color="primary">Correct!</Alert>
+        ) : (
+          authState === 'FAIL' && <Alert color="secondary">Incorrect!</Alert>
+        )}
       </ChallModalContainer>
     </>
   );
