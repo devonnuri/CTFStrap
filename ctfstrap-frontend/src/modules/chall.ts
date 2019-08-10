@@ -9,7 +9,7 @@ export type ChallModal = {
   points: number;
   category: string;
   author: string;
-  tags: string[];
+  tags: { name: string }[];
   solved: boolean;
 };
 
