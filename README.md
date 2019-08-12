@@ -14,7 +14,26 @@
 >
 > With CTFStrap, you can make your own CTF using fully-customizable features.
 
+## Installation
+
+### Download Source Code
+
+```console
+$ git clone https://github.com/devonnuri/CTFStrap.git
+```
+
+### Build & Run
+
+```console
+$ cd ctfstrap-(back|front)end # depending on which you want
+$ yarn build      # If you are using yarn
+$ npm run build   # Or not
+$ node build/index.js
+```
+
 ## Features
+
+*Most of the features are currently in process or not featured.*
 
 ### Challenges
 
@@ -50,3 +69,35 @@
     ```text
     Point = max(InitialPoint - NthSolver * (DecreasingPointNthSolver - 1), MinPoint)
     ```
+
+## Contributing
+
+### Hey! I found a security vuln!
+
+* Shh... Take it easy.. **DO NOT MAKE A GITHUB ISSUE!**
+
+  There might be a villain that abuses the vuln to make a filthy profit.
+
+  Feel free to send me email to [devonnuri@gmail.com](mailto://devonnuri@gmail.com)
+
+### Hmm.. I think it's not going my way!
+
+* **Double Check whether there aren't existing Github Issues about the bug.**
+
+* If you can't look it up, you're ready to report the bug to Github Issues.
+
+* Make sure that your issue is fully understandable.
+
+### Hooray! I made a patch that implements new features!
+
+* [Make a new pull request](https://github.com/devonnuri/CTFStrap/pull/new/master)!
+
+* Describe your code in detail.
+
+* Ready for our collaborators to accept your PR.
+
+### Oh.. Your Repo is great! I want to give you help consistently.
+
+* Feel free to send me email to [devonnuri@gmail.com](mailto://devonnuri@gmail.com) for inviting you as a collaborator.
+
+* If you send me with a brief self introduction and GitHub ID, it will be helpful for you to refer to it.
