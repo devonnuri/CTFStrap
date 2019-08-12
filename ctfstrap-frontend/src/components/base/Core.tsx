@@ -5,6 +5,7 @@ import { setUser } from '../../modules/user';
 import { setChallList } from '../../modules/chall';
 import { check } from '../../lib/api/auth';
 import { getChallList } from '../../lib/api/chall';
+import { getSolves } from '../../lib/api/user';
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = {
@@ -22,10 +23,15 @@ const Core: React.FC<CoreProps> = ({ setUser, setChallList }) => {
     .then(response => {
       const { id, email, username } = response.data;
       setUser({ id, email, username });
-      return getChallList();
+      return Promise.all([getChallList(), getSolves()]);
     })
-    .then(response => {
-      setChallList(response.data);
+    .then(([{ data: challData }, { data: solveData }]) => {
+      setChallList(
+        challData.map(chall => ({
+          ...chall,
+          solved: solveData.includes(chall.id),
+        })),
+      );
     })
     .catch(() => {
       setUser(null);

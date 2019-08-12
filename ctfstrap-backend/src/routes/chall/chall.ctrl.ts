@@ -8,8 +8,8 @@ import Hint from '../../database/models/Hint';
 import Flag from '../../database/models/Flag';
 import Submission from '../../database/models/Submission';
 
-export const listAll = async (ctx: Context) => {
-  return Challenge.findAll({
+export const listAll = async (ctx: Context) =>
+  Challenge.findAll({
     attributes: ['id', 'name', 'description', 'points', 'category', 'author'],
     include: [
       {
@@ -23,7 +23,6 @@ export const listAll = async (ctx: Context) => {
   }).then(challList => {
     ctx.body = challList;
   });
-};
 
 export const create = async (ctx: Context) => {
   interface CreateSchema {

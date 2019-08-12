@@ -1,3 +1,3 @@
 import client from './client';
 
-export const solves = () => client.get('/chall/solves');
+export const getSolves = () => client.get('/user/solves');
