@@ -8,6 +8,8 @@ import {
   ForeignKey,
   CreatedAt,
   BelongsTo,
+  DataType,
+  HasOne,
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
 import User from './User';
@@ -19,13 +21,6 @@ class Submission extends Model<Submission> {
   @Column
   id: number;
 
-  @Column
-  name: string;
-
-  @ForeignKey(() => Challenge)
-  @Column
-  challengeId: number;
-
   @ForeignKey(() => User)
   @Column
   userId: number;
@@ -35,17 +30,25 @@ class Submission extends Model<Submission> {
   ip: string;
 
   @AllowNull(false)
-  @Column
+  @Column(DataType.TEXT)
   content: string;
+
+  @ForeignKey(() => Challenge)
+  @Column
+  challengeId: number;
+
+  @AllowNull(false)
+  @Column
+  result: boolean;
 
   @CreatedAt
   createdAt: Date;
 
-  @BelongsTo(() => Challenge)
-  challenge: Challenge;
-
   @BelongsTo(() => User)
   user: User;
+
+  @BelongsTo(() => Challenge)
+  challenge: Challenge;
 }
 
 export default Submission;

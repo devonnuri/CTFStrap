@@ -1,11 +1,12 @@
 import { Context } from 'koa';
 import * as Joi from 'joi';
+import { validateBody } from './../../lib/utils';
 import Challenge from '../../database/models/Challenge';
 import File from '../../database/models/File';
 import Tag from '../../database/models/Tag';
 import Hint from '../../database/models/Hint';
 import Flag from '../../database/models/Flag';
-import { validateBody } from './../../lib/utils';
+import Submission from '../../database/models/Submission';
 
 export const listAll = async (ctx: Context) => {
   return Challenge.findAll({
@@ -142,9 +143,14 @@ export const auth = async (ctx: Context) => {
 
   const { challengeId, flag }: AuthSchema = ctx.request.body;
 
-  // TODO: Save submission into Submission table
-
   return Challenge.checkFlag(challengeId, flag).then(result => {
     ctx.status = result ? 204 : 400;
+    return Submission.create({
+      userId: ctx.state.userId,
+      ip: ctx.request.ip,
+      challengeId,
+      content: flag,
+      result,
+    });
   });
 };

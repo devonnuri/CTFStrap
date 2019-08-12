@@ -1,9 +1,9 @@
 import { Context } from 'koa';
 import * as Joi from 'joi';
-import User from '../../database/models/User';
 import { generateToken } from '../../lib/token';
 import { validate } from '../../lib/crypto';
 import { validateBody } from '../../lib/utils';
+import User from '../../database/models/User';
 
 export const login = async (ctx: Context) => {
   interface LoginSchema {
@@ -112,7 +112,7 @@ export const register = async (ctx: Context) => {
 };
 
 export const check = async (ctx: Context) =>
-  User.findById(ctx.state.user_id)
+  User.findById(ctx.state.userId)
     .then(({ id, email, username }) => {
       ctx.body = {
         id,

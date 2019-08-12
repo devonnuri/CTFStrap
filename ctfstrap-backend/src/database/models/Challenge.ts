@@ -8,12 +8,15 @@ import {
   DataType,
   HasMany,
   BelongsToMany,
+  ForeignKey,
+  HasOne,
 } from 'sequelize-typescript';
 import File from './File';
 import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
 import ChallengeTag from './ChallengeTag';
+import Submission from './Submission';
 
 @Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
@@ -70,6 +73,9 @@ class Challenge extends Model<Challenge> {
 
   @HasMany(() => Flag)
   flags: Flag[];
+
+  @HasMany(() => Submission)
+  submissions: Submission[];
 }
 
 export default Challenge;

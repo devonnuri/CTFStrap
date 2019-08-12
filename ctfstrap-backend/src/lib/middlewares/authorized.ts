@@ -10,9 +10,9 @@ const checkToken = async (ctx: Context) => {
     const decoded: any = await decodeToken(token);
     const { user } = decoded;
 
-    ctx.state.user_id = user.id;
+    ctx.state.userId = user.id;
   } catch {
-    ctx.state.user_id = null;
+    ctx.state.userId = null;
     return false;
   }
   return true;
