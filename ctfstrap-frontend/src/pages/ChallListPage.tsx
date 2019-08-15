@@ -15,6 +15,12 @@ const ChallListContainer = styled.div`
   align-items: stretch;
 `;
 
+const Placeholder = styled.div`
+  flex: 1 1 20%;
+  min-width: 12rem;
+  margin: 1rem;
+`;
+
 const mapStateToProps = (state: RootState) => ({
   challList: state.chall.challList,
 });
@@ -54,6 +60,9 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
             />
           ),
         )}
+        {[...Array(4).keys()].map(i => (
+          <Placeholder key={i} />
+        ))}
       </ChallListContainer>
       <ChallModal />
     </Container>
