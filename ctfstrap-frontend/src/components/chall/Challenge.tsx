@@ -11,9 +11,7 @@ interface ChallContainerProps {
 
 const ChallContainer = styled.div<ChallContainerProps>`
   display: inline-block;
-  flex-basis: 20%;
-  flex-grow: 1;
-  flex-shrink: 1;
+  flex: 1 1 20%;
 
   min-width: 12rem;
   margin: 1rem;
