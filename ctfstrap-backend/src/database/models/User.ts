@@ -7,9 +7,12 @@ import {
   IsEmail,
   CreatedAt,
   AllowNull,
+  Default,
+  HasMany,
 } from 'sequelize-typescript';
 import { Op } from 'sequelize';
 import { hash } from '../../lib/crypto';
+import Submission from './Submission';
 
 @Table
 class User extends Model<User> {
@@ -47,12 +50,22 @@ class User extends Model<User> {
   @Column
   email: string;
 
+  @Default(0)
+  @Column
+  points: number;
+
   @AllowNull(false)
   @Column
   password: string;
 
+  @Column
+  lastSolve: Date;
+
   @CreatedAt
   createdAt: Date;
+
+  @HasMany(() => Submission)
+  submissions: Submission[];
 }
 
 export default User;

@@ -7,6 +7,7 @@ import Tag from '../../database/models/Tag';
 import Hint from '../../database/models/Hint';
 import Flag from '../../database/models/Flag';
 import Submission from '../../database/models/Submission';
+import User from '../../database/models/User';
 
 export const listAll = async (ctx: Context) =>
   Challenge.findAll({
@@ -142,14 +143,29 @@ export const auth = async (ctx: Context) => {
 
   const { challengeId, flag }: AuthSchema = ctx.request.body;
 
-  return Challenge.checkFlag(challengeId, flag).then(result => {
-    ctx.status = result ? 204 : 400;
-    return Submission.create({
-      userId: ctx.state.userId,
-      ip: ctx.request.ip,
-      challengeId,
-      content: flag,
-      result,
+  return Challenge.checkFlag(challengeId, flag)
+    .then(result => {
+      ctx.status = result ? 204 : 400;
+      return Submission.create({
+        userId: ctx.state.userId,
+        ip: ctx.request.ip,
+        challengeId,
+        content: flag,
+        result,
+      });
+    })
+    .then(submission => {
+      if (submission.result) {
+        return User.update(
+          {
+            lastSolve: submission.submitTime,
+          },
+          {
+            where: {
+              id: ctx.state.userId,
+            },
+          },
+        );
+      }
     });
-  });
 };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
+import { getRank } from '../lib/api/user';
 
 const ScoreTable = styled.table`
   width: 100%;
@@ -34,6 +35,11 @@ const ScoreTable = styled.table`
 interface ScoreboardPageProps {}
 
 const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
+  // TODO: make type of rank
+  const [rank, setRank] = useState<any[]>([]);
+  getRank().then(({ data }) => {
+    setRank(data);
+  });
   return (
     <Container>
       <PageTitle>Scoreboard</PageTitle>
@@ -41,26 +47,20 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Team</th>
+            <th>User</th>
             <th>Score</th>
             <th>Last Solved</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>DEVONNURI</td>
-            <td>12340</td>
-            <td>10 minutes ago</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>2</td>
-            <td>DEVON</td>
-            <td>12000</td>
-            <td>5 minutes ago</td>
-          </tr>
+          {rank.map((user, i) => (
+            <tr key={i}>
+              <td>{i + 1}</td>
+              <td>{user.username}</td>
+              <td>{user.points}</td>
+              <td>{user.lastSolve || '-'}</td>
+            </tr>
+          ))}
         </tbody>
       </ScoreTable>
     </Container>

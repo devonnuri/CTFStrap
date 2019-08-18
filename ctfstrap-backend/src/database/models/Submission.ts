@@ -42,7 +42,7 @@ class Submission extends Model<Submission> {
   result: boolean;
 
   @CreatedAt
-  createdAt: Date;
+  submitTime: Date;
 
   @BelongsTo(() => User)
   user: User;
