@@ -9,8 +9,9 @@ import {
   CreatedAt,
   BelongsTo,
   DataType,
-  HasOne,
+  Default,
 } from 'sequelize-typescript';
+import Sequelize from 'sequelize';
 import Challenge from './Challenge';
 import User from './User';
 
@@ -42,6 +43,8 @@ class Submission extends Model<Submission> {
   result: boolean;
 
   @CreatedAt
+  @Default(Sequelize.literal('CURRENT_TIMESTAMP'))
+  @Column
   submitTime: Date;
 
   @BelongsTo(() => User)

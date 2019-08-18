@@ -1,5 +1,6 @@
 import { Context } from 'koa';
 import * as Joi from 'joi';
+import { Sequelize } from 'sequelize';
 import { validateBody } from './../../lib/utils';
 import Challenge from '../../database/models/Challenge';
 import File from '../../database/models/File';
@@ -154,18 +155,25 @@ export const auth = async (ctx: Context) => {
         result,
       });
     })
-    .then(submission => {
+    .then(async submission => {
       if (submission.result) {
-        return User.update(
-          {
-            lastSolve: submission.submitTime,
+        return Challenge.findOne({
+          where: {
+            id: challengeId,
           },
-          {
-            where: {
-              id: ctx.state.userId,
+        }).then(challenge => {
+          return User.update(
+            {
+              points: Sequelize.literal(`points + ${challenge.points}`),
+              lastSolve: submission.submitTime,
             },
-          },
-        );
+            {
+              where: {
+                id: ctx.state.userId,
+              },
+            },
+          );
+        });
       }
     });
 };
