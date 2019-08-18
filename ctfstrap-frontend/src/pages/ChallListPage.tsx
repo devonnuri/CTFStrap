@@ -44,6 +44,7 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
             description,
             category,
             author,
+            files,
             tags,
             solved,
           }) => (
@@ -55,6 +56,7 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
               description={description}
               category={category}
               author={author}
+              files={files}
               tags={tags}
               solved={solved}
             />

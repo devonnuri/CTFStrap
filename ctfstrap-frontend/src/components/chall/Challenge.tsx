@@ -54,6 +54,7 @@ const Challenge: React.FC<ChallengeProps> = ({
   description,
   category,
   author,
+  files,
   tags,
   solved,
   showChallModal,
@@ -69,6 +70,7 @@ const Challenge: React.FC<ChallengeProps> = ({
           description,
           category,
           author,
+          files,
           tags,
           solved,
         })
