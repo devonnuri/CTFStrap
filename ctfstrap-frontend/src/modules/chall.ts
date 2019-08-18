@@ -1,17 +1,9 @@
 import { createStandardAction } from 'typesafe-actions';
 import produce from 'immer';
 import { createReducer } from '../lib/utils';
+import { Challenge } from './../lib/api/chall';
 
-export type ChallModal = {
-  id: number;
-  name: string;
-  description: string;
-  points: number;
-  category: string;
-  author: string;
-  tags: { name: string }[];
-  solved: boolean;
-};
+export type ChallModal = Challenge & { solved: boolean };
 
 const SHOW_CHALL_MODAL = 'chall/SHOW_CHALL_MODAL';
 const CLOSE_CHALL_MODAL = 'chall/CLOSE_CHALL_MODAL';
