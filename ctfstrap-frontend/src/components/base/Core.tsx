@@ -20,27 +20,32 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
-const Core = React.memo<CoreProps>(({ setUser, setChallList }) => {
-  check()
-    .then(response => {
-      const { id, email, username } = response.data;
-      setUser({ id, email, username });
-      return Promise.all([getChallList(), getSolves()]);
-    })
-    .then(([{ data: challData }, { data: solveData }]) => {
-      setChallList(
-        challData.map(chall => ({
-          ...chall,
-          solved: solveData.includes(chall.id),
-        })),
-      );
-    })
-    .catch(() => {
-      setUser(null);
-    });
+const Core = React.memo<CoreProps>(
+  ({ setUser, setChallList }) => {
+    check()
+      .then(response => {
+        const { id, email, username } = response.data;
+        setUser({ id, email, username });
+        return Promise.all([getChallList(), getSolves()]);
+      })
+      .then(([{ data: challData }, { data: solveData }]) => {
+        setChallList(
+          challData.map(chall => ({
+            ...chall,
+            solved: solveData.includes(chall.id),
+          })),
+        );
+      })
+      .catch(() => {
+        setUser(null);
+      });
 
-  return null;
-});
+    return null;
+  },
+  (prevProps, nextProps) => {
+    return !!prevProps.user || prevProps.user === nextProps.user;
+  },
+);
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   mapStateToProps,
