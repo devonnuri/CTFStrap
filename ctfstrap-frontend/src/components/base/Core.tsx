@@ -7,7 +7,9 @@ import { check } from '../../lib/api/auth';
 import { getChallList } from '../../lib/api/chall';
 import { getSolves } from '../../lib/api/user';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: RootState) => ({
+  user: state.user.user,
+});
 const mapDispatchToProps = {
   setUser,
   setChallList,
@@ -18,7 +20,7 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
-const Core: React.FC<CoreProps> = ({ setUser, setChallList }) => {
+const Core = React.memo<CoreProps>(({ setUser, setChallList }) => {
   check()
     .then(response => {
       const { id, email, username } = response.data;
@@ -38,7 +40,7 @@ const Core: React.FC<CoreProps> = ({ setUser, setChallList }) => {
     });
 
   return null;
-};
+});
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   mapStateToProps,
