@@ -1,13 +1,13 @@
 import Router from 'koa-router';
 
 import * as authCtrl from './chall.ctrl';
-import authorized from '../../lib/middlewares/authorized';
+import * as authorize from '../../lib/middlewares/authorize';
 
 const chall = new Router();
 
-chall.get('/', authorized, authCtrl.listAll);
-chall.post('/create', authorized, authCtrl.create);
-chall.post('/remove', authorized, authCtrl.remove);
-chall.post('/auth', authorized, authCtrl.auth);
+chall.get('/', authorize.login, authCtrl.listAll);
+chall.post('/create', authorize.admin, authCtrl.create);
+chall.post('/remove', authorize.admin, authCtrl.remove);
+chall.post('/auth', authorize.login, authCtrl.auth);
 
 export default chall;

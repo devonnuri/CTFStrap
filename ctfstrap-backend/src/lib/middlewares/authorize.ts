@@ -1,5 +1,6 @@
 import { Middleware, Context } from 'koa';
-import { decodeToken } from './../token';
+import { decodeToken } from '../token';
+import User from '../../database/models/User';
 
 const checkToken = async (ctx: Context) => {
   const token = ctx.cookies.get('access_token');
@@ -13,12 +14,11 @@ const checkToken = async (ctx: Context) => {
     ctx.state.userId = user.id;
   } catch {
     ctx.state.userId = null;
-    return false;
   }
-  return true;
+  return ctx.state.userId;
 };
 
-const authorized: Middleware = async (ctx, next) => {
+export const login: Middleware = async (ctx, next) => {
   if (!(await checkToken(ctx))) {
     ctx.status = 401;
     ctx.body = {
@@ -29,4 +29,14 @@ const authorized: Middleware = async (ctx, next) => {
   return next();
 };
 
-export default authorized;
+export const admin: Middleware = async (ctx, next) => {
+  const id = await checkToken(ctx);
+  if (!id || (await User.count({ where: { id, admin: true } })) < 1) {
+    ctx.status = 401;
+    ctx.body = {
+      name: 'NOT_AUTHORIZED',
+    };
+    return null;
+  }
+  return next();
+};

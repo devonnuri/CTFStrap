@@ -58,6 +58,10 @@ class User extends Model<User> {
   @Column
   password: string;
 
+  @Default(false)
+  @Column
+  admin: boolean;
+
   @Column
   lastSolve: Date;
 
