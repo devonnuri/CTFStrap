@@ -124,6 +124,11 @@ export const remove = async (ctx: Context) => {
     })
     .then(() => {
       ctx.status = 204;
+    })
+    .catch(() => {
+      if (!ctx.body) {
+        ctx.status = 500;
+      }
     });
 };
 
