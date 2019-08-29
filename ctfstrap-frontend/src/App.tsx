@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import RegisterPage from './pages/RegisterPage';
 import Footer from './components/base/Footer';
+import AdminMainPage from './pages/admin/AdminMainPage';
 
 const Content = styled.div`
   flex: 1;
@@ -27,6 +28,7 @@ const App: React.FC<{}> = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={LogoutPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/admin" exact component={AdminMainPage} />
         </Switch>
       </Content>
       <Footer />
