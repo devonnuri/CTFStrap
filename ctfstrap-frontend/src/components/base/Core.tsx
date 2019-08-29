@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../modules';
-import { setUser } from '../../modules/user';
+import { setUser, setRank } from '../../modules/user';
 import { setChallList } from '../../modules/chall';
 import { check } from '../../lib/api/auth';
 import { getChallList } from '../../lib/api/chall';
-import { getSolves } from '../../lib/api/user';
+import { getSolves, getRank } from '../../lib/api/user';
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
@@ -13,6 +13,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   setUser,
   setChallList,
+  setRank,
 };
 
 interface OwnProps {}
@@ -21,7 +22,7 @@ type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
 const Core = React.memo<CoreProps>(
-  ({ setUser, setChallList }) => {
+  ({ setUser, setChallList, setRank }) => {
     check()
       .then(response => {
         const { id, email, username } = response.data;
@@ -39,6 +40,10 @@ const Core = React.memo<CoreProps>(
       .catch(() => {
         setUser(null);
       });
+
+    getRank().then(response => {
+      setRank(response.data);
+    });
 
     return null;
   },
