@@ -113,11 +113,12 @@ export const register = async (ctx: Context) => {
 
 export const check = async (ctx: Context) =>
   User.findById(ctx.state.userId)
-    .then(({ id, email, username }) => {
+    .then(({ id, email, username, admin }) => {
       ctx.body = {
         id,
         email,
         username,
+        admin,
       };
     })
     .catch(() => {

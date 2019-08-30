@@ -51,7 +51,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
       const { email, username, password } = form;
       register({ email, username, password })
         .then(response => {
-          setUser({ id: response.data.id, email, username });
+          setUser({ id: response.data.id, email, username, admin: false });
           history.push('/');
         })
         .catch(() => {

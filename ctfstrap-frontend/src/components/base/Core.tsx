@@ -25,8 +25,8 @@ const Core = React.memo<CoreProps>(
   ({ setUser, setChallList, setRank }) => {
     check()
       .then(response => {
-        const { id, email, username } = response.data;
-        setUser({ id, email, username });
+        const { id, email, username, admin } = response.data;
+        setUser({ id, email, username, admin });
         return Promise.all([getChallList(), getSolves()]);
       })
       .then(([{ data: challData }, { data: solveData }]) => {

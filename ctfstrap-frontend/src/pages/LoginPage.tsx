@@ -42,8 +42,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
   const onSubmit = (e: React.FormEvent) => {
     login(form)
       .then(response => {
-        const { id, email, username } = response.data;
-        setUser({ id, email, username });
+        const { id, email, username, admin } = response.data;
+        setUser({ id, email, username, admin });
         history.push('/');
       })
       .catch(() => {
