@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
+import Container from '../../components/base/Container';
 
 const Sidebar = styled.div`
   width: 10rem;
@@ -16,10 +17,12 @@ const Sidebar = styled.div`
     text-decoration: none;
 
     &.active {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-      background-color: ${palette.primary700};
-      color: white;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background-color: ${palette.primary50};
+      color: ${palette.primary700};
+      font-weight: bold;
+      border-bottom: 3px solid ${palette.primary700};
     }
   }
 `;
@@ -33,7 +36,7 @@ interface AdminBasePageProps {}
 
 const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
   return (
-    <>
+    <Container>
       <Sidebar>
         <NavLink exact to="/admin" activeClassName="active">
           Home
@@ -49,7 +52,7 @@ const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
         </NavLink>
       </Sidebar>
       <Content>{children}</Content>
-    </>
+    </Container>
   );
 };
 
