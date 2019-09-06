@@ -2,22 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
+import Table from '../components/base/Table';
 import { getRank, RankUser } from '../lib/api/user';
 
-const ScoreTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-
-  thead th {
-    border-bottom: 2px solid gray;
-
-    padding: 1rem;
-  }
-
+const ScoreTable = styled(Table)`
   tbody td {
-    border-bottom: 1px solid gray;
-    padding: 1rem;
-
     &:nth-child(1) {
       width: 5%;
       text-align: center;
