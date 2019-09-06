@@ -13,7 +13,7 @@ export type Challenge = {
   solved: boolean;
 };
 
-export const getChallList = () => client.get<ChallModal[]>('/chall/');
+export const getChallList = () => client.get<ChallModal[]>('/chall');
 
 export const authChall = (challengeId: number, flag: string) =>
   client.post('/chall/auth', { challengeId, flag });

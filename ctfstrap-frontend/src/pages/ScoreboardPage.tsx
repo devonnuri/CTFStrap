@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
-import { RootState } from '../modules';
+import { getRank, RankUser } from '../lib/api/user';
 
 const ScoreTable = styled.table`
   width: 100%;
@@ -33,17 +32,17 @@ const ScoreTable = styled.table`
   }
 `;
 
-const mapStateToProps = (state: RootState) => ({
-  rank: state.user.rank,
-});
-const mapDispatchToProps = {};
+interface ScoreboardPageProps {}
 
-interface OwnProps {}
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-type ScoreboardPageProps = OwnProps & StateProps & DispatchProps;
+const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
+  const [rank, setRank] = useState<RankUser[]>([]);
 
-const ScoreboardPage: React.FC<ScoreboardPageProps> = ({ rank }) => {
+  useEffect(() => {
+    getRank().then(({ data }) => {
+      setRank(data);
+    });
+  }, []);
+
   return (
     <Container>
       <PageTitle>Scoreboard</PageTitle>
@@ -71,7 +70,4 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = ({ rank }) => {
   );
 };
 
-export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ScoreboardPage);
+export default ScoreboardPage;
