@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { RootState } from '../../modules';
-import { showChallModal, ChallModal } from '../../modules/chall';
+import { showChallModal, ChallengeModal } from '../../modules/chall';
 import { connect } from 'react-redux';
 
 interface ChallContainerProps {
@@ -42,7 +42,7 @@ const mapDispatchToProps = {
   showChallModal,
 };
 
-type OwnProps = ChallModal;
+type OwnProps = ChallengeModal;
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type ChallengeProps = OwnProps & StateProps & DispatchProps;

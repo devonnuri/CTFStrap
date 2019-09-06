@@ -2,17 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../modules';
 import { setUser } from '../../modules/user';
-import { setChallList } from '../../modules/chall';
 import { check } from '../../lib/api/auth';
-import { getChallList } from '../../lib/api/chall';
-import { getSolves } from '../../lib/api/user';
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.user,
 });
 const mapDispatchToProps = {
   setUser,
-  setChallList,
 };
 
 interface OwnProps {}
@@ -21,20 +17,11 @@ type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
 const Core = React.memo<CoreProps>(
-  ({ setUser, setChallList }) => {
+  ({ setUser }) => {
     check()
       .then(response => {
         const { id, email, username, admin } = response.data;
         setUser({ id, email, username, admin });
-        return Promise.all([getChallList(), getSolves()]);
-      })
-      .then(([{ data: challData }, { data: solveData }]) => {
-        setChallList(
-          challData.map(chall => ({
-            ...chall,
-            solved: solveData.includes(chall.id),
-          })),
-        );
       })
       .catch(() => {
         setUser(null);

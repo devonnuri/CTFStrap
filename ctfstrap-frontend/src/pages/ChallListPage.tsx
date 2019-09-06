@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
 import PageTitle from '../components/base/PageTitle';
 import ChallModal from '../components/chall/ChallModal';
-import { RootState } from '../modules';
-import { connect } from 'react-redux';
+import { ChallengeModal } from '../modules/chall';
+import { getChallList } from '../lib/api/chall';
+import { getSolves } from '../lib/api/user';
 
 const ChallListContainer = styled.div`
   display: flex;
@@ -21,17 +22,24 @@ const Placeholder = styled.div`
   margin: 1rem;
 `;
 
-const mapStateToProps = (state: RootState) => ({
-  challList: state.chall.challList,
-});
-const mapDispatchToProps = {};
+interface ChallListPageProps {}
 
-interface OwnProps {}
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-type ChallListPageProps = OwnProps & StateProps & DispatchProps;
+const ChallListPage: React.FC<ChallListPageProps> = () => {
+  const [challList, setChallList] = useState<ChallengeModal[]>([]);
 
-const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
+  useEffect(() => {
+    Promise.all([getChallList(), getSolves()]).then(
+      ([{ data: challData }, { data: solveData }]) => {
+        setChallList(
+          challData.map(chall => ({
+            ...chall,
+            solved: solveData.includes(chall.id),
+          })),
+        );
+      },
+    );
+  }, []);
+
   return (
     <Container>
       <PageTitle>Challenges</PageTitle>
@@ -71,7 +79,4 @@ const ChallListPage: React.FC<ChallListPageProps> = ({ challList }) => {
   );
 };
 
-export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ChallListPage);
+export default ChallListPage;
