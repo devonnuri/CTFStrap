@@ -1,5 +1,4 @@
 import client from './client';
-import { AxiosResponse } from 'axios';
 
 export type RankUser = {
   username: string;
@@ -7,7 +6,6 @@ export type RankUser = {
   lastSolve: Date;
 };
 
-export const getSolves = () => client.get('/user/solves');
+export const getSolves = () => client.get<number[]>('/user/solves');
 
-export const getRank = (): Promise<AxiosResponse<RankUser[]>> =>
-  client.get('/user/rank');
+export const getRank = () => client.get<RankUser[]>('/user/rank');
