@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../modules';
 import { setUser } from '../../modules/user';
@@ -16,8 +16,8 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type CoreProps = OwnProps & StateProps & DispatchProps;
 
-const Core = React.memo<CoreProps>(
-  ({ setUser }) => {
+const Core: React.FC<CoreProps> = ({ setUser }) => {
+  useEffect(() => {
     check()
       .then(response => {
         const { id, email, username, admin } = response.data;
@@ -26,13 +26,10 @@ const Core = React.memo<CoreProps>(
       .catch(() => {
         setUser(null);
       });
+  }, [setUser]);
 
-    return null;
-  },
-  (prevProps, nextProps) => {
-    return !!prevProps.user || prevProps.user === nextProps.user;
-  },
-);
+  return null;
+};
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   mapStateToProps,
