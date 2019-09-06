@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -62,8 +62,6 @@ interface LabelInputProps extends InputProps {
   value: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
-
-const { useState, useCallback } = React;
 
 const LabelInput: React.FC<LabelInputProps> = ({
   label,

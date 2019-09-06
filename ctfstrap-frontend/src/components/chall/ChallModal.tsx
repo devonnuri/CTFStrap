@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { RootState } from '../../modules';
@@ -7,8 +7,6 @@ import LabelInput from '../common/LabelInput';
 import palette from '../../lib/styles/palette';
 import { authChall } from '../../lib/api/chall';
 import Alert from '../common/Alert';
-
-const { useState } = React;
 
 const ModalOverlay = styled.div`
   position: fixed;

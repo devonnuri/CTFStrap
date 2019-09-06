@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
@@ -11,8 +11,6 @@ import { RootState } from '../modules';
 import { setUser } from '../modules/user';
 import { login } from '../lib/api/auth';
 import Alert from '../components/common/Alert';
-
-const { useState } = React;
 
 const ButtonSet = styled.div`
   text-align: center;
