@@ -7,6 +7,7 @@ import LabelInput from '../common/LabelInput';
 import palette from '../../lib/styles/palette';
 import { authChall } from '../../lib/api/chall';
 import Alert from '../common/Alert';
+import Badge from '../base/Badge';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -44,23 +45,7 @@ const ChallModalContainer = styled.div`
   }
 
   .tag-list {
-    list-style: none;
-    padding: 0;
-
-    li {
-      display: inline;
-      margin: 0 0.3rem;
-      padding: 0.2rem 0.3rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
-
-      background-color: ${palette.gray600};
-      color: white;
-
-      &.solved {
-        background-color: ${palette.primary600};
-      }
-    }
+    padding: 1rem 0;
   }
 `;
 
@@ -114,12 +99,12 @@ const ChallModal: React.FC<ChallModalProps> = ({
       <ChallModalContainer>
         <h2 className="name">{name}</h2>
         <h3 className="points">{points}pts</h3>
-        <ul className="tag-list">
+        <div className="tag-list">
           {tags.map((tag, index) => (
-            <li key={index}>{tag.name}</li>
+            <Badge key={index}>{tag.name}</Badge>
           ))}
-          {solved && <li className="solved">Solved</li>}
-        </ul>
+          {solved && <Badge bgColor={palette.primary600}>Solved</Badge>}
+        </div>
         <p className="description">{description}</p>
         {author && <p className="author">Author: {author}</p>}
         <form onSubmit={onSubmit}>
