@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { getChallList } from '../../lib/api/chall';
 import { ChallengeModal } from '../../modules/chall';
 import Table from '../../components/base/Table';
+import Badge from '../../components/base/Badge';
 import AdminBasePage from './AdminBasePage';
+import palette from '../../lib/styles/palette';
 
 const ChallTable = styled(Table)`
   tbody td {
@@ -17,6 +19,7 @@ const ChallTable = styled(Table)`
     }
     &:nth-child(5) {
       width: 20%;
+      text-align: center;
     }
   }
 `;
@@ -52,7 +55,10 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               <td>{chall.name}</td>
               <td>{chall.category}</td>
               <td>{chall.points}pts</td>
-              <td></td>
+              <td>
+                <Badge>Edit</Badge>
+                <Badge>Remove</Badge>
+              </td>
             </tr>
           ))}
         </tbody>
