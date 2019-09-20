@@ -32,12 +32,14 @@ const ChallTable = styled(Table)`
         text-decoration: none;
         div {
           padding: 1rem;
-
-          font-weight: bold;
-          font-size: 1.1em;
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
 
           color: ${palette.primary700};
           background-color: ${palette.primary50};
+
+          font-weight: bold;
+          font-size: 1.1em;
 
           span {
             vertical-align: top;
