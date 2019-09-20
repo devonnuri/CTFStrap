@@ -30,7 +30,7 @@ const App: React.FC<{}> = () => {
           <Route path="/logout" component={LogoutPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/admin" exact component={AdminMainPage} />
-          <Route path="/admin/chall" component={AdminChallPage} />
+          <Route path="/admin/chall" exact component={AdminChallPage} />
         </Switch>
       </Content>
       <Footer />

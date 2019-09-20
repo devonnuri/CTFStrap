@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 import { getChallList } from '../../lib/api/chall';
 import { ChallengeModal } from '../../modules/chall';
 import Table from '../../components/base/Table';
@@ -20,6 +22,36 @@ const ChallTable = styled(Table)`
     &:nth-child(5) {
       width: 20%;
       text-align: center;
+    }
+
+    &.create-chall {
+      padding: 0;
+      border-bottom: none;
+
+      a {
+        text-decoration: none;
+        div {
+          padding: 1rem;
+
+          font-weight: bold;
+          font-size: 1.1em;
+
+          color: ${palette.primary700};
+          background-color: ${palette.primary50};
+
+          span {
+            vertical-align: top;
+          }
+
+          svg + span {
+            padding-left: 0.5rem;
+          }
+
+          &:hover {
+            background-color: ${palette.primary100};
+          }
+        }
+      }
     }
   }
 `;
@@ -61,6 +93,16 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               </td>
             </tr>
           ))}
+          <tr>
+            <td className="create-chall" colSpan={5}>
+              <Link to="/admin/chall/create">
+                <div>
+                  <FaPlus />
+                  <span>Create Challenge</span>
+                </div>
+              </Link>
+            </td>
+          </tr>
         </tbody>
       </ChallTable>
     </AdminBasePage>
