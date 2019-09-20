@@ -32,6 +32,7 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
       setUserList(data);
     });
   }, []);
+
   return (
     <AdminBasePage>
       <h1>Manage Users</h1>
@@ -40,8 +41,8 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
           <tr>
             <th>#</th>
             <th>Username</th>
-            <th>Email</th>
-            <th>Score</th>
+            <th>Admin</th>
+            <th>Points</th>
             <th>Last Solved</th>
             <th>Actions</th>
           </tr>
@@ -51,8 +52,8 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.points}pts</td>
+              <td>{user.admin ? 'True' : 'False'}</td>
+              <td>{user.points}</td>
               <td>{user.lastSolve || '-'}</td>
               <td>
                 <Badge>Edit</Badge>

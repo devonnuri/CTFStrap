@@ -40,7 +40,7 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
           <tr>
             <th>#</th>
             <th>User</th>
-            <th>Score</th>
+            <th>Points</th>
             <th>Last Solved</th>
           </tr>
         </thead>
