@@ -1,7 +1,18 @@
 import { Context } from 'koa';
-import { Sequelize } from 'sequelize';
 import Submission from '../../database/models/Submission';
 import User from '../../database/models/User';
+
+export const list = (ctx: Context) =>
+  User.findAll({
+    attributes: ['id', 'username', 'email', 'points', 'admin', 'lastSolve'],
+    include: [
+      {
+        model: Submission,
+      },
+    ],
+  }).then(rankList => {
+    ctx.body = rankList;
+  });
 
 export const solves = (ctx: Context) =>
   Submission.findAll({
