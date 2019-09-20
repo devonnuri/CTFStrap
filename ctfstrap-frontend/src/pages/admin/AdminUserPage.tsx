@@ -6,7 +6,7 @@ interface AdminUserPageProps {}
 const AdminUserPage: React.FC<AdminUserPageProps> = () => {
   return (
     <AdminBasePage>
-      <h1>Welcome!!</h1>
+      <h1>Manage Users</h1>
     </AdminBasePage>
   );
 };
