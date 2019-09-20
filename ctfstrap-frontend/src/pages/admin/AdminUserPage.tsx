@@ -14,10 +14,11 @@ const UserTable = styled(Table)`
       text-align: center;
     }
     &:nth-child(3),
-    &:nth-child(4) {
+    &:nth-child(4),
+    &:nth-child(5) {
       width: 10%;
     }
-    &:nth-child(5) {
+    &:nth-child(6) {
       width: 20%;
       text-align: center;
     }
