@@ -4,13 +4,17 @@ import { RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
-import Form from '../components/base/Form';
 import LabelInput from '../components/common/LabelInput';
 import Button from '../components/common/Button';
 import { RootState } from '../modules';
 import { setUser } from '../modules/user';
 import { login } from '../lib/api/auth';
 import Alert from '../components/common/Alert';
+
+const LoginForm = styled.form`
+  margin: 5rem 0;
+  padding: 0 15vw;
+`;
 
 const ButtonSet = styled.div`
   text-align: center;
@@ -56,7 +60,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
     <Container>
       <PageTitle>Login</PageTitle>
 
-      <Form onSubmit={onSubmit}>
+      <LoginForm onSubmit={onSubmit}>
         {alert && <Alert color="secondary">{alert}</Alert>}
         <LabelInput
           name="name"
@@ -76,7 +80,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
             Login
           </Button>
         </ButtonSet>
-      </Form>
+      </LoginForm>
     </Container>
   );
 };

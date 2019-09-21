@@ -41,10 +41,10 @@ const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
         <NavLink exact to="/admin" activeClassName="active">
           Home
         </NavLink>
-        <NavLink exact to="/admin/chall" activeClassName="active">
+        <NavLink to="/admin/chall" activeClassName="active">
           Challenge
         </NavLink>
-        <NavLink exact to="/admin/user" activeClassName="active">
+        <NavLink to="/admin/user" activeClassName="active">
           User
         </NavLink>
       </Sidebar>

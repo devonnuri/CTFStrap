@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { RouteComponentProps } from 'react-router';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
-import Form from '../components/base/Form';
 import LabelInput from '../components/common/LabelInput';
 import Button from '../components/common/Button';
 import Alert from '../components/common/Alert';
@@ -11,6 +10,11 @@ import { setUser } from '../modules/user';
 import { register } from '../lib/api/auth';
 import { connect } from 'react-redux';
 import { RootState } from '../modules';
+
+const RegisterForm = styled.form`
+  margin: 5rem 0;
+  padding: 0 15vw;
+`;
 
 const ButtonSet = styled.div`
   text-align: center;
@@ -64,7 +68,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
     <Container>
       <PageTitle>Register</PageTitle>
 
-      <Form onSubmit={onSumbit}>
+      <RegisterForm onSubmit={onSumbit}>
         {alert && <Alert color="secondary">{alert}</Alert>}
         <LabelInput
           type="email"
@@ -98,7 +102,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
             Register
           </Button>
         </ButtonSet>
-      </Form>
+      </RegisterForm>
     </Container>
   );
 };

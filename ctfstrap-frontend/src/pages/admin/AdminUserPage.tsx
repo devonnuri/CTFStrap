@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AdminBasePage from './AdminBasePage';
 import { getUserList, User } from '../../lib/api/user';
+import PageTitle from '../../components/base/PageTitle';
 import Table from '../../components/base/Table';
 import Badge from '../../components/base/Badge';
 
@@ -36,7 +37,7 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
 
   return (
     <AdminBasePage>
-      <h1>Manage Users</h1>
+      <PageTitle>Manage Users</PageTitle>
       <UserTable>
         <thead>
           <tr>

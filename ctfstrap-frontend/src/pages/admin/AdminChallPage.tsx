@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { getChallList } from '../../lib/api/chall';
 import { ChallengeModal } from '../../modules/chall';
+import PageTitle from '../../components/base/PageTitle';
 import Table from '../../components/base/Table';
 import Badge from '../../components/base/Badge';
 import AdminBasePage from './AdminBasePage';
@@ -71,7 +72,7 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
 
   return (
     <AdminBasePage>
-      <h1>Manage Challenges</h1>
+      <PageTitle>Manage Challenge</PageTitle>
       <ChallTable>
         <thead>
           <tr>
