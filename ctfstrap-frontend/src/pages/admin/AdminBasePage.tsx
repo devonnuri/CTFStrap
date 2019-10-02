@@ -4,11 +4,13 @@ import { NavLink } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Container from '../../components/base/Container';
 
+const AdminContainer = styled(Container)`
+  display: flex;
+`;
+
 const Sidebar = styled.div`
+  flex: 0 0 10rem;
   width: 10rem;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
 
   a {
     display: block;
@@ -28,15 +30,15 @@ const Sidebar = styled.div`
 `;
 
 const Content = styled.div`
-  margin-left: 10rem;
-  padding-left: 3rem;
+  flex: 1;
+  padding: 0 3rem;
 `;
 
 interface AdminBasePageProps {}
 
 const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
   return (
-    <Container>
+    <AdminContainer>
       <Sidebar>
         <NavLink exact to="/admin" activeClassName="active">
           Home
@@ -49,7 +51,7 @@ const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
         </NavLink>
       </Sidebar>
       <Content>{children}</Content>
-    </Container>
+    </AdminContainer>
   );
 };
 
