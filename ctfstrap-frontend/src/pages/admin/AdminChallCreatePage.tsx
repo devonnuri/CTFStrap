@@ -3,6 +3,7 @@ import AdminBasePage from './AdminBasePage';
 import LabelInput from '../../components/common/LabelInput';
 import styled from 'styled-components';
 import PageTitle from '../../components/base/PageTitle';
+import LabelTextArea from '../../components/common/LabelTextArea';
 
 const CreateForm = styled.form`
   margin: 5rem 0;
@@ -20,7 +21,9 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     author: '',
   });
 
-  const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateField = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setValues({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -51,6 +54,12 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           label="Points"
           min="0"
           value={form.points}
+          onChange={updateField}
+        />
+        <LabelTextArea
+          name="description"
+          label="Description"
+          value={form.description}
           onChange={updateField}
         />
       </CreateForm>
