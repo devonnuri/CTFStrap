@@ -1,5 +1,4 @@
 import client from './client';
-import { ChallengeModal } from './../../modules/chall';
 
 export type Challenge = {
   id: number;
@@ -10,10 +9,15 @@ export type Challenge = {
   author: string;
   files: { location: string }[];
   tags: { name: string }[];
-  solved: boolean;
+  hints: { content: string; cost: number}[];
+  flags: { content: string }[];
 };
 
+export type ChallengeModal = Omit<Challenge, 'hints'|'flags'> & {solved: boolean};
+
 export const getChallList = () => client.get<ChallengeModal[]>('/chall');
+
+export const createChall = (challenge: Challenge) => client.post('/chall/create', challenge);
 
 export const authChall = (challengeId: number, flag: string) =>
   client.post('/chall/auth', { challengeId, flag });

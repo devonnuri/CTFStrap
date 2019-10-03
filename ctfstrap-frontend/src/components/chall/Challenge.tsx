@@ -2,8 +2,9 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { RootState } from '../../modules';
-import { showChallModal, ChallengeModal } from '../../modules/chall';
+import { showChallModal } from '../../modules/chall';
 import { connect } from 'react-redux';
+import { ChallengeModal } from '../../lib/api/chall';
 
 interface ChallContainerProps {
   solved: boolean;

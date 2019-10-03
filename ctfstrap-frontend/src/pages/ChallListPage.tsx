@@ -4,8 +4,7 @@ import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
 import PageTitle from '../components/base/PageTitle';
 import ChallModal from '../components/chall/ChallModal';
-import { ChallengeModal } from '../modules/chall';
-import { getChallList } from '../lib/api/chall';
+import { ChallengeModal, getChallList } from '../lib/api/chall';
 import { getSolves } from '../lib/api/user';
 
 const ChallListContainer = styled.div`
