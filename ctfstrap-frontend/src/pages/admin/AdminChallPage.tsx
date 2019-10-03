@@ -5,8 +5,8 @@ import { FaPlus } from 'react-icons/fa';
 import { getChallList } from '../../lib/api/chall';
 import { ChallengeModal } from '../../modules/chall';
 import PageTitle from '../../components/base/PageTitle';
-import Table from '../../components/base/Table';
-import Badge from '../../components/base/Badge';
+import Table from '../../components/common/Table';
+import Badge from '../../components/common/Badge';
 import AdminBasePage from './AdminBasePage';
 import palette from '../../lib/styles/palette';
 

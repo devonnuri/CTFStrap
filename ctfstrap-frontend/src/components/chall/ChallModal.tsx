@@ -7,7 +7,7 @@ import LabelInput from '../common/LabelInput';
 import palette from '../../lib/styles/palette';
 import { authChall } from '../../lib/api/chall';
 import Alert from '../common/Alert';
-import Badge from '../base/Badge';
+import Badge from '../common/Badge';
 
 const ModalOverlay = styled.div`
   position: fixed;

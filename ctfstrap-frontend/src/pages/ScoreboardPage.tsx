@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
-import Table from '../components/base/Table';
+import Table from '../components/common/Table';
 import { getRank, RankUser } from '../lib/api/user';
 
 const ScoreTable = styled(Table)`

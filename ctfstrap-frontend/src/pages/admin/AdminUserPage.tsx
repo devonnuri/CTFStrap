@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import AdminBasePage from './AdminBasePage';
 import { getUserList, User } from '../../lib/api/user';
 import PageTitle from '../../components/base/PageTitle';
-import Table from '../../components/base/Table';
-import Badge from '../../components/base/Badge';
+import Table from '../../components/common/Table';
+import Badge from '../../components/common/Badge';
 
 interface AdminUserPageProps {}
 
