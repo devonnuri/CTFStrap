@@ -99,12 +99,14 @@ const ChallModal: React.FC<ChallModalProps> = ({
       <ChallModalContainer>
         <h2 className="name">{name}</h2>
         <h3 className="points">{points}pts</h3>
-        <div className="tag-list">
-          {tags.map((tag, index) => (
-            <Badge key={index}>{tag.name}</Badge>
-          ))}
-          {solved && <Badge bgColor={palette.primary600}>Solved</Badge>}
-        </div>
+        {tags && (
+          <div className="tag-list">
+            {tags.map((tag, index) => (
+              <Badge key={index}>{tag.name}</Badge>
+            ))}
+            {solved && <Badge bgColor={palette.primary600}>Solved</Badge>}
+          </div>
+        )}
         <p className="description">{description}</p>
         {author && <p className="author">Author: {author}</p>}
         <form onSubmit={onSubmit}>

@@ -4,10 +4,16 @@ import LabelInput from '../../components/common/LabelInput';
 import styled from 'styled-components';
 import PageTitle from '../../components/base/PageTitle';
 import LabelTextArea from '../../components/common/LabelTextArea';
+import Button from '../../components/common/Button';
+import { createChall } from '../../lib/api/chall';
 
 const CreateForm = styled.form`
   margin: 5rem 0;
   padding: 0 15vw;
+`;
+
+const ButtonSet = styled.div`
+  text-align: center;
 `;
 
 interface AdminChallCreatePageProps {}
@@ -19,6 +25,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     points: '',
     category: '',
     author: '',
+    flag: '',
   });
 
   const updateField = (
@@ -28,6 +35,17 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
   };
 
   const onSubmit = (e: React.FormEvent) => {
+    const { name, description, points, category, author, flag } = form;
+
+    createChall({
+      name,
+      description,
+      points: Number(points),
+      category,
+      author,
+      flags: [{ content: flag }],
+    });
+
     e.preventDefault();
   };
 
@@ -41,12 +59,20 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           label="Name"
           value={form.name}
           onChange={updateField}
+          required
+        />
+        <LabelInput
+          name="author"
+          label="Author"
+          value={form.author}
+          onChange={updateField}
         />
         <LabelInput
           name="category"
           label="Category"
           value={form.category}
           onChange={updateField}
+          required
         />
         <LabelInput
           type="number"
@@ -55,13 +81,20 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           min="0"
           value={form.points}
           onChange={updateField}
+          required
         />
         <LabelTextArea
           name="description"
           label="Description"
           value={form.description}
           onChange={updateField}
+          required
         />
+        <ButtonSet>
+          <Button type="submit" size="large" onClick={onSubmit}>
+            Create
+          </Button>
+        </ButtonSet>
       </CreateForm>
     </AdminBasePage>
   );
