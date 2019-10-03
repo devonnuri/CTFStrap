@@ -7,7 +7,7 @@ const LabelInputContainer = styled.div<{ active: boolean }>`
   margin: 2rem 0;
 
   input {
-    font-size: 1.5rem;
+    font-size: 1.6em;
     border: none;
     outline: none;
 
@@ -58,18 +58,10 @@ type InputProps = React.DetailedHTMLProps<
 
 interface LabelInputProps extends InputProps {
   label: string;
-  name?: string;
   value: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const LabelInput: React.FC<LabelInputProps> = ({
-  label,
-  name,
-  value,
-  onChange,
-  ...rest
-}) => {
+const LabelInput: React.FC<LabelInputProps> = ({ label, value, ...rest }) => {
   const [focus, setFocus] = useState(false);
 
   const onFocus = useCallback(() => {
@@ -82,14 +74,7 @@ const LabelInput: React.FC<LabelInputProps> = ({
 
   return (
     <LabelInputContainer active={focus || value.length > 0}>
-      <input
-        name={name}
-        onChange={onChange}
-        value={value}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        {...rest}
-      />
+      <input value={value} onFocus={onFocus} onBlur={onBlur} {...rest} />
       <label>{label}</label>
     </LabelInputContainer>
   );
