@@ -8,8 +8,6 @@ import {
   DataType,
   HasMany,
   BelongsToMany,
-  ForeignKey,
-  HasOne,
 } from 'sequelize-typescript';
 import File from './File';
 import Tag from './Tag';

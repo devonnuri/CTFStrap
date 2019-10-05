@@ -3,7 +3,6 @@ import {
   Model,
   PrimaryKey,
   AutoIncrement,
-  AllowNull,
   Column,
   ForeignKey,
   BelongsTo,

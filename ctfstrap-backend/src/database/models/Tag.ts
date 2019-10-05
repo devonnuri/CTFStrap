@@ -4,7 +4,6 @@ import {
   PrimaryKey,
   AutoIncrement,
   Column,
-  HasMany,
   BelongsToMany,
 } from 'sequelize-typescript';
 import Challenge from './Challenge';
