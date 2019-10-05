@@ -16,6 +16,21 @@ const ButtonSet = styled.div`
   text-align: center;
 `;
 
+const UploadSet = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  div {
+    flex: 3 1;
+    margin: 0;
+  }
+
+  button {
+    margin-left: 1rem;
+  }
+`;
+
 interface AdminChallCreatePageProps {}
 
 const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
@@ -25,7 +40,9 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     points: '',
     category: '',
     author: '',
-    flag: '',
+    files: '',
+    tags: '',
+    flags: '',
   });
 
   const updateField = (
@@ -35,7 +52,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
   };
 
   const onSubmit = (e: React.FormEvent) => {
-    const { name, description, points, category, author, flag } = form;
+    const { name, description, points, category, author, flags, tags } = form;
 
     createChall({
       name,
@@ -43,7 +60,8 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
       points: Number(points),
       category,
       author,
-      flags: [{ content: flag }],
+      flags: flags.split('\n').map(content => ({ content })),
+      tags: tags.split(',').map(name => ({ name })),
     });
 
     e.preventDefault();
@@ -87,6 +105,32 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           name="description"
           label="Description"
           value={form.description}
+          onChange={updateField}
+          required
+        />
+        <UploadSet>
+          <LabelTextArea
+            name="files"
+            label="Files (seperated by newline)"
+            value={form.files}
+            onChange={updateField}
+            required
+          />
+          <Button size="medium" color="lightGray">
+            Upload
+          </Button>
+        </UploadSet>
+        <LabelTextArea
+          name="flags"
+          label="Flags (seperated by newline)"
+          value={form.flags}
+          onChange={updateField}
+          required
+        />
+        <LabelTextArea
+          name="tags"
+          label="Tags (seperated by comma)"
+          value={form.tags}
           onChange={updateField}
           required
         />
