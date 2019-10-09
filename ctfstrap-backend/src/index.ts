@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import Helmet from 'koa-helmet';
-import BodyParser from 'koa-bodyparser';
+import helmet from 'koa-helmet';
+import bodyParser from 'koa-bodyparser';
 import dotenv from 'dotenv';
 import cors from '@koa/cors';
 
@@ -23,8 +23,8 @@ app
       credentials: true,
     }),
   )
-  .use(Helmet())
-  .use(BodyParser())
+  .use(helmet())
+  .use(bodyParser())
   .use(router.routes())
   .use(router.allowedMethods());
 
