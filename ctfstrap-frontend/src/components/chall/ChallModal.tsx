@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { FaFile } from 'react-icons/fa';
 import { RootState } from '../../modules';
 import { closeChallModal } from '../../modules/chall';
 import LabelInput from '../common/LabelInput';
@@ -8,6 +9,7 @@ import palette from '../../lib/styles/palette';
 import { authChall } from '../../lib/api/chall';
 import Alert from '../common/Alert';
 import Badge from '../common/Badge';
+import { downloadFile } from '../../lib/api/file';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -47,6 +49,19 @@ const ChallModalContainer = styled.div`
   .tag-list {
     padding: 1rem 0;
   }
+
+  .file {
+    display: table;
+    margin-top: 0.3rem;
+    padding: 0.5rem 0.7rem;
+
+    cursor: pointer;
+    background-color: ${palette.gray100};
+
+    svg + span {
+      margin-left: 0.5rem;
+    }
+  }
 `;
 
 const mapStateToProps = (state: RootState) => ({
@@ -85,7 +100,11 @@ const ChallModal: React.FC<ChallModalProps> = ({
     e.preventDefault();
   };
 
-  const { name, points, description, author, tags, solved } = modalChall;
+  const onDownload = (filename: string, originalname: string) => {
+    downloadFile(filename, originalname);
+  };
+
+  const { name, points, description, author, files, tags, solved } = modalChall;
 
   return (
     <>
@@ -109,6 +128,16 @@ const ChallModal: React.FC<ChallModalProps> = ({
         )}
         <p className="description">{description}</p>
         {author && <p className="author">Author: {author}</p>}
+        {files &&
+          files.map(({ filename, originalname }) => (
+            <div
+              className="file"
+              onClick={() => onDownload(filename, originalname)}
+            >
+              <FaFile />
+              <span>{originalname}</span>
+            </div>
+          ))}
         <form onSubmit={onSubmit}>
           <LabelInput
             label="Flag"

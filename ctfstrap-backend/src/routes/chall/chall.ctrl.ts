@@ -17,7 +17,7 @@ export const listAll = async (ctx: Context) =>
     include: [
       {
         model: File,
-        attributes: ['originalname'],
+        attributes: ['filename', 'originalname']
       },
       {
         model: Tag,

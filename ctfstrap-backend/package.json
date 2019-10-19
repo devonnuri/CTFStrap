@@ -4,7 +4,6 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon --watch src -e ts,tsx --exec ts-node src/index.ts",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run tslint && tsc",
     "start": "NODE_ENV=production node build/index.js"
   },

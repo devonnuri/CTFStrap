@@ -14,9 +14,9 @@ import Challenge from './Challenge';
 @Table({ timestamps: false })
 class File extends Model<File> {
   static existsFilename = async (filename: string) =>
-    (await Challenge.count({ where: { filename } })) > 0
+    (await File.count({ where: { filename } })) > 0
 
-  static removeByFilename = (filename: string) => Challenge.destroy({ where: { filename } });
+  static removeByFilename = (filename: string) => File.destroy({ where: { filename } });
 
   @PrimaryKey
   @AutoIncrement
