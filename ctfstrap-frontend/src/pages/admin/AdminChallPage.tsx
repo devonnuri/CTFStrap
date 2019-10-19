@@ -23,7 +23,7 @@ const ChallTable = styled(Table)`
       width: 20%;
       text-align: center;
 
-      span {
+      .remove-btn {
         cursor: pointer;
       }
     }
@@ -101,7 +101,12 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               <td>{chall.points}pts</td>
               <td>
                 <Badge>Edit</Badge>
-                <Badge onClick={() => onRemoveChall(chall.id)}>Remove</Badge>
+                <Badge
+                  className="remove-btn"
+                  onClick={() => onRemoveChall(chall.id)}
+                >
+                  Remove
+                </Badge>
               </td>
             </tr>
           ))}

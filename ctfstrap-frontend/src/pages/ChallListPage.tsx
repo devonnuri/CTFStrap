@@ -23,6 +23,10 @@ const Placeholder = styled.div`
 
 interface ChallListPageProps {}
 
+interface GroupedChallList {
+  [category: string]: ChallengeModal[];
+}
+
 const ChallListPage: React.FC<ChallListPageProps> = () => {
   const [challList, setChallList] = useState<ChallengeModal[]>([]);
 
@@ -39,40 +43,51 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
     );
   }, []);
 
+  const challGroup = challList.reduce((group: GroupedChallList, chall) => {
+    (group[chall.category] = group[chall.category] || []).push(chall);
+    return group;
+  }, {});
+
   return (
     <Container>
       <PageTitle>Challenges</PageTitle>
-      <ChallListContainer>
-        {challList.map(
-          ({
-            id,
-            name,
-            points,
-            description,
-            category,
-            author,
-            files,
-            tags,
-            solved,
-          }) => (
-            <Challenge
-              key={id}
-              id={id}
-              name={name}
-              points={points}
-              description={description}
-              category={category}
-              author={author}
-              files={files}
-              tags={tags}
-              solved={solved}
-            />
-          ),
-        )}
-        {[...Array(4).keys()].map(i => (
-          <Placeholder key={i} />
-        ))}
-      </ChallListContainer>
+      {Object.entries(challGroup).map(([category, challenges]) => (
+        <>
+          <h1>{category}</h1>
+          <ChallListContainer>
+            {(challenges as ChallengeModal[]).map(
+              ({
+                id,
+                name,
+                points,
+                description,
+                category,
+                author,
+                files,
+                tags,
+                solved,
+              }) => (
+                <Challenge
+                  key={id}
+                  id={id}
+                  name={name}
+                  points={points}
+                  description={description}
+                  category={category}
+                  author={author}
+                  files={files}
+                  tags={tags}
+                  solved={solved}
+                />
+              ),
+            )}
+            {[...Array(4).keys()].map(i => (
+              <Placeholder key={i} />
+            ))}
+          </ChallListContainer>
+        </>
+      ))}
+
       <ChallModal />
     </Container>
   );
