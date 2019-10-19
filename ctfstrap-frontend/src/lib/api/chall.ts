@@ -19,7 +19,10 @@ export type ChallengeModal = Omit<Challenge, 'hints' | 'flags'> & { solved: bool
 export const getChallList = () => client.get<ChallengeModal[]>('/chall');
 
 export const createChall = (challenge: Omit<Challenge, 'id'>) =>
-    client.post('/chall/create', challenge);
+  client.post('/chall/create', challenge);
+
+export const removeChall = (challengeId: number) =>
+  client.post('/chall/remove', { challengeId });
 
 export const authChall = (challengeId: number, flag: string) =>
   client.post('/chall/auth', { challengeId, flag });

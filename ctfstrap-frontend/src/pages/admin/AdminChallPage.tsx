@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
-import { ChallengeModal, getChallList } from '../../lib/api/chall';
+import { ChallengeModal, getChallList, removeChall } from '../../lib/api/chall';
 import PageTitle from '../../components/base/PageTitle';
 import Table from '../../components/common/Table';
 import Badge from '../../components/common/Badge';
@@ -22,6 +22,10 @@ const ChallTable = styled(Table)`
     &:nth-child(5) {
       width: 20%;
       text-align: center;
+
+      span {
+        cursor: pointer;
+      }
     }
 
     &.create-chall {
@@ -69,6 +73,12 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
     });
   }, []);
 
+  const onRemoveChall = (challengeId: number) => {
+    removeChall(challengeId).then(() => {
+      setChallList(challList.filter(({ id }) => id !== challengeId));
+    });
+  };
+
   return (
     <AdminBasePage>
       <PageTitle>Manage Challenge</PageTitle>
@@ -91,7 +101,7 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               <td>{chall.points}pts</td>
               <td>
                 <Badge>Edit</Badge>
-                <Badge>Remove</Badge>
+                <Badge onClick={() => onRemoveChall(chall.id)}>Remove</Badge>
               </td>
             </tr>
           ))}

@@ -112,20 +112,20 @@ export const create = async (ctx: Context) => {
 
 export const remove = async (ctx: Context) => {
   interface RemoveSchema {
-    id: number;
+    challengeId: number;
   }
 
   const schema = Joi.object().keys({
-    id: Joi.number()
+    challengeId: Joi.number()
       .integer()
       .required(),
   });
 
   if (!validateBody(ctx, schema)) return;
 
-  const { id }: RemoveSchema = ctx.request.body;
+  const { challengeId }: RemoveSchema = ctx.request.body;
 
-  return Challenge.existsId(id)
+  return Challenge.existsId(challengeId)
     .then(exists => {
       if (!exists) {
         ctx.status = 404;
@@ -134,7 +134,7 @@ export const remove = async (ctx: Context) => {
         };
         throw new Error();
       }
-      return Challenge.removeById(id);
+      return Challenge.removeById(challengeId);
     })
     .then(() => {
       ctx.status = 204;
