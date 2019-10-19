@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+import { useDropzone } from 'react-dropzone';
+import { FaFile } from 'react-icons/fa';
+
 import AdminBasePage from './AdminBasePage';
 import LabelInput from '../../components/common/LabelInput';
-import styled from 'styled-components';
 import PageTitle from '../../components/base/PageTitle';
 import LabelTextArea from '../../components/common/LabelTextArea';
 import Button from '../../components/common/Button';
 import { createChall } from '../../lib/api/chall';
+import { uploadFile } from '../../lib/api/file';
+import palette from '../../lib/styles/palette';
 
 const CreateForm = styled.form`
   margin: 5rem 0;
@@ -16,19 +21,29 @@ const ButtonSet = styled.div`
   text-align: center;
 `;
 
-const UploadSet = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
+const FileListContainer = styled.div`
+  margin: 1rem 0;
   div {
-    flex: 3 1;
-    margin: 0;
+    svg,
+    span {
+      vertical-align: middle;
+    }
+    svg + span {
+      margin-left: 0.5rem;
+    }
   }
+`;
 
-  button {
-    margin-left: 1rem;
-  }
+const Dropzone = styled.div`
+  margin-bottom: 2rem;
+  padding: 0.3rem 1rem;
+  border: 3px solid ${palette.primary400};
+  outline: none;
+
+  cursor: pointer;
+  color: ${palette.primary800};
+  background-color: ${palette.primary100};
+  font-weight: bold;
 `;
 
 interface AdminChallCreatePageProps {}
@@ -40,9 +55,26 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     points: '',
     category: '',
     author: '',
-    files: '',
     tags: '',
     flags: '',
+  });
+
+  const [files, setFiles] = useState<any[]>([]);
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      Promise.all(acceptedFiles.map(file => uploadFile(file))).then(
+        responses => {
+          setFiles([...files, ...responses.map(res => res.data)]);
+          console.log(responses.map(e => e.data));
+        },
+      );
+    },
+    [files],
+  );
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
   });
 
   const updateField = (
@@ -108,18 +140,6 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           onChange={updateField}
           required
         />
-        <UploadSet>
-          <LabelTextArea
-            name="files"
-            label="Files (seperated by newline)"
-            value={form.files}
-            onChange={updateField}
-            required
-          />
-          <Button size="medium" color="lightGray">
-            Upload
-          </Button>
-        </UploadSet>
         <LabelTextArea
           name="flags"
           label="Flags (seperated by newline)"
@@ -134,6 +154,22 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           onChange={updateField}
           required
         />
+        <FileListContainer>
+          {files.map((file, i) => (
+            <div key={i}>
+              <FaFile />
+              <span>{file.originalname}</span>
+            </div>
+          ))}
+        </FileListContainer>
+        <Dropzone {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </Dropzone>
         <ButtonSet>
           <Button type="submit" size="large" onClick={onSubmit}>
             Create
