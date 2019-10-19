@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import * as Joi from 'joi';
+import * as Joi from '@hapi/joi';
 import { generateToken } from '../../lib/token';
 import { validate } from '../../lib/crypto';
 import { validateBody } from '../../lib/utils';

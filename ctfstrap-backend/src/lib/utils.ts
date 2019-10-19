@@ -1,8 +1,8 @@
 import { Context } from 'koa';
-import Joi, { SchemaLike } from 'joi';
+import { Schema } from '@hapi/joi';
 
-export const validateBody = (ctx: Context, schema: SchemaLike) => {
-  const validation = Joi.validate(ctx.request.body, schema);
+export const validateBody = (ctx: Context, schema: Schema) => {
+  const validation = schema.validate(ctx.request.body);
   if (validation.error) {
     ctx.status = 400;
     ctx.body = {

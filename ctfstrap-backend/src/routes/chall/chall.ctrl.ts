@@ -1,6 +1,7 @@
 import { Context } from 'koa';
-import * as Joi from 'joi';
+import * as Joi from '@hapi/joi';
 import { Sequelize } from 'sequelize';
+
 import { validateBody } from './../../lib/utils';
 import Challenge from '../../database/models/Challenge';
 import File from '../../database/models/File';
@@ -47,7 +48,7 @@ export const create = async (ctx: Context) => {
       .required(),
     category: Joi.string().required(),
     author: Joi.string(),
-    files: Joi.array().items(Joi.object().keys({ location: Joi.string() })),
+    files: Joi.array().items(Joi.object().keys({ filename: Joi.string() })),
     tags: Joi.array().items(Joi.object().keys({ name: Joi.string() })),
     hints: Joi.array().items(
       Joi.object().keys({ content: Joi.string(), cost: Joi.number().integer() }),
@@ -63,11 +64,17 @@ export const create = async (ctx: Context) => {
     points,
     category,
     author,
-    files,
+    files: filenames,
     tags,
     hints,
     flags,
   }: CreateSchema = ctx.request.body;
+
+  const files = filenames.map(({ filename }) => Challenge.findOne({
+    where: {
+      filename
+    }
+  }));
 
   return Challenge.create(
     {
