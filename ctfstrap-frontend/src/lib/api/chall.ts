@@ -1,4 +1,5 @@
 import client from './client';
+import { FileData } from './file';
 
 export type Challenge = {
   id: number;
@@ -7,7 +8,7 @@ export type Challenge = {
   points: number;
   category: string;
   author?: string;
-  files?: { location: string }[];
+  files?: FileData[];
   tags?: { name: string }[];
   hints?: { content: string; cost: number}[];
   flags?: { content: string }[];
@@ -18,7 +19,7 @@ export type ChallengeModal = Omit<Challenge, 'hints' | 'flags'> & { solved: bool
 export const getChallList = () => client.get<ChallengeModal[]>('/chall');
 
 export const createChall = (challenge: Omit<Challenge, 'id'>) =>
-  client.post('/chall/create', challenge);
+    client.post('/chall/create', challenge);
 
 export const authChall = (challengeId: number, flag: string) =>
   client.post('/chall/auth', { challengeId, flag });

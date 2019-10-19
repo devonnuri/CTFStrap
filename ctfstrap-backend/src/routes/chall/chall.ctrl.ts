@@ -17,7 +17,7 @@ export const listAll = async (ctx: Context) =>
     include: [
       {
         model: File,
-        attributes: ['location'],
+        attributes: ['originalname'],
       },
       {
         model: Tag,
@@ -48,11 +48,22 @@ export const create = async (ctx: Context) => {
       .required(),
     category: Joi.string().required(),
     author: Joi.string(),
-    files: Joi.array().items(Joi.object().keys({ filename: Joi.string() })),
-    tags: Joi.array().items(Joi.object().keys({ name: Joi.string() })),
+    files: Joi.array().items(
+      Joi.object().keys({
+        filename: Joi.string().required(),
+        originalname: Joi.string().required(),
+        path: Joi.string().required(),
+        size: Joi.number().required(),
+      })),
+    tags: Joi.array().items(
+      Joi.object().keys({
+        name: Joi.string().required()
+      })),
     hints: Joi.array().items(
-      Joi.object().keys({ content: Joi.string(), cost: Joi.number().integer() }),
-    ),
+      Joi.object().keys({
+        content: Joi.string().required(),
+        cost: Joi.number().integer().required()
+      })),
     flags: Joi.array().items(Joi.object().keys({ content: Joi.string() })),
   });
 
@@ -64,17 +75,13 @@ export const create = async (ctx: Context) => {
     points,
     category,
     author,
-    files: filenames,
+    files,
     tags,
     hints,
     flags,
   }: CreateSchema = ctx.request.body;
 
-  const files = filenames.map(({ filename }) => Challenge.findOne({
-    where: {
-      filename
-    }
-  }));
+  console.log(ctx.request.body);
 
   return Challenge.create(
     {

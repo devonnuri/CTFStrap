@@ -92,8 +92,15 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
       points: Number(points),
       category,
       author,
-      flags: flags.split('\n').map(content => ({ content })),
-      tags: tags.split(',').map(name => ({ name })),
+      flags: flags
+        .split('\n')
+        .filter(flag => flag)
+        .map(content => ({ content })),
+      tags: tags
+        .split(',')
+        .filter(tag => tag)
+        .map(name => ({ name })),
+      files,
     });
 
     e.preventDefault();
