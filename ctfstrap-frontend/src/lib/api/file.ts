@@ -16,6 +16,7 @@ export const downloadFile = (filename: string, originalname: string) =>
       link.setAttribute('download', originalname);
       document.body.appendChild(link);
       link.click();
+      link.remove();
     })
 
 export const uploadFile = (file: File) => {
