@@ -12,7 +12,6 @@
     "@hapi/joi": "^16.1.7",
     "@koa/cors": "2",
     "@koa/multer": "^2.0.0",
-    "crypto": "^1.0.1",
     "dotenv": "^8.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
