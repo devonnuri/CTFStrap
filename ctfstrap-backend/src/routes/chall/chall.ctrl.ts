@@ -205,9 +205,18 @@ export const update = async (ctx: Context) => {
     flags,
   }: UpdateSchema = ctx.request.body;
 
-  Challenge.update({
-    name, description, points, category, author, files, tags, hints, flags,
-  }, { where: { id } });
+  Challenge.update(
+    {
+      name, description, points, category, author, files, tags, hints, flags,
+    },
+    { where: { id } },
+  )
+    .then(() => {
+      ctx.status = 204;
+    })
+    .catch(() => {
+      ctx.status = 500;
+    });
 };
 
 export const auth = async (ctx: Context) => {

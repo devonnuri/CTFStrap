@@ -55,7 +55,6 @@ const ChallModalContainer = styled.div`
     margin-top: 0.3rem;
     padding: 0.5rem 0.7rem;
 
-    cursor: pointer;
     background-color: ${palette.gray100};
 
     svg + span {
@@ -125,8 +124,8 @@ pts
         </h3>
         {tags && (
           <div className="tag-list">
-            {tags.map((tag, index) => (
-              <Badge key={index}>{tag.name}</Badge>
+            {tags.map(tag => (
+              <Badge key={tag.name}>{tag.name}</Badge>
             ))}
             {solved && <Badge bgColor={palette.primary600}>Solved</Badge>}
           </div>
@@ -140,13 +139,14 @@ Author:
         )}
         {files
           && files.map(({ filename, originalname }) => (
-            <div
+            <button
+              type="button"
               className="file"
               onClick={() => onDownload(filename, originalname)}
             >
               <FaFile />
               <span>{originalname}</span>
-            </div>
+            </button>
           ))}
         <form onSubmit={onSubmit}>
           <LabelInput
