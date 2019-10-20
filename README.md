@@ -25,10 +25,54 @@ $ git clone https://github.com/devonnuri/CTFStrap.git
 ### Build & Run
 
 ```console
-$ cd ctfstrap-(back|front)end # depending on which you want
-$ yarn build      # If you are using yarn
-$ npm run build   # Or not
-$ node build/index.js
+$ cd ctfstrap-backend
+$ npm install   # or yarn install
+$ npm run build # or yarn build
+
+$ cd ../
+
+$ cd ctfstrap-frontend
+$ npm install   # or yarn install
+$ npm run build # or yarn build
+```
+
+### Edit .env file
+
+#### Frontend
+
+```conf
+# URL of backend server
+REACT_APP_BACKEND_URL=http://localhost:5000
+```
+
+#### Backend
+
+```conf
+# URL of frontend serer
+FRONTEND_URL=http://localhost:3000
+# Port of backend server
+BACKEND_PORT=5000
+# Type of database server
+DB_TYPE=postgresql
+# Hostname of database server
+DB_HOST=localhost
+# Name of database you will use
+DB_NAME=ctfstrap
+# Username of database server
+DB_USERNAME=ctfstrap
+# Password of database server
+DB_PASSWORD=password
+# Secret token key for jsonwebtoken
+SECRET_TOKEN_KEY=VERY_SECRET_KEY
+# Upload directory of challenge files
+UPLOAD_DIR=./uploads
+```
+
+### Run server
+
+```console
+$ node ctfstrap-backend/build/index.js
+$ node ctfstrap-frontend/build/index.js
 ```
 
 ## Features
