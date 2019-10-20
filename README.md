@@ -22,30 +22,16 @@
 $ git clone https://github.com/devonnuri/CTFStrap.git
 ```
 
-### Build & Run
-
-```console
-$ cd ctfstrap-backend
-$ npm install   # or yarn install
-$ npm run build # or yarn build
-
-$ cd ../
-
-$ cd ctfstrap-frontend
-$ npm install   # or yarn install
-$ npm run build # or yarn build
-```
-
 ### Edit .env file
 
-#### Frontend
+#### Frontend (/ctfstrap-frontend/.env)
 
 ```conf
 # URL of backend server
 REACT_APP_BACKEND_URL=http://localhost:5000
 ```
 
-#### Backend
+#### Backend (/ctfstrap-backend/.env)
 
 ```conf
 # URL of frontend serer
@@ -68,11 +54,30 @@ SECRET_TOKEN_KEY=VERY_SECRET_KEY
 UPLOAD_DIR=./uploads
 ```
 
+### Build & Run
+
+> Note : Environment variables from frontend .env file will be embedded during buildtime.
+> Please rebuild after changing frontend .env file
+
+```console
+$ cd ctfstrap-backend
+$ npm install   # or yarn install
+$ npm run build # or yarn build
+
+$ cd ../
+
+$ cd ctfstrap-frontend
+$ npm install   # or yarn install
+$ npm run build # or yarn build
+```
+
 ### Run server
 
 ```console
 $ node ctfstrap-backend/build/index.js
-$ node ctfstrap-frontend/build/index.js
+
+$ npm install serve -g # or yarn global add serve
+$ serve -s ctfstrap-frontend/build/ -p {PORT}
 ```
 
 ## Features
