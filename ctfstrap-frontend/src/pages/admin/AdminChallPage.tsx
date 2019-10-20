@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
-import { ChallengeModal, getChallList, removeChall } from '../../lib/api/chall';
+import { Challenge, viewAllChall, removeChall } from '../../lib/api/chall';
 import PageTitle from '../../components/base/PageTitle';
 import Table from '../../components/common/Table';
 import Badge from '../../components/common/Badge';
@@ -65,10 +65,10 @@ const ChallTable = styled(Table)`
 interface AdminChallPageProps {}
 
 const AdminChallPage: React.FC<AdminChallPageProps> = () => {
-  const [challList, setChallList] = useState<ChallengeModal[]>([]);
+  const [challList, setChallList] = useState<Challenge[]>([]);
 
   useEffect(() => {
-    getChallList().then(({ data }) => {
+    viewAllChall().then(({ data }) => {
       setChallList(data);
     });
   }, []);
@@ -100,10 +100,12 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               <td>{chall.category}</td>
               <td>
                 {chall.points}
-pts
+                pts
               </td>
               <td>
-                <Badge>Edit</Badge>
+                <Link to={`/admin/chall/edit/${chall.id}`}>
+                  <Badge>Edit</Badge>
+                </Link>
                 <Badge
                   className="remove-btn"
                   onClick={() => onRemoveChall(chall.id)}

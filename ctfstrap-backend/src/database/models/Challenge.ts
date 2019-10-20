@@ -7,32 +7,32 @@ import {
   AllowNull,
   DataType,
   HasMany,
-  BelongsToMany,
 } from 'sequelize-typescript';
 import File from './File';
 import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
-import ChallengeTag from './ChallengeTag';
 import Submission from './Submission';
 
 @Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
-  static existsId = async (id: number) => (await Challenge.count({ where: { id } })) > 0;
+  static existsId = async (id: number) =>
+    (await Challenge.count({ where: { id } })) > 0;
 
   static removeById = (id: number) => Challenge.destroy({ where: { id } });
 
-  static checkFlag = async (challengeId: number, flag: string) => (await Challenge.count({
-    where: {
-      id: challengeId,
-    },
-    include: [
-      {
-        model: Flag,
-        where: { content: flag },
+  static checkFlag = async (challengeId: number, flag: string) =>
+    (await Challenge.count({
+      where: {
+        id: challengeId,
       },
-    ],
-  })) > 0;
+      include: [
+        {
+          model: Flag,
+          where: { content: flag },
+        },
+      ],
+    })) > 0;
 
   @PrimaryKey
   @AutoIncrement
@@ -61,7 +61,7 @@ class Challenge extends Model<Challenge> {
   @HasMany(() => File)
   files: File[];
 
-  @BelongsToMany(() => Tag, () => ChallengeTag)
+  @HasMany(() => Tag)
   tags: Tag[];
 
   @HasMany(() => Hint)

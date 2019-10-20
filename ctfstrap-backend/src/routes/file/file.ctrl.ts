@@ -32,18 +32,19 @@ export const preupload = async (ctx: Context, next: () => Promise<any>) => {
     file: Joi.binary(),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
-  await next();
+  return next;
 };
 
 export const upload = async (ctx: Context) => {
   if (ctx.file) {
-    const {
-      filename, originalname, path, size,
-    } = ctx.file;
+    const { filename, originalname, path, size } = ctx.file;
     ctx.body = {
-      filename, originalname, path, size,
+      filename,
+      originalname,
+      path,
+      size,
     };
   } else {
     ctx.status = 500;

@@ -37,6 +37,10 @@ const App: React.FC<{}> = () => (
           exact
           component={AdminChallCreatePage}
         />
+        <Route
+          path="/admin/chall/edit/:challId"
+          component={AdminChallCreatePage}
+        />
         <Route path="/admin/user" component={AdminUserPage} />
       </Switch>
     </Content>

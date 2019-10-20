@@ -10,16 +10,26 @@ export type Challenge = {
   author?: string;
   files?: FileData[];
   tags?: { name: string }[];
-  hints?: { content: string; cost: number}[];
+  hints?: { content: string; cost: number }[];
   flags?: { content: string }[];
 };
 
-export type ChallengeModal = Omit<Challenge, 'hints' | 'flags'> & { solved: boolean };
+export type ChallengeModal = Omit<Challenge, 'hints' | 'flags'> & {
+  solved: boolean;
+};
 
-export const getChallList = () => client.get<ChallengeModal[]>('/chall');
+export const viewAllChall = () => client.get<Challenge[]>('/chall');
 
-export const createChall = (challenge: Omit<Challenge, 'id'>) => client.post('/chall/create', challenge);
+export const viewChall = (id: number) => client.get<Challenge>(`/chall/${id}`);
 
-export const removeChall = (challengeId: number) => client.post('/chall/remove', { challengeId });
+export const createChall = (challenge: Omit<Challenge, 'id'>) =>
+  client.post('/chall/create', challenge);
 
-export const authChall = (challengeId: number, flag: string) => client.post('/chall/auth', { challengeId, flag });
+export const removeChall = (challengeId: number) =>
+  client.post('/chall/remove', { challengeId });
+
+export const updateChall = (challenge: Challenge) =>
+  client.post('/chall/update', challenge);
+
+export const authChall = (challengeId: number, flag: string) =>
+  client.post('/chall/auth', { challengeId, flag });

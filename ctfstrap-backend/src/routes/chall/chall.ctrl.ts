@@ -11,20 +11,71 @@ import Flag from '../../database/models/Flag';
 import Submission from '../../database/models/Submission';
 import User from '../../database/models/User';
 
-export const listAll = async (ctx: Context) => Challenge.findAll({
-  attributes: ['id', 'name', 'description', 'points', 'category', 'author'],
-  include: [
-    {
-      model: File,
-      attributes: ['filename', 'originalname'],
-    },
-    {
-      model: Tag,
-    },
-  ],
-}).then(challList => {
-  ctx.body = challList;
-});
+export const viewAll = async (ctx: Context) =>
+  Challenge.findAll({
+    attributes: ['id', 'name', 'description', 'points', 'category', 'author'],
+    include: [
+      {
+        model: File,
+        attributes: ['filename', 'originalname'],
+      },
+      {
+        model: Tag,
+        attributes: ['name'],
+      },
+      ...(ctx.state.isAdmin
+        ? [
+            {
+              model: Flag,
+              attributes: ['content'],
+            },
+            {
+              model: Hint,
+              attributes: ['content', 'cost'],
+            },
+          ]
+        : []),
+    ],
+  }).then(challList => {
+    ctx.body = challList;
+  });
+
+export const view = async (ctx: Context) =>
+  Challenge.findOne({
+    attributes: ['id', 'name', 'description', 'points', 'category', 'author'],
+    include: [
+      {
+        model: File,
+        attributes: ['filename', 'originalname'],
+      },
+      {
+        model: Tag,
+        attributes: ['name'],
+      },
+      ...(ctx.state.isAdmin
+        ? [
+            {
+              model: Flag,
+              attributes: ['content'],
+            },
+            {
+              model: Hint,
+              attributes: ['content', 'cost'],
+            },
+          ]
+        : []),
+    ],
+    where: { id: ctx.params.challId },
+  }).then(challenge => {
+    if (challenge) {
+      ctx.body = challenge;
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'CHALLENGE_NOT_FOUND',
+      };
+    }
+  });
 
 export const create = async (ctx: Context) => {
   interface CreateSchema {
@@ -42,7 +93,9 @@ export const create = async (ctx: Context) => {
   const schema = Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-    points: Joi.number().integer().min(0),
+    points: Joi.number()
+      .integer()
+      .min(0),
     category: Joi.string(),
     author: Joi.string(),
     files: Joi.array().items(
@@ -50,7 +103,9 @@ export const create = async (ctx: Context) => {
         filename: Joi.string(),
         originalname: Joi.string(),
         path: Joi.string(),
-        size: Joi.number().integer().min(0),
+        size: Joi.number()
+          .integer()
+          .min(0),
       }),
     ),
     tags: Joi.array().items(
@@ -61,7 +116,9 @@ export const create = async (ctx: Context) => {
     hints: Joi.array().items(
       Joi.object().keys({
         content: Joi.string(),
-        cost: Joi.number().integer().min(0),
+        cost: Joi.number()
+          .integer()
+          .min(0),
       }),
     ),
     flags: Joi.array().items(Joi.object().keys({ content: Joi.string() })),
@@ -118,7 +175,9 @@ export const remove = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    challengeId: Joi.number().integer().min(0),
+    challengeId: Joi.number()
+      .integer()
+      .min(0),
   });
 
   if (!validateBody(ctx, schema)) return null;
@@ -161,10 +220,14 @@ export const update = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    id: Joi.number().integer().min(0),
+    id: Joi.number()
+      .integer()
+      .min(0),
     name: Joi.string(),
     description: Joi.string(),
-    points: Joi.number().integer().min(0),
+    points: Joi.number()
+      .integer()
+      .min(0),
     category: Joi.string(),
     author: Joi.string(),
     files: Joi.array().items(
@@ -172,7 +235,10 @@ export const update = async (ctx: Context) => {
         filename: Joi.string().required(),
         originalname: Joi.string().required(),
         path: Joi.string().required(),
-        size: Joi.number().integer().min(0).required(),
+        size: Joi.number()
+          .integer()
+          .min(0)
+          .required(),
       }),
     ),
     tags: Joi.array().items(
@@ -183,7 +249,10 @@ export const update = async (ctx: Context) => {
     hints: Joi.array().items(
       Joi.object().keys({
         content: Joi.string().required(),
-        cost: Joi.number().integer().min(0).required(),
+        cost: Joi.number()
+          .integer()
+          .min(0)
+          .required(),
       }),
     ),
     flags: Joi.array().items(Joi.object().keys({ content: Joi.string() })),
@@ -206,13 +275,30 @@ export const update = async (ctx: Context) => {
 
   return Challenge.update(
     {
-      name, description, points, category, author, files, tags, hints, flags,
+      name,
+      description,
+      points,
+      category,
+      author,
+      files,
+      tags,
+      hints,
+      flags,
     },
     { where: { id } },
   )
     .then(() => {
       ctx.body = {
-        id, name, description, points, category, author, files, tags, hints, flags,
+        id,
+        name,
+        description,
+        points,
+        category,
+        author,
+        files,
+        tags,
+        hints,
+        flags,
       };
     })
     .catch(() => {
@@ -227,7 +313,9 @@ export const auth = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    challengeId: Joi.number().integer().min(0),
+    challengeId: Joi.number()
+      .integer()
+      .min(0),
     flag: Joi.string(),
   });
 
@@ -252,17 +340,19 @@ export const auth = async (ctx: Context) => {
           where: {
             id: challengeId,
           },
-        }).then(challenge => User.update(
-          {
-            points: Sequelize.literal(`points + ${challenge.points}`),
-            lastSolve: submission.submitTime,
-          },
-          {
-            where: {
-              id: ctx.state.userId,
+        }).then(challenge =>
+          User.update(
+            {
+              points: Sequelize.literal(`points + ${challenge.points}`),
+              lastSolve: submission.submitTime,
             },
-          },
-        ));
+            {
+              where: {
+                id: ctx.state.userId,
+              },
+            },
+          ),
+        );
       }
       return null;
     });

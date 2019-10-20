@@ -33,13 +33,14 @@ export const login = async (ctx: Context) => {
       return user;
     })
     .then(user => {
-      const {
-        id, email, username, admin,
-      } = user;
+      const { id, email, username, admin } = user;
       ctx.body = {
-        id, email, username, admin,
+        id,
+        email,
+        username,
+        admin,
       };
-      return generateToken(id, email);
+      return generateToken(id, email, admin);
     })
     .then(accessToken => {
       ctx.cookies.set('access_token', accessToken, {
@@ -47,8 +48,7 @@ export const login = async (ctx: Context) => {
         httpOnly: true,
       });
     })
-    .catch(e => {
-      console.error(e);
+    .catch(() => {
       if (!ctx.body) {
         ctx.status = 500;
       }
@@ -97,7 +97,7 @@ export const register = async (ctx: Context) => {
     .then(({ id }) => {
       ctx.body = { id, email, username };
 
-      return generateToken(id, email);
+      return generateToken(id, email, false);
     })
     .then(accessToken => {
       ctx.cookies.set('access_token', accessToken, {
@@ -116,20 +116,19 @@ export const register = async (ctx: Context) => {
     });
 };
 
-export const check = async (ctx: Context) => User.findById(ctx.state.userId)
-  .then(({
-    id, email, username, admin,
-  }) => {
-    ctx.body = {
-      id,
-      email,
-      username,
-      admin,
-    };
-  })
-  .catch(() => {
-    ctx.status = 403;
-    ctx.body = {
-      name: 'WRONG_CREDENTIALS',
-    };
-  });
+export const check = async (ctx: Context) =>
+  User.findById(ctx.state.userId)
+    .then(({ id, email, username, admin }) => {
+      ctx.body = {
+        id,
+        email,
+        username,
+        admin,
+      };
+    })
+    .catch(() => {
+      ctx.status = 403;
+      ctx.body = {
+        name: 'WRONG_CREDENTIALS',
+      };
+    });

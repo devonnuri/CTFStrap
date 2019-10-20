@@ -1,15 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
 import { FaFile } from 'react-icons/fa';
-
+import { RouteComponentProps } from 'react-router-dom';
 import AdminBasePage from './AdminBasePage';
 import LabelInput from '../../components/common/LabelInput';
 import PageTitle from '../../components/base/PageTitle';
 import LabelTextArea from '../../components/common/LabelTextArea';
 import Button from '../../components/common/Button';
-import { createChall } from '../../lib/api/chall';
-import { uploadFile } from '../../lib/api/file';
+import { createChall, viewChall, updateChall } from '../../lib/api/chall';
+import { uploadFile, FileData } from '../../lib/api/file';
 import palette from '../../lib/styles/palette';
 
 const CreateForm = styled.form`
@@ -46,9 +46,16 @@ const Dropzone = styled.div`
   font-weight: bold;
 `;
 
-interface AdminChallCreatePageProps {}
+interface MatchParams {
+  challId: string;
+}
 
-const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
+interface AdminChallCreatePageProps extends RouteComponentProps<MatchParams> {}
+
+const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
+  match,
+  history,
+}) => {
   const [form, setValues] = useState({
     name: '',
     description: '',
@@ -59,7 +66,40 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     flags: '',
   });
 
-  const [files, setFiles] = useState<any[]>([]);
+  const [files, setFiles] = useState<FileData[]>([]);
+
+  const isEdit = !!match.params.challId;
+
+  useEffect(() => {
+    if (isEdit) {
+      viewChall(Number(match.params.challId)).then(response => {
+        const {
+          name,
+          description,
+          points,
+          category,
+          author,
+          files,
+          tags,
+          flags,
+        } = response.data;
+
+        setValues({
+          name,
+          description,
+          points: String(points),
+          category,
+          author: author || '',
+          tags: tags ? tags.map(e => e.name).join(',') : '',
+          flags: flags ? flags.map(e => e.content).join('\n') : '',
+        });
+
+        if (files) {
+          setFiles(files);
+        }
+      });
+    }
+  }, [isEdit, match.params.challId]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -82,30 +122,39 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
     setValues({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e: React.FormEvent) => {
-    const {
-      name, description, points, category, author, flags, tags,
-    } = form;
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      const { name, description, points, category, author, flags, tags } = form;
 
-    createChall({
-      name,
-      description,
-      points: Number(points),
-      category,
-      author,
-      flags: flags
-        .split('\n')
-        .filter(flag => flag)
-        .map(content => ({ content })),
-      tags: tags
-        .split(',')
-        .filter(tag => tag)
-        .map(tagName => ({ name: tagName })),
-      files,
-    });
+      const inputData = {
+        name,
+        description,
+        points: Number(points),
+        category,
+        author,
+        flags: flags
+          .split('\n')
+          .filter(flag => flag)
+          .map(content => ({ content })),
+        tags: tags
+          .split(',')
+          .filter(tag => tag)
+          .map(tagName => ({ name: tagName })),
+        files,
+      };
 
-    e.preventDefault();
-  };
+      if (isEdit) {
+        updateChall({ ...inputData, id: Number(match.params.challId) });
+      } else {
+        createChall(inputData);
+      }
+
+      e.preventDefault();
+
+      history.push('/admin/chall');
+    },
+    [isEdit, match.params.challId, form, files, history],
+  );
 
   return (
     <AdminBasePage>
@@ -180,7 +229,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
         </Dropzone>
         <ButtonSet>
           <Button type="submit" size="large" onClick={onSubmit}>
-            Create
+            {isEdit ? 'Update' : 'Create'}
           </Button>
         </ButtonSet>
       </CreateForm>

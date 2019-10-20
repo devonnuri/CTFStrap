@@ -1,6 +1,5 @@
 import { Middleware, Context } from 'koa';
-import { decodeToken } from '../token';
-import User from '../../database/models/User';
+import { decodeToken, TokenPayload } from '../token';
 
 const checkToken = async (ctx: Context) => {
   const token = ctx.cookies.get('access_token');
@@ -8,18 +7,22 @@ const checkToken = async (ctx: Context) => {
   if (!token) return false;
 
   try {
-    const decoded: any = await decodeToken(token);
-    const { user } = decoded;
+    const decoded: TokenPayload = await decodeToken(token);
+    const {
+      user: { id, admin },
+    } = decoded;
 
-    ctx.state.userId = user.id;
+    ctx.state.userId = id;
+    ctx.state.isAdmin = admin;
   } catch {
     ctx.state.userId = null;
+    ctx.state.isAdmin = false;
   }
-  return ctx.state.userId;
+  return ctx.state;
 };
 
 export const login: Middleware = async (ctx, next) => {
-  if (!(await checkToken(ctx))) {
+  if (!(await checkToken(ctx)).userId) {
     ctx.status = 401;
     ctx.body = {
       name: 'NOT_AUTHORIZED',
@@ -30,8 +33,8 @@ export const login: Middleware = async (ctx, next) => {
 };
 
 export const admin: Middleware = async (ctx, next) => {
-  const id = await checkToken(ctx);
-  if (!id || (await User.count({ where: { id, admin: true } })) < 1) {
+  const { userId, isAdmin } = await checkToken(ctx);
+  if (!userId || !isAdmin) {
     ctx.status = 401;
     ctx.body = {
       name: 'NOT_AUTHORIZED',

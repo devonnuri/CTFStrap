@@ -4,7 +4,7 @@ import Container from '../components/base/Container';
 import Challenge from '../components/chall/Challenge';
 import PageTitle from '../components/base/PageTitle';
 import ChallModal from '../components/chall/ChallModal';
-import { ChallengeModal, getChallList } from '../lib/api/chall';
+import { ChallengeModal, viewAllChall } from '../lib/api/chall';
 import { getSolves } from '../lib/api/user';
 
 const ChallListContainer = styled.div`
@@ -31,7 +31,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
   const [challList, setChallList] = useState<ChallengeModal[]>([]);
 
   useEffect(() => {
-    Promise.all([getChallList(), getSolves()]).then(
+    Promise.all([viewAllChall(), getSolves()]).then(
       ([{ data: challData }, { data: solveData }]) => {
         setChallList(
           challData.map(chall => ({
