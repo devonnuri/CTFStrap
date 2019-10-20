@@ -158,7 +158,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
 
   return (
     <AdminBasePage>
-      <PageTitle>Create Challenge</PageTitle>
+      <PageTitle>{`${isEdit ? 'Edit' : 'Create'} Challenge`}</PageTitle>
 
       <CreateForm onSubmit={onSubmit}>
         <LabelInput
