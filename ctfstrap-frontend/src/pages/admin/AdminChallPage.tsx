@@ -98,7 +98,10 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
               <td>{chall.id}</td>
               <td>{chall.name}</td>
               <td>{chall.category}</td>
-              <td>{chall.points}pts</td>
+              <td>
+                {chall.points}
+pts
+              </td>
               <td>
                 <Badge>Edit</Badge>
                 <Badge

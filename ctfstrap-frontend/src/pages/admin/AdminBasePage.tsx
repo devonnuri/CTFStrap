@@ -36,23 +36,21 @@ const Content = styled.div`
 
 interface AdminBasePageProps {}
 
-const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => {
-  return (
-    <AdminContainer>
-      <Sidebar>
-        <NavLink exact to="/admin" activeClassName="active">
+const AdminBasePage: React.FC<AdminBasePageProps> = ({ children }) => (
+  <AdminContainer>
+    <Sidebar>
+      <NavLink exact to="/admin" activeClassName="active">
           Home
-        </NavLink>
-        <NavLink to="/admin/chall" activeClassName="active">
+      </NavLink>
+      <NavLink to="/admin/chall" activeClassName="active">
           Challenge
-        </NavLink>
-        <NavLink to="/admin/user" activeClassName="active">
+      </NavLink>
+      <NavLink to="/admin/user" activeClassName="active">
           User
-        </NavLink>
-      </Sidebar>
-      <Content>{children}</Content>
-    </AdminContainer>
-  );
-};
+      </NavLink>
+    </Sidebar>
+    <Content>{children}</Content>
+  </AdminContainer>
+);
 
 export default AdminBasePage;

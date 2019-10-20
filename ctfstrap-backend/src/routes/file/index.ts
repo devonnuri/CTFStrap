@@ -7,14 +7,16 @@ import * as fileCtrl from './file.ctrl';
 import * as authorize from '../../lib/middlewares/authorize';
 
 const file = new Router();
-const upload = multer({ storage: multer.diskStorage({
-  destination: (req, file, cb) => {
-    mkdirp(process.env.UPLOAD_DIR, err => cb(err, process.env.UPLOAD_DIR));
-  },
-  filename: (req, file, cb) => {
-    cb(null, randomBytes(16).toString('hex'));
-  },
-})});
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, f, cb) => {
+      mkdirp(process.env.UPLOAD_DIR, err => cb(err, process.env.UPLOAD_DIR));
+    },
+    filename: (req, f, cb) => {
+      cb(null, randomBytes(16).toString('hex'));
+    },
+  }),
+});
 
 file.get('/download/:filename', authorize.login, fileCtrl.download);
 file.post('/upload', authorize.admin, upload.single('file'), fileCtrl.upload);

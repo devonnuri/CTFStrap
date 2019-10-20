@@ -19,32 +19,30 @@ const Content = styled.div`
   flex: 1;
 `;
 
-const App: React.FC<{}> = () => {
-  return (
-    <Router>
-      <Header />
-      <Content>
-        <Switch>
-          <Route path="/" exact component={MainPage} />
-          <Route path="/challenges" component={ChallListPage} />
-          <Route path="/scoreboard" component={ScoreboardPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/logout" component={LogoutPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/admin" exact component={AdminMainPage} />
-          <Route path="/admin/chall" exact component={AdminChallPage} />
-          <Route
-            path="/admin/chall/create"
-            exact
-            component={AdminChallCreatePage}
-          />
-          <Route path="/admin/user" component={AdminUserPage} />
-        </Switch>
-      </Content>
-      <Footer />
-      <Core />
-    </Router>
-  );
-};
+const App: React.FC<{}> = () => (
+  <Router>
+    <Header />
+    <Content>
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route path="/challenges" component={ChallListPage} />
+        <Route path="/scoreboard" component={ScoreboardPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/logout" component={LogoutPage} />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/admin" exact component={AdminMainPage} />
+        <Route path="/admin/chall" exact component={AdminChallPage} />
+        <Route
+          path="/admin/chall/create"
+          exact
+          component={AdminChallCreatePage}
+        />
+        <Route path="/admin/user" component={AdminUserPage} />
+      </Switch>
+    </Content>
+    <Footer />
+    <Core />
+  </Router>
+);
 
 export default App;

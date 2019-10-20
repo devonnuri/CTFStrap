@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Dialect } from 'sequelize';
 
-declare var process: {
+declare let process: {
   env: {
     NODE_ENV: 'production' | 'development';
     DB_NAME: string;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Container from './Container';
 import { connect } from 'react-redux';
+import Container from './Container';
 import { RootState } from '../../modules';
 
 const HeaderContainer = styled(Container)`
@@ -55,48 +55,46 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 type HeaderProps = OwnProps & StateProps & DispatchProps;
 
-const Header: React.FC<HeaderProps> = ({ user }) => {
-  return (
-    <HeaderContainer>
-      <Title>
-        <Link to="/">CTFStrap</Link>
-      </Title>
-      <Navbar>
-        <NavbarLeft>
-          {user && (
-            <NavbarItem>
-              <Link to="/challenges">Challenges</Link>
-            </NavbarItem>
-          )}
+const Header: React.FC<HeaderProps> = ({ user }) => (
+  <HeaderContainer>
+    <Title>
+      <Link to="/">CTFStrap</Link>
+    </Title>
+    <Navbar>
+      <NavbarLeft>
+        {user && (
+        <NavbarItem>
+          <Link to="/challenges">Challenges</Link>
+        </NavbarItem>
+        )}
+        <NavbarItem>
+          <Link to="/scoreboard">Scoreboard</Link>
+        </NavbarItem>
+        {user && user.admin && (
+        <NavbarItem>
+          <Link to="/admin">Admin</Link>
+        </NavbarItem>
+        )}
+      </NavbarLeft>
+      <NavbarRight>
+        {user ? (
           <NavbarItem>
-            <Link to="/scoreboard">Scoreboard</Link>
+            <Link to="/logout">Logout</Link>
           </NavbarItem>
-          {user && user.admin && (
+        ) : (
+          <>
             <NavbarItem>
-              <Link to="/admin">Admin</Link>
+              <Link to="/login">Login</Link>
             </NavbarItem>
-          )}
-        </NavbarLeft>
-        <NavbarRight>
-          {user ? (
             <NavbarItem>
-              <Link to="/logout">Logout</Link>
+              <Link to="/register">Register</Link>
             </NavbarItem>
-          ) : (
-            <>
-              <NavbarItem>
-                <Link to="/login">Login</Link>
-              </NavbarItem>
-              <NavbarItem>
-                <Link to="/register">Register</Link>
-              </NavbarItem>
-            </>
-          )}
-        </NavbarRight>
-      </Navbar>
-    </HeaderContainer>
-  );
-};
+          </>
+        )}
+      </NavbarRight>
+    </Navbar>
+  </HeaderContainer>
+);
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   mapStateToProps,

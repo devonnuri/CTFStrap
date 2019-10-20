@@ -53,16 +53,17 @@ export const remove = async (ctx: Context) => {
 
   const { filename }: RemoveSchema = ctx.request.body;
 
-  File.existsFilename(filename)
-    .then(exists => {
-      if (!exists) {
+
+  File.count({ where: { filename } })
+    .then(count => {
+      if (count < 1) {
         ctx.status = 404;
         ctx.body = {
           name: 'FILE_NOT_FOUND',
         };
         throw new Error();
       }
-      return File.removeByFilename(filename);
+      return File.destroy({ where: { filename } });
     })
     .then(() => {
       ctx.status = 204;

@@ -18,23 +18,21 @@ import Submission from './Submission';
 
 @Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
-  static existsId = async (id: number) =>
-    (await Challenge.count({ where: { id } })) > 0
+  static existsId = async (id: number) => (await Challenge.count({ where: { id } })) > 0;
 
   static removeById = (id: number) => Challenge.destroy({ where: { id } });
 
-  static checkFlag = async (challengeId: number, flag: string) =>
-    (await Challenge.count({
-      where: {
-        id: challengeId,
+  static checkFlag = async (challengeId: number, flag: string) => (await Challenge.count({
+    where: {
+      id: challengeId,
+    },
+    include: [
+      {
+        model: Flag,
+        where: { content: flag },
       },
-      include: [
-        {
-          model: Flag,
-          where: { content: flag },
-        },
-      ],
-    })) > 0
+    ],
+  })) > 0;
 
   @PrimaryKey
   @AutoIncrement

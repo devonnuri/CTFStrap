@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
@@ -44,8 +44,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
   const onSubmit = (e: React.FormEvent) => {
     login(form)
       .then(response => {
-        const { id, email, username, admin } = response.data;
-        setUser({ id, email, username, admin });
+        const {
+          id, email, username, admin,
+        } = response.data;
+        setUser({
+          id, email, username, admin,
+        });
         history.push('/');
       })
       .catch(() => {

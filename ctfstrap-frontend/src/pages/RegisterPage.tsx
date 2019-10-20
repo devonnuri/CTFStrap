@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Container from '../components/base/Container';
 import PageTitle from '../components/base/PageTitle';
 import LabelInput from '../components/common/LabelInput';
@@ -8,7 +9,6 @@ import Button from '../components/common/Button';
 import Alert from '../components/common/Alert';
 import { setUser } from '../modules/user';
 import { register } from '../lib/api/auth';
-import { connect } from 'react-redux';
 import { RootState } from '../modules';
 
 const RegisterForm = styled.form`
@@ -53,7 +53,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
       const { email, username, password } = form;
       register({ email, username, password })
         .then(response => {
-          setUser({ id: response.data.id, email, username, admin: false });
+          setUser({
+            id: response.data.id, email, username, admin: false,
+          });
           history.push('/');
         })
         .catch(() => {

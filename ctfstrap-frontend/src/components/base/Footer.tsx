@@ -9,12 +9,10 @@ const FooterContainer = styled.div`
 
 interface FooterProps {}
 
-const Footer: React.FC<FooterProps> = () => {
-  return (
-    <Container>
-      <FooterContainer>Powered by CTFStrap</FooterContainer>
-    </Container>
-  );
-};
+const Footer: React.FC<FooterProps> = () => (
+  <Container>
+    <FooterContainer>Powered by CTFStrap</FooterContainer>
+  </Container>
+);
 
 export default Footer;

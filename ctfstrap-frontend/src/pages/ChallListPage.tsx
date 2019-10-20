@@ -44,6 +44,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
   }, []);
 
   const challGroup = challList.reduce((group: GroupedChallList, chall) => {
+    // eslint-disable-next-line no-param-reassign
     (group[chall.category] = group[chall.category] || []).push(chall);
     return group;
   }, {});

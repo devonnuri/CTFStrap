@@ -22,13 +22,9 @@ const initialState: UserState = {
   user: null,
 };
 
-const user = createReducer<UserState>(
+export default createReducer<UserState>(
   {
-    [SET_USER]: (state, { payload: user }: SetUser) => {
-      return { ...state, user };
-    },
+    [SET_USER]: (state, { payload: user }: SetUser) => ({ ...state, user }),
   },
   initialState,
 );
-
-export default user;

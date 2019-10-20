@@ -47,6 +47,14 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/styled-components": "^4.1.19",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-typescript": "^5.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
     "redux-devtools-extension": "^2.13.8"
   }
 }

@@ -66,7 +66,6 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
       Promise.all(acceptedFiles.map(file => uploadFile(file))).then(
         responses => {
           setFiles([...files, ...responses.map(res => res.data)]);
-          console.log(responses.map(e => e.data));
         },
       );
     },
@@ -84,7 +83,9 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
   };
 
   const onSubmit = (e: React.FormEvent) => {
-    const { name, description, points, category, author, flags, tags } = form;
+    const {
+      name, description, points, category, author, flags, tags,
+    } = form;
 
     createChall({
       name,
@@ -99,7 +100,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
       tags: tags
         .split(',')
         .filter(tag => tag)
-        .map(name => ({ name })),
+        .map(tagName => ({ name: tagName })),
       files,
     });
 
@@ -162,8 +163,8 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           required
         />
         <FileListContainer>
-          {files.map((file, i) => (
-            <div key={i}>
+          {files.map(file => (
+            <div key={file.filename}>
               <FaFile />
               <span>{file.originalname}</span>
             </div>
@@ -174,7 +175,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = () => {
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Drag and drop some files here, or click to select files</p>
           )}
         </Dropzone>
         <ButtonSet>

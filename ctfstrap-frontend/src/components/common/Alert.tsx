@@ -11,18 +11,17 @@ const AlertContainer = styled.div<{ color: ColorType }>`
   border-width: 2px;
   border-style: solid;
 
-  ${props =>
-    props.color === 'primary'
-      ? css`
+  ${props => (props.color === 'primary'
+    ? css`
           color: ${palette.primary900};
           background-color: ${palette.primary100};
           border-color: ${palette.primary700};
         `
-      : css`
+    : css`
           color: ${palette.secondary900};
           background-color: ${palette.secondary100};
           border-color: ${palette.secondary700};
-        `}
+        `)}
 `;
 
 interface AlertProps {

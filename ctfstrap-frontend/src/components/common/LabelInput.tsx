@@ -18,9 +18,8 @@ const LabelInputContainer = styled.div<{ active: boolean }>`
     padding-bottom: 0.5rem;
     border-bottom: 1px solid ${palette.gray700};
 
-    ${props =>
-      props.active &&
-      css`
+    ${props => props.active
+      && css`
         color: ${palette.primary700};
         box-shadow: 0 1.25px 0 0 ${palette.primary700};
       `}
@@ -33,9 +32,8 @@ const LabelInputContainer = styled.div<{ active: boolean }>`
       transition: 0.2s ease all;
       color: ${palette.gray700};
 
-      ${props =>
-        props.active &&
-        css`
+      ${props => props.active
+        && css`
           transform: translateY(-30px) scale(0.85);
           color: ${palette.primary700};
         `}
@@ -52,8 +50,8 @@ const LabelInputContainer = styled.div<{ active: boolean }>`
 `;
 
 type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+React.InputHTMLAttributes<HTMLInputElement>,
+HTMLInputElement
 >;
 
 interface LabelInputProps extends InputProps {

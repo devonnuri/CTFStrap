@@ -31,17 +31,15 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
     background: ${props => buttonColors[props.color].hoverBackground};
   }
 
-  ${props =>
-    props.size === 'medium' &&
-    css`
+  ${props => props.size === 'medium'
+    && css`
       height: 2rem;
       padding-left: 1.25rem;
       padding-right: 1.25rem;
       font-size: 1rem;
     `}
-  ${props =>
-    props.size === 'large' &&
-    css`
+  ${props => props.size === 'large'
+    && css`
       height: 2.5rem;
       padding: 0 4rem;
       & + & {

@@ -1,4 +1,6 @@
-import { Table, Model, ForeignKey, Column } from 'sequelize-typescript';
+import {
+  Table, Model, ForeignKey, Column,
+} from 'sequelize-typescript';
 import Challenge from './Challenge';
 import Tag from './Tag';
 

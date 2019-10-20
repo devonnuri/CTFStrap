@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
 import palette from '../../lib/styles/palette';
 import { RootState } from '../../modules';
 import { showChallModal } from '../../modules/chall';
-import { connect } from 'react-redux';
 import { ChallengeModal } from '../../lib/api/chall';
 
 interface ChallContainerProps {
@@ -30,9 +30,8 @@ const ChallContainer = styled.div<ChallContainerProps>`
 
   text-align: center;
 
-  ${props =>
-    props.solved &&
-    css`
+  ${props => props.solved
+    && css`
       background-color: ${palette.primary600};
       color: white;
     `}
@@ -59,29 +58,28 @@ const Challenge: React.FC<ChallengeProps> = ({
   tags,
   solved,
   showChallModal,
-}) => {
-  return (
-    <ChallContainer
-      solved={solved}
-      onClick={() =>
-        showChallModal({
-          id,
-          name,
-          points,
-          description,
-          category,
-          author,
-          files,
-          tags,
-          solved,
-        })
-      }
-    >
-      <h3>{name}</h3>
-      <p>{points}pts</p>
-    </ChallContainer>
-  );
-};
+}) => (
+  <ChallContainer
+    solved={solved}
+    onClick={() => showChallModal({
+      id,
+      name,
+      points,
+      description,
+      category,
+      author,
+      files,
+      tags,
+      solved,
+    })}
+  >
+    <h3>{name}</h3>
+    <p>
+      {points}
+pts
+    </p>
+  </ChallContainer>
+);
 
 export default connect<StateProps, DispatchProps, OwnProps, RootState>(
   mapStateToProps,

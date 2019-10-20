@@ -1,7 +1,7 @@
 import { createStandardAction } from 'typesafe-actions';
 import produce from 'immer';
 import { createReducer } from '../lib/utils';
-import { ChallengeModal } from './../lib/api/chall';
+import { ChallengeModal } from '../lib/api/chall';
 
 const SHOW_CHALL_MODAL = 'chall/SHOW_CHALL_MODAL';
 const CLOSE_CHALL_MODAL = 'chall/CLOSE_CHALL_MODAL';
@@ -23,14 +23,12 @@ const initialState: ChallState = {
 
 const chall = createReducer<ChallState>(
   {
-    [SHOW_CHALL_MODAL]: (state, action: ShowChallModal) =>
-      produce(state, draft => {
-        draft.modalChall = action.payload;
-      }),
-    [CLOSE_CHALL_MODAL]: state =>
-      produce(state, draft => {
-        draft.modalChall = null;
-      }),
+    [SHOW_CHALL_MODAL]: (state, action: ShowChallModal) => produce(state, draft => {
+      draft.modalChall = action.payload;
+    }),
+    [CLOSE_CHALL_MODAL]: state => produce(state, draft => {
+      draft.modalChall = null;
+    }),
   },
   initialState,
 );

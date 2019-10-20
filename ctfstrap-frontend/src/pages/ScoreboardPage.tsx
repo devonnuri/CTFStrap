@@ -46,7 +46,7 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
         </thead>
         <tbody>
           {rank.map((user, i) => (
-            <tr key={i}>
+            <tr key={user.username}>
               <td>{i + 1}</td>
               <td>{user.username}</td>
               <td>{user.points}</td>

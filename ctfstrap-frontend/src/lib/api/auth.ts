@@ -1,7 +1,6 @@
 import client from './client';
 
-export const login = ({ name, password }: { name: string; password: string }) =>
-  client.post('/auth/login', { name, password });
+export const login = ({ name, password }: { name: string; password: string }) => client.post('/auth/login', { name, password });
 
 export const logout = () => client.get('/auth/logout');
 

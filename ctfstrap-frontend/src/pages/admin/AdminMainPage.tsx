@@ -3,8 +3,6 @@ import AdminBasePage from './AdminBasePage';
 
 interface AdminMainPageProps {}
 
-const AdminMainPage: React.FC<AdminMainPageProps> = () => {
-  return <AdminBasePage></AdminBasePage>;
-};
+const AdminMainPage: React.FC<AdminMainPageProps> = () => <AdminBasePage />;
 
 export default AdminMainPage;

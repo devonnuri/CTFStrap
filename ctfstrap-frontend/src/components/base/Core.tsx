@@ -20,8 +20,12 @@ const Core: React.FC<CoreProps> = ({ setUser }) => {
   useEffect(() => {
     check()
       .then(response => {
-        const { id, email, username, admin } = response.data;
-        setUser({ id, email, username, admin });
+        const {
+          id, email, username, admin,
+        } = response.data;
+        setUser({
+          id, email, username, admin,
+        });
       })
       .catch(() => {
         setUser(null);

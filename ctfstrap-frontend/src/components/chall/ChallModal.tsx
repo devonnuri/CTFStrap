@@ -104,7 +104,9 @@ const ChallModal: React.FC<ChallModalProps> = ({
     downloadFile(filename, originalname);
   };
 
-  const { name, points, description, author, files, tags, solved } = modalChall;
+  const {
+    name, points, description, author, files, tags, solved,
+  } = modalChall;
 
   return (
     <>
@@ -117,7 +119,10 @@ const ChallModal: React.FC<ChallModalProps> = ({
       />
       <ChallModalContainer>
         <h2 className="name">{name}</h2>
-        <h3 className="points">{points}pts</h3>
+        <h3 className="points">
+          {points}
+pts
+        </h3>
         {tags && (
           <div className="tag-list">
             {tags.map((tag, index) => (
@@ -127,9 +132,14 @@ const ChallModal: React.FC<ChallModalProps> = ({
           </div>
         )}
         <p className="description">{description}</p>
-        {author && <p className="author">Author: {author}</p>}
-        {files &&
-          files.map(({ filename, originalname }) => (
+        {author && (
+        <p className="author">
+Author:
+          {author}
+        </p>
+        )}
+        {files
+          && files.map(({ filename, originalname }) => (
             <div
               className="file"
               onClick={() => onDownload(filename, originalname)}

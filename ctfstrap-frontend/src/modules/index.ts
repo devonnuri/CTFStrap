@@ -7,9 +7,7 @@ export type RootState = {
   user: UserState;
 };
 
-const rootReducer = combineReducers({
+export default combineReducers({
   chall,
   user,
 });
-
-export default rootReducer;

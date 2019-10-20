@@ -29,5 +29,5 @@ app
   .use(router.allowedMethods());
 
 app.listen(process.env.BACKEND_PORT, () => {
-  console.log('Listening on port ' + process.env.BACKEND_PORT);
+  console.log(`Listening on port ${process.env.BACKEND_PORT}`);
 });
