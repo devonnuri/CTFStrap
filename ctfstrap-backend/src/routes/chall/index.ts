@@ -8,6 +8,7 @@ const chall = new Router();
 chall.get('/', authorize.login, authCtrl.listAll);
 chall.post('/create', authorize.admin, authCtrl.create);
 chall.post('/remove', authorize.admin, authCtrl.remove);
+chall.post('/update', authorize.admin, authCtrl.update);
 chall.post('/auth', authorize.login, authCtrl.auth);
 
 export default chall;

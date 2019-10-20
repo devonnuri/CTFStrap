@@ -20,7 +20,7 @@ export const login = async (ctx: Context) => {
 
   const { name, password }: LoginSchema = ctx.request.body;
 
-  return User.findAny(name, name)
+  User.findAny(name, name)
     .then(user => {
       if (!user || !validate(password, user.password)) {
         ctx.status = 403;
@@ -33,8 +33,12 @@ export const login = async (ctx: Context) => {
       return user;
     })
     .then(user => {
-      const { id, email, username, admin } = user;
-      ctx.body = { id, email, username, admin };
+      const {
+        id, email, username, admin,
+      } = user;
+      ctx.body = {
+        id, email, username, admin,
+      };
       return generateToken(id, email);
     })
     .then(accessToken => {
@@ -77,7 +81,7 @@ export const register = async (ctx: Context) => {
 
   const { username, email, password }: RegisterSchema = ctx.request.body;
 
-  return User.findAny(username, email)
+  User.findAny(username, email)
     .then(user => {
       if (user) {
         ctx.status = 409;
@@ -111,19 +115,20 @@ export const register = async (ctx: Context) => {
     });
 };
 
-export const check = async (ctx: Context) =>
-  User.findById(ctx.state.userId)
-    .then(({ id, email, username, admin }) => {
-      ctx.body = {
-        id,
-        email,
-        username,
-        admin,
-      };
-    })
-    .catch(() => {
-      ctx.status = 403;
-      ctx.body = {
-        name: 'WRONG_CREDENTIALS',
-      };
-    });
+export const check = async (ctx: Context) => User.findById(ctx.state.userId)
+  .then(({
+    id, email, username, admin,
+  }) => {
+    ctx.body = {
+      id,
+      email,
+      username,
+      admin,
+    };
+  })
+  .catch(() => {
+    ctx.status = 403;
+    ctx.body = {
+      name: 'WRONG_CREDENTIALS',
+    };
+  });
