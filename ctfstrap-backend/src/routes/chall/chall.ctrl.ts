@@ -42,8 +42,7 @@ export const create = async (ctx: Context) => {
   const schema = Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-    points: Joi.number()
-      .integer(),
+    points: Joi.number().integer().min(0),
     category: Joi.string(),
     author: Joi.string(),
     files: Joi.array().items(
@@ -51,7 +50,7 @@ export const create = async (ctx: Context) => {
         filename: Joi.string(),
         originalname: Joi.string(),
         path: Joi.string(),
-        size: Joi.number(),
+        size: Joi.number().integer().min(0),
       }),
     ),
     tags: Joi.array().items(
@@ -62,13 +61,13 @@ export const create = async (ctx: Context) => {
     hints: Joi.array().items(
       Joi.object().keys({
         content: Joi.string(),
-        cost: Joi.number().integer(),
+        cost: Joi.number().integer().min(0),
       }),
     ),
     flags: Joi.array().items(Joi.object().keys({ content: Joi.string() })),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const {
     name,
@@ -82,7 +81,7 @@ export const create = async (ctx: Context) => {
     flags,
   }: CreateSchema = ctx.request.body;
 
-  Challenge.create(
+  return Challenge.create(
     {
       name,
       description,
@@ -119,14 +118,14 @@ export const remove = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    challengeId: Joi.number(),
+    challengeId: Joi.number().integer().min(0),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const { challengeId }: RemoveSchema = ctx.request.body;
 
-  Challenge.existsId(challengeId)
+  return Challenge.existsId(challengeId)
     .then(exists => {
       if (!exists) {
         ctx.status = 404;
@@ -162,35 +161,35 @@ export const update = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    id: Joi.number(),
+    id: Joi.number().integer().min(0),
     name: Joi.string(),
     description: Joi.string(),
-    points: Joi.number().integer(),
+    points: Joi.number().integer().min(0),
     category: Joi.string(),
     author: Joi.string(),
     files: Joi.array().items(
       Joi.object().keys({
-        filename: Joi.string(),
-        originalname: Joi.string(),
-        path: Joi.string(),
-        size: Joi.number(),
+        filename: Joi.string().required(),
+        originalname: Joi.string().required(),
+        path: Joi.string().required(),
+        size: Joi.number().integer().min(0).required(),
       }),
     ),
     tags: Joi.array().items(
       Joi.object().keys({
-        name: Joi.string(),
+        name: Joi.string().required(),
       }),
     ),
     hints: Joi.array().items(
       Joi.object().keys({
-        content: Joi.string(),
-        cost: Joi.number().integer(),
+        content: Joi.string().required(),
+        cost: Joi.number().integer().min(0).required(),
       }),
     ),
     flags: Joi.array().items(Joi.object().keys({ content: Joi.string() })),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const {
     id,
@@ -205,14 +204,16 @@ export const update = async (ctx: Context) => {
     flags,
   }: UpdateSchema = ctx.request.body;
 
-  Challenge.update(
+  return Challenge.update(
     {
       name, description, points, category, author, files, tags, hints, flags,
     },
     { where: { id } },
   )
     .then(() => {
-      ctx.status = 204;
+      ctx.body = {
+        id, name, description, points, category, author, files, tags, hints, flags,
+      };
     })
     .catch(() => {
       ctx.status = 500;
@@ -226,16 +227,15 @@ export const auth = async (ctx: Context) => {
   }
 
   const schema = Joi.object().keys({
-    challengeId: Joi.number()
-      .integer(),
+    challengeId: Joi.number().integer().min(0),
     flag: Joi.string(),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const { challengeId, flag }: AuthSchema = ctx.request.body;
 
-  Challenge.checkFlag(challengeId, flag)
+  return Challenge.checkFlag(challengeId, flag)
     .then(result => {
       ctx.status = result ? 204 : 400;
       return Submission.create({
@@ -248,7 +248,7 @@ export const auth = async (ctx: Context) => {
     })
     .then(async submission => {
       if (submission.result) {
-        Challenge.findOne({
+        return Challenge.findOne({
           where: {
             id: challengeId,
           },
@@ -264,5 +264,6 @@ export const auth = async (ctx: Context) => {
           },
         ));
       }
+      return null;
     });
 };

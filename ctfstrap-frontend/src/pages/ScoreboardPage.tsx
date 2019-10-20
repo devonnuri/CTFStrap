@@ -49,7 +49,7 @@ const ScoreboardPage: React.FC<ScoreboardPageProps> = () => {
             <tr key={user.username}>
               <td>{i + 1}</td>
               <td>{user.username}</td>
-              <td>{user.points}</td>
+              <td>{`${user.points}pts`}</td>
               <td>{user.lastSolve || '-'}</td>
             </tr>
           ))}

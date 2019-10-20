@@ -50,11 +50,13 @@ const ChallModalContainer = styled.div`
     padding: 1rem 0;
   }
 
-  .file {
+  .download-file {
     display: table;
     margin-top: 0.3rem;
     padding: 0.5rem 0.7rem;
 
+    cursor: pointer;
+    font-size: 1em;
     background-color: ${palette.gray100};
 
     svg + span {
@@ -133,15 +135,14 @@ pts
         <p className="description">{description}</p>
         {author && (
         <p className="author">
-Author:
-          {author}
+          {`Author: ${author}`}
         </p>
         )}
         {files
           && files.map(({ filename, originalname }) => (
             <button
               type="button"
-              className="file"
+              className="download-file"
               onClick={() => onDownload(filename, originalname)}
             >
               <FaFile />

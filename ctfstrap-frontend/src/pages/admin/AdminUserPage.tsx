@@ -55,7 +55,7 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
               <td>{user.id}</td>
               <td>{user.username}</td>
               <td>{user.admin ? 'True' : 'False'}</td>
-              <td>{user.points}</td>
+              <td>{`${user.points}pts`}</td>
               <td>{user.lastSolve || '-'}</td>
               <td>
                 <Badge>Edit</Badge>

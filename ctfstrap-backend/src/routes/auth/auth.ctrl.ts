@@ -16,11 +16,11 @@ export const login = async (ctx: Context) => {
     password: Joi.string().required(),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const { name, password }: LoginSchema = ctx.request.body;
 
-  User.findAny(name, name)
+  return User.findAny(name, name)
     .then(user => {
       if (!user || !validate(password, user.password)) {
         ctx.status = 403;
@@ -47,7 +47,8 @@ export const login = async (ctx: Context) => {
         httpOnly: true,
       });
     })
-    .catch(() => {
+    .catch(e => {
+      console.error(e);
       if (!ctx.body) {
         ctx.status = 500;
       }
@@ -77,11 +78,11 @@ export const register = async (ctx: Context) => {
     password: Joi.string().required(),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const { username, email, password }: RegisterSchema = ctx.request.body;
 
-  User.findAny(username, email)
+  return User.findAny(username, email)
     .then(user => {
       if (user) {
         ctx.status = 409;

@@ -27,6 +27,16 @@ export const download = async (ctx: Context) => {
     });
 };
 
+export const preupload = async (ctx: Context, next: () => Promise<any>) => {
+  const schema = Joi.object().keys({
+    file: Joi.binary(),
+  });
+
+  if (!validateBody(ctx, schema)) return;
+
+  await next();
+};
+
 export const upload = async (ctx: Context) => {
   if (ctx.file) {
     const {
@@ -49,12 +59,11 @@ export const remove = async (ctx: Context) => {
     filename: Joi.string().required(),
   });
 
-  if (!validateBody(ctx, schema)) return;
+  if (!validateBody(ctx, schema)) return null;
 
   const { filename }: RemoveSchema = ctx.request.body;
 
-
-  File.count({ where: { filename } })
+  return File.count({ where: { filename } })
     .then(count => {
       if (count < 1) {
         ctx.status = 404;

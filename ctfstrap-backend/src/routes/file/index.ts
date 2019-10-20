@@ -19,7 +19,7 @@ const upload = multer({
 });
 
 file.get('/download/:filename', authorize.login, fileCtrl.download);
-file.post('/upload', authorize.admin, upload.single('file'), fileCtrl.upload);
+file.post('/upload', authorize.admin, fileCtrl.preupload, upload.single('file'), fileCtrl.upload);
 file.post('/remove', authorize.admin, fileCtrl.remove);
 
 export default file;
