@@ -10,7 +10,12 @@ import api from './routes';
 
 dotenv.config();
 
-const app = new Koa();
+interface KoaState {
+  userId: number;
+  isAdmin: boolean;
+}
+
+const app = new Koa<KoaState, {}>();
 const router = new Router();
 
 database.connect();

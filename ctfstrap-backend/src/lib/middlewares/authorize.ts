@@ -22,7 +22,8 @@ const checkToken = async (ctx: Context) => {
 };
 
 export const login: Middleware = async (ctx, next) => {
-  if (!(await checkToken(ctx)).userId) {
+  const { userId } = await checkToken(ctx);
+  if (!userId) {
     ctx.status = 401;
     ctx.body = {
       name: 'NOT_AUTHORIZED',
