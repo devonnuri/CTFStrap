@@ -53,7 +53,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
     <Container>
       <PageTitle>Challenges</PageTitle>
       {Object.entries(challGroup).map(([category, challenges]) => (
-        <>
+        <React.Fragment key={category}>
           <h1>{category}</h1>
           <ChallListContainer>
             {(challenges as ChallengeModal[]).map(
@@ -86,7 +86,7 @@ const ChallListPage: React.FC<ChallListPageProps> = () => {
               <Placeholder key={i} />
             ))}
           </ChallListContainer>
-        </>
+        </React.Fragment>
       ))}
 
       <ChallModal />
