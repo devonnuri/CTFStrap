@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import * as Joi from '@hapi/joi';
+import Joi from '@hapi/joi';
 import { Sequelize } from 'sequelize';
 
 import { validateBody } from '../../lib/utils';
@@ -184,25 +184,16 @@ export const remove = async (ctx: Context) => {
 
   const { challengeId }: RemoveSchema = ctx.request.body;
 
-  return Challenge.existsId(challengeId)
-    .then(exists => {
-      if (!exists) {
-        ctx.status = 404;
-        ctx.body = {
-          name: 'CHALLENGE_NOT_FOUND',
-        };
-        throw new Error();
-      }
-      return Challenge.removeById(challengeId);
-    })
-    .then(() => {
+  return Challenge.destroy({ where: { id: challengeId } }).then(number => {
+    if (number > 0) {
       ctx.status = 204;
-    })
-    .catch(() => {
-      if (!ctx.body) {
-        ctx.status = 500;
-      }
-    });
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'CHALLENGE_NOT_FOUND',
+      };
+    }
+  });
 };
 
 export const update = async (ctx: Context) => {

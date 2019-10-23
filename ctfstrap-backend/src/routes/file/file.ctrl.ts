@@ -64,23 +64,14 @@ export const remove = async (ctx: Context) => {
 
   const { filename }: RemoveSchema = ctx.request.body;
 
-  return File.count({ where: { filename } })
-    .then(count => {
-      if (count < 1) {
-        ctx.status = 404;
-        ctx.body = {
-          name: 'FILE_NOT_FOUND',
-        };
-        throw new Error();
-      }
-      return File.destroy({ where: { filename } });
-    })
-    .then(() => {
+  return File.destroy({ where: { filename } }).then(number => {
+    if (number > 0) {
       ctx.status = 204;
-    })
-    .catch(() => {
-      if (!ctx.body) {
-        ctx.status = 500;
-      }
-    });
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'FILE_NOT_FOUND',
+      };
+    }
+  });
 };

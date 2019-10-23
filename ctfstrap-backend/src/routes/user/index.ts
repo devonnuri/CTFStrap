@@ -8,5 +8,6 @@ const chall = new Router();
 chall.get('/', authorize.admin, userCtrl.list);
 chall.get('/solves', authorize.login, userCtrl.solves);
 chall.get('/rank', userCtrl.rank);
+chall.post('/remove', authorize.admin, userCtrl.remove);
 
 export default chall;
