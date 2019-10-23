@@ -21,12 +21,9 @@ export const connect = () => {
       host: process.env.DB_HOST,
       dialect: process.env.DB_TYPE,
       models: [`${__dirname}/models`],
+      logging: process.env.NODE_ENV === 'development' ? console.log : false,
     },
   );
 
-  if (process.env.NODE_ENV === 'development') {
-    sequelize.sync({ logging: console.log });
-  } else {
-    sequelize.sync();
-  }
+  sequelize.sync();
 };

@@ -1,11 +1,10 @@
 ctfstrap-backend/uploads
 ctfstrap-backend/node_modules
 ctfstrap-frontend/node_modules
+ctfstrap-frontend/build
 ctfstrap-testdb/
 ctfstrap-backend/lib
-
-/coverage
-/build
+ctfstrap-backend/build
 
 .DS_Store
 .env.local
