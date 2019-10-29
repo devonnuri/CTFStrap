@@ -21,3 +21,6 @@ export const getUserList = () => client.get<User[]>('/user/');
 export const getSolves = () => client.get<number[]>('/user/solves');
 
 export const getRank = () => client.get<RankUser[]>('/user/rank');
+
+export const removeUser = (userId: number) =>
+  client.post('/user/remove', { userId });

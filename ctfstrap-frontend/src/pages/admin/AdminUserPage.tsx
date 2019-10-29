@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AdminBasePage from './AdminBasePage';
-import { getUserList, User } from '../../lib/api/user';
+import { getUserList, User, removeUser } from '../../lib/api/user';
 import PageTitle from '../../components/base/PageTitle';
 import Table from '../../components/common/Table';
 import Badge from '../../components/common/Badge';
@@ -22,6 +22,10 @@ const UserTable = styled(Table)`
     &:nth-child(6) {
       width: 20%;
       text-align: center;
+
+      .remove-btn {
+        cursor: pointer;
+      }
     }
   }
 `;
@@ -34,6 +38,12 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
       setUserList(data);
     });
   }, []);
+
+  const onRemoveUser = (userId: number) => {
+    removeUser(userId).then(() => {
+      setUserList(userList.filter(({ id }) => id !== userId));
+    });
+  };
 
   return (
     <AdminBasePage>
@@ -59,7 +69,13 @@ const AdminUserPage: React.FC<AdminUserPageProps> = () => {
               <td>{user.lastSolve || '-'}</td>
               <td>
                 <Badge>Edit</Badge>
-                <Badge>Remove</Badge>
+
+                <Badge
+                  className="remove-btn"
+                  onClick={() => onRemoveUser(user.id)}
+                >
+                  Remove
+                </Badge>
               </td>
             </tr>
           ))}
