@@ -8,11 +8,14 @@ import {
   DataType,
   HasMany,
 } from 'sequelize-typescript';
+import { Sequelize } from 'sequelize';
+
 import File from './File';
 import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
 import Submission from './Submission';
+import User from './User';
 
 @Table({ timestamps: false })
 class Challenge extends Model<Challenge> {
@@ -28,6 +31,29 @@ class Challenge extends Model<Challenge> {
         },
       ],
     })) > 0;
+
+  static remark = async (challengeId: number, difference: number) =>
+    Submission.findAll({
+      attributes: ['userId'],
+      where: {
+        challengeId,
+        result: true,
+      },
+    }).then(submissions => {
+      submissions.forEach(submission => {
+        User.update(
+          {
+            points: Sequelize.literal(`points + ${difference}`),
+            lastSolve: submission.submitTime,
+          },
+          {
+            where: {
+              id: submission.userId,
+            },
+          },
+        );
+      });
+    });
 
   @PrimaryKey
   @AutoIncrement
