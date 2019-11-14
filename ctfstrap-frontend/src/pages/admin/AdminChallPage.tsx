@@ -23,6 +23,10 @@ const ChallTable = styled(Table)`
       width: 20%;
       text-align: center;
 
+      .edit-btn {
+        text-decoration: none;
+      }
+
       .remove-btn {
         cursor: pointer;
       }
@@ -103,7 +107,7 @@ const AdminChallPage: React.FC<AdminChallPageProps> = () => {
                 pts
               </td>
               <td>
-                <Link to={`/admin/chall/edit/${chall.id}`}>
+                <Link to={`/admin/chall/edit/${chall.id}`} className="edit-btn">
                   <Badge>Edit</Badge>
                 </Link>
                 <Badge
