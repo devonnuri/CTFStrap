@@ -15,13 +15,15 @@ const LabelTextAreaContainer = styled.div<{ active: boolean }>`
 
     width: 100%;
     color: ${palette.gray700};
+    background-color: transparent;
     transition: all 0.125s ease-in;
 
     padding-bottom: 0.5rem;
     border-bottom: 1px solid ${palette.gray700};
 
-    ${props => props.active
-      && css`
+    ${props =>
+      props.active &&
+      css`
         color: ${palette.primary700};
         box-shadow: 0 1.25px 0 0 ${palette.primary700};
       `}
@@ -34,8 +36,9 @@ const LabelTextAreaContainer = styled.div<{ active: boolean }>`
       transition: 0.2s ease all;
       color: ${palette.gray700};
 
-      ${props => props.active
-        && css`
+      ${props =>
+        props.active &&
+        css`
           transform: translateY(-30px) scale(0.85);
           color: ${palette.primary700};
         `}
@@ -52,8 +55,8 @@ const LabelTextAreaContainer = styled.div<{ active: boolean }>`
 `;
 
 type TextAreaProps = React.DetailedHTMLProps<
-React.InputHTMLAttributes<HTMLTextAreaElement>,
-HTMLTextAreaElement
+  React.InputHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
 >;
 
 interface LabelTextAreaProps extends TextAreaProps {

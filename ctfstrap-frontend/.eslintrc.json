@@ -32,8 +32,9 @@
         "react/prop-types": "off",
         "no-param-reassign": ["error", {
             "props": true,
-            "ignorePropertyModificationsFor": ["draft"]
+            "ignorePropertyModificationsFor": ["draft", "event"]
         }],
-        "no-shadow": "off"
+        "no-shadow": "off",
+        "jsx-a11y/label-has-associated-control": "off"
     }
 }

@@ -7,6 +7,7 @@ import {
   AllowNull,
   DataType,
   HasMany,
+  Default,
 } from 'sequelize-typescript';
 import { Sequelize } from 'sequelize';
 
@@ -44,7 +45,6 @@ class Challenge extends Model<Challenge> {
         User.update(
           {
             points: Sequelize.literal(`points + ${difference}`),
-            lastSolve: submission.submitTime,
           },
           {
             where: {
@@ -67,6 +67,11 @@ class Challenge extends Model<Challenge> {
   @AllowNull(false)
   @Column(DataType.TEXT)
   description: string;
+
+  @AllowNull(false)
+  @Default('standard')
+  @Column
+  pointMode: string;
 
   @AllowNull(false)
   @Column(DataType.INTEGER)

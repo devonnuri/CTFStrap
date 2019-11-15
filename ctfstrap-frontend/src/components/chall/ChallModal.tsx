@@ -87,7 +87,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
     return null;
   }
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (event: React.FormEvent) => {
     authChall(modalChall.id, flag)
       .then(() => {
         setAuthState('SUCCESS');
@@ -98,7 +98,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
 
     setFlag('');
 
-    e.preventDefault();
+    event.preventDefault();
   };
 
   const onDownload = (filename: string, originalname: string) => {
@@ -147,7 +147,7 @@ const ChallModal: React.FC<ChallModalProps> = ({
           <LabelInput
             label="Flag"
             value={flag}
-            onChange={e => setFlag(e.target.value)}
+            onChange={event => setFlag(event.target.value)}
           />
         </form>
         {authState === 'SUCCESS' ? (

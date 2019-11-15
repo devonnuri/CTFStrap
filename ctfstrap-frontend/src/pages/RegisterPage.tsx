@@ -39,10 +39,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
   });
   const [alert, setAlert] = useState('');
 
-  const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateField = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...form,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -54,7 +54,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history, setUser }) => {
       register({ email, username, password })
         .then(response => {
           setUser({
-            id: response.data.id, email, username, admin: false,
+            id: response.data.id,
+            email,
+            username,
+            admin: false,
           });
           history.push('/');
         })

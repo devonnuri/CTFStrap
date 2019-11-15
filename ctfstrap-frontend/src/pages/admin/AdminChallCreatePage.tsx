@@ -34,6 +34,21 @@ const FileListContainer = styled.div`
   }
 `;
 
+const InputGroup = styled.div`
+  padding: 0.3rem 1rem;
+  border: 3px solid ${palette.gray400};
+  background-color: ${palette.gray50};
+
+  h3 {
+    color: ${palette.gray800};
+    margin: 0.5rem 0;
+  }
+
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+
 const Dropzone = styled.div`
   margin-bottom: 2rem;
   padding: 0.3rem 1rem;
@@ -123,7 +138,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
   };
 
   const onSubmit = useCallback(
-    (e: React.FormEvent) => {
+    (event: React.FormEvent) => {
       const { name, description, points, category, author, flags, tags } = form;
 
       const inputData = {
@@ -149,7 +164,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
         createChall(inputData);
       }
 
-      e.preventDefault();
+      event.preventDefault();
 
       history.push('/admin/chall');
     },
@@ -161,56 +176,68 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
       <PageTitle>{`${isEdit ? 'Edit' : 'Create'} Challenge`}</PageTitle>
 
       <CreateForm onSubmit={onSubmit}>
-        <LabelInput
-          name="name"
-          label="Name"
-          value={form.name}
-          onChange={updateField}
-          required
-        />
-        <LabelInput
-          name="author"
-          label="Author"
-          value={form.author}
-          onChange={updateField}
-        />
-        <LabelInput
-          name="category"
-          label="Category"
-          value={form.category}
-          onChange={updateField}
-          required
-        />
-        <LabelInput
-          type="number"
-          name="points"
-          label="Points"
-          min="0"
-          value={form.points}
-          onChange={updateField}
-          required
-        />
-        <LabelTextArea
-          name="description"
-          label="Description"
-          value={form.description}
-          onChange={updateField}
-          required
-        />
-        <LabelTextArea
-          name="flags"
-          label="Flags (seperated by newline)"
-          value={form.flags}
-          onChange={updateField}
-          required
-        />
-        <LabelTextArea
-          name="tags"
-          label="Tags (seperated by comma)"
-          value={form.tags}
-          onChange={updateField}
-          required
-        />
+        <InputGroup>
+          <h3>Brief Information</h3>
+          <LabelInput
+            name="name"
+            label="Name"
+            value={form.name}
+            onChange={updateField}
+            required
+          />
+          <LabelInput
+            name="author"
+            label="Author"
+            value={form.author}
+            onChange={updateField}
+          />
+          <LabelInput
+            name="category"
+            label="Category"
+            value={form.category}
+            onChange={updateField}
+            required
+          />
+          <LabelTextArea
+            name="description"
+            label="Description"
+            value={form.description}
+            onChange={updateField}
+            required
+          />
+        </InputGroup>
+        <InputGroup>
+          <h3>Scoring</h3>
+          <LabelInput
+            type="number"
+            name="points"
+            label="Points"
+            min="0"
+            value={form.points}
+            onChange={updateField}
+            required
+          />
+        </InputGroup>
+        <InputGroup>
+          <h3>Flags</h3>
+          <LabelTextArea
+            name="flags"
+            label="Flags (seperated by newline)"
+            value={form.flags}
+            onChange={updateField}
+            required
+          />
+        </InputGroup>
+        <InputGroup>
+          <h3>Tags</h3>
+          <LabelTextArea
+            name="tags"
+            label="Tags (seperated by comma)"
+            value={form.tags}
+            onChange={updateField}
+            required
+          />
+        </InputGroup>
         <FileListContainer>
           {files.map(file => (
             <div key={file.filename}>

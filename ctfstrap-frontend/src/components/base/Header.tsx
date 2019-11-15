@@ -63,17 +63,17 @@ const Header: React.FC<HeaderProps> = ({ user }) => (
     <Navbar>
       <NavbarLeft>
         {user && (
-        <NavbarItem>
-          <Link to="/challenges">Challenges</Link>
-        </NavbarItem>
+          <NavbarItem>
+            <Link to="/challenges">Challenges</Link>
+          </NavbarItem>
         )}
         <NavbarItem>
           <Link to="/scoreboard">Scoreboard</Link>
         </NavbarItem>
         {user && user.admin && (
-        <NavbarItem>
-          <Link to="/admin">Admin</Link>
-        </NavbarItem>
+          <NavbarItem>
+            <Link to="/admin">Admin</Link>
+          </NavbarItem>
         )}
       </NavbarLeft>
       <NavbarRight>

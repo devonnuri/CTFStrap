@@ -37,18 +37,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
   });
   const [alert, setAlert] = useState('');
 
-  const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...form, [e.target.name]: e.target.value });
+  const updateField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...form, [event.target.name]: event.target.value });
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (event: React.FormEvent) => {
     login(form)
       .then(response => {
-        const {
-          id, email, username, admin,
-        } = response.data;
+        const { id, email, username, admin } = response.data;
         setUser({
-          id, email, username, admin,
+          id,
+          email,
+          username,
+          admin,
         });
         history.push('/');
       })
@@ -57,7 +58,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, setUser }) => {
         setAlert('Invalid Credentials.');
       });
 
-    e.preventDefault();
+    event.preventDefault();
   };
 
   return (

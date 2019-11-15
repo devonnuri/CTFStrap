@@ -30,8 +30,9 @@ const ChallContainer = styled.div<ChallContainerProps>`
 
   text-align: center;
 
-  ${props => props.solved
-    && css`
+  ${props =>
+    props.solved &&
+    css`
       background-color: ${palette.primary600};
       color: white;
     `}
@@ -61,22 +62,24 @@ const Challenge: React.FC<ChallengeProps> = ({
 }) => (
   <ChallContainer
     solved={solved}
-    onClick={() => showChallModal({
-      id,
-      name,
-      points,
-      description,
-      category,
-      author,
-      files,
-      tags,
-      solved,
-    })}
+    onClick={() => {
+      showChallModal({
+        id,
+        name,
+        points,
+        description,
+        category,
+        author,
+        files,
+        tags,
+        solved,
+      });
+    }}
   >
     <h3>{name}</h3>
     <p>
       {points}
-pts
+      pts
     </p>
   </ChallContainer>
 );
