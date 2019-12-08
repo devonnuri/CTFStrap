@@ -8,10 +8,12 @@ import {
   DataType,
   HasMany,
   Default,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { Sequelize } from 'sequelize';
 
 import File from './File';
+import ChallengeTag from './ChallengeTag';
 import Tag from './Tag';
 import Hint from './Hint';
 import Flag from './Flag';
@@ -22,9 +24,7 @@ import User from './User';
 class Challenge extends Model<Challenge> {
   static checkFlag = async (challengeId: number, flag: string) =>
     (await Challenge.count({
-      where: {
-        id: challengeId,
-      },
+      where: { id: challengeId },
       include: [
         {
           model: Flag,
@@ -43,17 +43,25 @@ class Challenge extends Model<Challenge> {
     }).then(submissions => {
       submissions.forEach(submission => {
         User.update(
-          {
-            points: Sequelize.literal(`points + ${difference}`),
-          },
-          {
-            where: {
-              id: submission.userId,
-            },
-          },
+          { points: Sequelize.literal(`points + ${difference}`) },
+          { where: { id: submission.userId } },
         );
       });
     });
+
+  async getTags() {
+    return (await Challenge.findOne({
+      include: [
+        {
+          model: Tag,
+          attributes: ['name'],
+        },
+      ],
+      where: {
+        id: this.id,
+      },
+    })).tags;
+  }
 
   @PrimaryKey
   @AutoIncrement
@@ -87,7 +95,7 @@ class Challenge extends Model<Challenge> {
   @HasMany(() => File)
   files: File[];
 
-  @HasMany(() => Tag)
+  @BelongsToMany(() => Tag, () => ChallengeTag)
   tags: Tag[];
 
   @HasMany(() => Hint)

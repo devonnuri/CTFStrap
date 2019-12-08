@@ -13,3 +13,11 @@ export const validateBody = (ctx: Context, schema: Schema) => {
   }
   return true;
 };
+
+export const diffArray = <T>(
+  before: T[],
+  after: T[],
+): { added: T[]; deleted: T[] } => ({
+  deleted: before.filter(e => !after.includes(e)),
+  added: after.filter(e => !before.includes(e)),
+});

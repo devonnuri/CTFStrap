@@ -1,9 +1,10 @@
 import { Context } from 'koa';
 import Joi from '@hapi/joi';
-import { Sequelize } from 'sequelize';
+import { literal } from 'sequelize';
 
-import { validateBody } from '../../lib/utils';
+import { validateBody, diffArray } from '../../lib/utils';
 import Challenge from '../../database/models/Challenge';
+import ChallengeTag from '../../database/models/ChallengeTag';
 import File from '../../database/models/File';
 import Tag from '../../database/models/Tag';
 import Hint from '../../database/models/Hint';
@@ -264,6 +265,19 @@ export const update = async (ctx: Context) => {
     flags,
   }: UpdateSchema = ctx.request.body;
 
+  const challenge = await Challenge.findOne({ where: { id } });
+
+  if (tags) {
+    const currentTags = await challenge.getTags();
+    const { deleted, added } = diffArray(
+      currentTags.map(e => e.name),
+      tags.map(e => e.name),
+    );
+
+    await ChallengeTag.removeTagsFromChallenge(id, deleted);
+    await ChallengeTag.addTagsFromChallenge(id, added);
+  }
+
   return Challenge.update(
     {
       name,
@@ -272,7 +286,6 @@ export const update = async (ctx: Context) => {
       category,
       author,
       files,
-      tags,
       hints,
       flags,
     },
@@ -287,7 +300,6 @@ export const update = async (ctx: Context) => {
         category,
         author,
         files,
-        tags,
         hints,
         flags,
       };
@@ -334,7 +346,7 @@ export const auth = async (ctx: Context) => {
         }).then(challenge =>
           User.update(
             {
-              points: Sequelize.literal(`points + ${challenge.points}`),
+              points: literal(`points + ${challenge.points}`),
               lastSolve: submission.submitTime,
             },
             {
