@@ -34,7 +34,7 @@ export const preupload = async (ctx: Context, next: () => Promise<any>) => {
 
   if (!validateBody(ctx, schema)) return null;
 
-  return next;
+  return next();
 };
 
 export const upload = async (ctx: Context) => {
