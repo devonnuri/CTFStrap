@@ -40,11 +40,18 @@ export const preupload = async (ctx: Context, next: () => Promise<any>) => {
 export const upload = async (ctx: Context) => {
   if (ctx.file) {
     const { filename, originalname, path, size } = ctx.file;
-    ctx.body = {
+
+    const { id } = await File.build({
       filename,
       originalname,
       path,
       size,
+    }).save();
+
+    ctx.body = {
+      id,
+      filename,
+      originalname,
     };
   } else {
     ctx.status = 500;

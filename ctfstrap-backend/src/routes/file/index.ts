@@ -9,10 +9,10 @@ import * as authorize from '../../lib/middlewares/authorize';
 const file = new Router();
 const upload = multer({
   storage: multer.diskStorage({
-    destination: (req, f, cb) => {
+    destination: (_req, _f, cb) => {
       mkdirp(process.env.UPLOAD_DIR, err => cb(err, process.env.UPLOAD_DIR));
     },
-    filename: (req, f, cb) => {
+    filename: (_req, _f, cb) => {
       cb(null, randomBytes(16).toString('hex'));
     },
   }),

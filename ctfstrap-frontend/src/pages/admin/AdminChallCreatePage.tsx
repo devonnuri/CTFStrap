@@ -155,7 +155,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
           .split(',')
           .filter(tag => tag)
           .map(tagName => ({ name: tagName })),
-        files,
+        files: files.map(({ id }) => ({ id })),
       };
 
       if (isEdit) {

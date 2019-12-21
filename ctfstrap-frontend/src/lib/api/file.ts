@@ -1,10 +1,9 @@
 import client from './client';
 
 export interface FileData {
+  id: number;
   filename: string;
   originalname: string;
-  path: string;
-  size: number;
 }
 
 export const downloadFile = (filename: string, originalname: string) =>
@@ -23,7 +22,6 @@ export const downloadFile = (filename: string, originalname: string) =>
 export const uploadFile = (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
-  console.log([...formData.entries()]);
 
   return client.post<FileData>('/file/upload', formData, {
     headers: {

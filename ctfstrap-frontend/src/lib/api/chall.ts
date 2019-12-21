@@ -22,14 +22,16 @@ export const viewAllChall = () => client.get<Challenge[]>('/chall');
 
 export const viewChall = (id: number) => client.get<Challenge>(`/chall/${id}`);
 
-export const createChall = (challenge: Omit<Challenge, 'id'>) =>
-  client.post('/chall/create', challenge);
+export const createChall = (
+  challenge: Omit<Challenge, 'id' | 'files'> & { files: { id: number }[] },
+) => client.post('/chall/create', challenge);
 
 export const removeChall = (challengeId: number) =>
   client.post('/chall/remove', { challengeId });
 
-export const updateChall = (challenge: Challenge) =>
-  client.post('/chall/update', challenge);
+export const updateChall = (
+  challenge: Omit<Challenge, 'files'> & { files: { id: number }[] },
+) => client.post('/chall/update', challenge);
 
 export const authChall = (challengeId: number, flag: string) =>
   client.post('/chall/auth', { challengeId, flag });

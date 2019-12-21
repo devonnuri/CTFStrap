@@ -17,7 +17,7 @@ export const validateBody = (ctx: Context, schema: Schema) => {
 export const diffArray = <T>(
   before: T[],
   after: T[],
-): { added: T[]; deleted: T[] } => ({
-  deleted: before.filter(e => !after.includes(e)),
+): { added: T[]; removed: T[] } => ({
+  removed: before.filter(e => !after.includes(e)),
   added: after.filter(e => !before.includes(e)),
 });

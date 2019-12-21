@@ -47,7 +47,7 @@ export const view = async (ctx: Context) =>
     include: [
       {
         model: File,
-        attributes: ['filename', 'originalname'],
+        attributes: ['id', 'filename', 'originalname'],
       },
       {
         model: Tag,
@@ -85,7 +85,7 @@ export const create = async (ctx: Context) => {
     points: number;
     category: string;
     author?: string;
-    files?: File[];
+    files?: { id: number }[];
     tags?: Tag[];
     hints?: Hint[];
     flags?: Flag[];
@@ -101,12 +101,10 @@ export const create = async (ctx: Context) => {
     author: Joi.string(),
     files: Joi.array().items(
       Joi.object().keys({
-        filename: Joi.string(),
-        originalname: Joi.string(),
-        path: Joi.string(),
-        size: Joi.number()
+        id: Joi.number()
           .integer()
-          .min(0),
+          .min(0)
+          .required(),
       }),
     ),
     tags: Joi.array().items(
@@ -139,6 +137,8 @@ export const create = async (ctx: Context) => {
     flags,
   }: CreateSchema = ctx.request.body;
 
+  console.log(await File.bulkFindById(files.map(e => e.id)));
+
   return Challenge.create(
     {
       name,
@@ -146,28 +146,32 @@ export const create = async (ctx: Context) => {
       points,
       category,
       author,
-      files,
       tags,
       hints,
       flags,
     },
     {
-      include: [File, Tag, Hint, Flag],
+      include: [Tag, Hint, Flag],
     },
-  ).then(({ id }) => {
-    ctx.body = {
-      id,
-      name,
-      description,
-      points,
-      category,
-      author,
-      files,
-      tags,
-      hints,
-      flags,
-    };
-  });
+  )
+    .then(chall => {
+      chall.linkFiles(files.map(e => e.id));
+      return chall;
+    })
+    .then(({ id }) => {
+      ctx.body = {
+        id,
+        name,
+        description,
+        points,
+        category,
+        author,
+        files,
+        tags,
+        hints,
+        flags,
+      };
+    });
 };
 
 export const remove = async (ctx: Context) => {
@@ -185,16 +189,23 @@ export const remove = async (ctx: Context) => {
 
   const { challengeId }: RemoveSchema = ctx.request.body;
 
-  return Challenge.destroy({ where: { id: challengeId } }).then(number => {
-    if (number > 0) {
-      ctx.status = 204;
-    } else {
-      ctx.status = 404;
-      ctx.body = {
-        name: 'CHALLENGE_NOT_FOUND',
-      };
-    }
-  });
+  return Challenge.destroy({ where: { id: challengeId } }).then(
+    async number => {
+      if (number > 0) {
+        const challenge = await Challenge.findOne({
+          where: { id: challengeId },
+        });
+        challenge.removeFiles();
+
+        ctx.status = 204;
+      } else {
+        ctx.status = 404;
+        ctx.body = {
+          name: 'CHALLENGE_NOT_FOUND',
+        };
+      }
+    },
+  );
 };
 
 export const update = async (ctx: Context) => {
@@ -224,10 +235,7 @@ export const update = async (ctx: Context) => {
     author: Joi.string(),
     files: Joi.array().items(
       Joi.object().keys({
-        filename: Joi.string().required(),
-        originalname: Joi.string().required(),
-        path: Joi.string().required(),
-        size: Joi.number()
+        id: Joi.number()
           .integer()
           .min(0)
           .required(),
@@ -265,16 +273,32 @@ export const update = async (ctx: Context) => {
     flags,
   }: UpdateSchema = ctx.request.body;
 
-  const challenge = await Challenge.findOne({ where: { id } });
+  const challenge = await Challenge.findOne({
+    include: [File],
+    where: { id },
+  });
+
+  if (files) {
+    const { removed, added } = diffArray(
+      challenge.files.map(e => e.id),
+      files.map(e => e.id),
+    );
+
+    console.log('removed', removed);
+    console.log('added', added);
+
+    File.bulkDestroy(removed);
+    challenge.linkFiles(added);
+  }
 
   if (tags) {
     const currentTags = await challenge.getTags();
-    const { deleted, added } = diffArray(
+    const { removed, added } = diffArray(
       currentTags.map(e => e.name),
       tags.map(e => e.name),
     );
 
-    await ChallengeTag.removeTagsFromChallenge(id, deleted);
+    await ChallengeTag.removeTagsFromChallenge(id, removed);
     await ChallengeTag.addTagsFromChallenge(id, added);
   }
 

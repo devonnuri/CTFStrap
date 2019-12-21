@@ -17,7 +17,7 @@ class ChallengeTag extends Model<ChallengeTag> {
     challengeId: number,
     tags: string[],
   ) => {
-    if (tags.length === 0) return undefined;
+    if (tags.length === 0) return null;
 
     return ChallengeTag.destroy({
       where: {

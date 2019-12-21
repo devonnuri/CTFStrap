@@ -10,7 +10,7 @@ import {
   Default,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { Sequelize } from 'sequelize';
+import { literal, Op } from 'sequelize';
 
 import File from './File';
 import ChallengeTag from './ChallengeTag';
@@ -43,13 +43,34 @@ class Challenge extends Model<Challenge> {
     }).then(submissions => {
       submissions.forEach(submission => {
         User.update(
-          { points: Sequelize.literal(`points + ${difference}`) },
+          { points: literal(`points + ${difference}`) },
           { where: { id: submission.userId } },
         );
       });
     });
 
-  async getTags() {
+  linkFiles = async (fileIds: number[]) => {
+    File.update(
+      { challengeId: this.id },
+      {
+        where: {
+          id: {
+            [Op.or]: fileIds,
+          },
+        },
+      },
+    );
+  };
+
+  removeFiles = async () => {
+    File.destroy({
+      where: {
+        challengeId: this.id,
+      },
+    });
+  };
+
+  getTags = async () => {
     return (await Challenge.findOne({
       include: [
         {
@@ -61,7 +82,7 @@ class Challenge extends Model<Challenge> {
         id: this.id,
       },
     })).tags;
-  }
+  };
 
   @PrimaryKey
   @AutoIncrement

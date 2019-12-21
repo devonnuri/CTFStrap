@@ -9,10 +9,30 @@ import {
   DataType,
   AllowNull,
 } from 'sequelize-typescript';
+import { Op } from 'sequelize';
 import Challenge from './Challenge';
 
 @Table({ timestamps: false })
 class File extends Model<File> {
+  static bulkFindById = async (ids: number[]) =>
+    File.findAll({
+      where: {
+        id: {
+          [Op.or]: ids,
+        },
+      },
+    });
+
+  static bulkDestroy = async (ids: number[]) => {
+    if (!ids) return null;
+
+    return File.destroy({
+      where: {
+        id: ids,
+      },
+    });
+  };
+
   @PrimaryKey
   @AutoIncrement
   @Column
