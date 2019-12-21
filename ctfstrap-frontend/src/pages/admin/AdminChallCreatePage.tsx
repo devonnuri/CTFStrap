@@ -222,7 +222,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
           <h3>Flags</h3>
           <LabelTextArea
             name="flags"
-            label="Flags (seperated by newline)"
+            label="Flags (separated by newline)"
             value={form.flags}
             onChange={updateField}
             required
@@ -232,7 +232,7 @@ const AdminChallCreatePage: React.FC<AdminChallCreatePageProps> = ({
           <h3>Tags</h3>
           <LabelTextArea
             name="tags"
-            label="Tags (seperated by comma)"
+            label="Tags (separated by comma)"
             value={form.tags}
             onChange={updateField}
             required
